@@ -16,7 +16,7 @@ public class Player_ctr : MonoBehaviour
 
     Vector2 move;
 
-    Rigidbody2D rg;
+    Rigidbody2D rg2D;
 
     bool move_check;
 
@@ -25,7 +25,7 @@ public class Player_ctr : MonoBehaviour
     {
         move_check = true;
 
-        rg = GetComponent<Rigidbody2D>();
+        rg2D = GetComponent<Rigidbody2D>();
 
         transform.position = new Vector2(start_pos_x, start_pos_y);
     }
@@ -42,12 +42,12 @@ public class Player_ctr : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
         {
-            rg.velocity = Vector2.zero;
-            rg.isKinematic = true;
+            rg2D.velocity = Vector2.zero;
+            rg2D.isKinematic = true;
         }
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.X))
         {
-            rg.isKinematic = false;
+            rg2D.isKinematic = false;
         }
 
         if (move_x != 0)
@@ -58,13 +58,13 @@ public class Player_ctr : MonoBehaviour
 
     private void Move()
     {
-        float speed_x = Mathf.Abs(rg.velocity.x);
+        float speed_x = Mathf.Abs(rg2D.velocity.x);
 
         move = new Vector2(move_x * speed * Time.deltaTime, 0.0f);
 
         if (speed_x < max_speed)
         {
-            rg.AddForce(move);
+            rg2D.AddForce(move);
         }
     }
 }

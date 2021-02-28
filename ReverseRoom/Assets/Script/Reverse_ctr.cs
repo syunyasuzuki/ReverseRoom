@@ -5,9 +5,12 @@ using UnityEngine;
 public class Reverse_ctr : MonoBehaviour
 {
     Camera cam;
-    float frame_rotato;
+    float room_rotato_x;
+    float room_rotato_y;
 
     bool reverse_check;
+    bool rotX_check;
+    bool rotY_check;
 
     // Start is called before the first frame update
     void Start()
@@ -24,29 +27,54 @@ public class Reverse_ctr : MonoBehaviour
         {
             reverse_check = true;
         }
-
-        if(reverse_check == true)
+        if(cam.orthographicSize == 5.0f)
         {
-            if(Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                ReverseX();
-            }
-            else if(Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                ReverseY();
-            }
+            reverse_check = false;
         }
+
+        if (reverse_check == true)
+        {
+            Reverse();
+        }
+
+        transform.eulerAngles = new Vector3(room_rotato_x, room_rotato_y, 0.0f);
     }
 
-    void ReverseX()
+    void Reverse()
     {
-        frame_rotato = Mathf.Clamp(frame_rotato + Time.deltaTime * 200, 0, 180);
-        transform.eulerAngles = new Vector3(frame_rotato, 0.0f, 0.0f);
-    }
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            rotY_check = true;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            rotY_check = false;
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            rotX_check = true;
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            rotX_check = false;
+        }
 
-    void ReverseY()
-    {
-        frame_rotato = Mathf.Clamp(frame_rotato + Time.deltaTime * 200, 0, 180);
-        transform.eulerAngles = new Vector3(0.0f, frame_rotato, 0.0f);
+        if(rotY_check == true)
+        {
+            room_rotato_y = Mathf.Clamp(room_rotato_y + Time.deltaTime * 200, 0, 180);
+        }
+        if(rotY_check == false)
+        {
+            room_rotato_y = Mathf.Clamp(room_rotato_y - Time.deltaTime * 200, 0, 180);
+        }
+
+        if(rotX_check == true)
+        {
+            room_rotato_x = Mathf.Clamp(room_rotato_x + Time.deltaTime * 200, 0, 180);
+        }
+        if(rotX_check == false)
+        {
+            room_rotato_x = Mathf.Clamp(room_rotato_x - Time.deltaTime * 200, 0, 180);
+        }
     }
 }

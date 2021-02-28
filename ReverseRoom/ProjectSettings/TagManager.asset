@@ -4,8 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - block
   - ReverseObject
+  - Block
+  - Key
   layers:
   - Default
   - TransparentFX

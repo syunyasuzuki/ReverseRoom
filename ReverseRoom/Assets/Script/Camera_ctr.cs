@@ -20,11 +20,11 @@ public class Camera_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && cam.orthographicSize <= 5.0f)
+        if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= 5.0f)
         {
             size_up = true;
         }
-        if (Input.GetMouseButtonDown(1) && cam.orthographicSize >= 8.0f)
+        if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= 8.0f)
         {
             size_down = true;
         }
