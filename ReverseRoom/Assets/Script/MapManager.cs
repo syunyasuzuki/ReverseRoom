@@ -10,10 +10,14 @@ public class MapManager : MonoBehaviour
     [Header("プレイヤーを入れる")]
     [SerializeField] GameObject player;
 
+    [Header("プレイヤーの生成位置を指定")]
+    [SerializeField] float player_pos_x;
+    [SerializeField] float player_pos_y;
+
     [Header("鍵を入れる")]
     [SerializeField] GameObject key;
 
-    [Header("鍵の初期位置を指定")]
+    [Header("鍵の生成位置を指定")]
     [SerializeField] float key_pos_x;
     [SerializeField] float key_pos_y;
 
@@ -25,7 +29,7 @@ public class MapManager : MonoBehaviour
             Instantiate(block_Pre[i]);
         }
 
-        Instantiate(player);
+        Instantiate(player, new Vector3(player_pos_x, player_pos_y, 0.0f), Quaternion.identity);
         Instantiate(key, new Vector3(key_pos_x, key_pos_y, 0.0f), Quaternion.identity);
     }
 

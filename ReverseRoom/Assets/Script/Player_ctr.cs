@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Player_ctr : MonoBehaviour
 {
-    [Header("初期位置を指定")]
-    [SerializeField] float start_pos_x;
-    [SerializeField] float start_pos_y;
-
     float speed = 500;
 
     float move_x;
@@ -26,8 +22,6 @@ public class Player_ctr : MonoBehaviour
         move_check = true;
 
         rg2D = GetComponent<Rigidbody2D>();
-
-        transform.position = new Vector2(start_pos_x, start_pos_y);
     }
 
     // Update is called once per frame
