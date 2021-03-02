@@ -8,7 +8,7 @@ public class Player_ctr : MonoBehaviour
 
     float move_x;
 
-    float max_speed = 2.0f;
+    float max_speed = 3.0f;
 
     Vector2 move;
 
@@ -16,10 +16,14 @@ public class Player_ctr : MonoBehaviour
 
     bool move_check;
 
+    bool key_get;
+
     // Start is called before the first frame update
     void Start()
     {
         move_check = true;
+
+        key_get = false;
 
         rg2D = GetComponent<Rigidbody2D>();
     }
@@ -50,7 +54,7 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
-    private void Move()
+    void Move()
     {
         float speed_x = Mathf.Abs(rg2D.velocity.x);
 
@@ -59,6 +63,25 @@ public class Player_ctr : MonoBehaviour
         if (speed_x < max_speed)
         {
             rg2D.AddForce(move);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag == "Key")
+        {
+            key_get = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.gameObject.tag == "Door")
+        {
+            if(key_get == true)
+            {
+
+            }
         }
     }
 }
