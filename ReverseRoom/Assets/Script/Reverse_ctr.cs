@@ -27,7 +27,7 @@ public class Reverse_ctr : MonoBehaviour
         {
             reverse_check = true;
         }
-        if(Input.GetKeyDown(KeyCode.X))
+        if(cam.orthographicSize <= 7.95f)
         {
             reverse_check = false;
         }

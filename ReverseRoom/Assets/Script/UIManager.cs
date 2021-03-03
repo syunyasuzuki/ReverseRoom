@@ -10,21 +10,24 @@ public class UIManager : MonoBehaviour
     [Header("Playback_UIを入れる")]
     [SerializeField] Image playback_UI;
 
+    Image modeImage_UI;
     Camera cam;
+
+    enum StateMode
+    {
+        Play,
+        Stop
+    }
+
+    StateMode state = StateMode.Play;
 
     float alpha;
 
-    bool stop_check;
-    bool playback_check;
+    bool moveNow = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        cam = Camera.main;
-
-        stop_check = false;
-        playback_check = false;
-
         alpha = 0.0f;
         stop_UI.color = new Color(1.0f, 1.0f, 1.0f, alpha);
         playback_UI.color = new Color(1.0f, 1.0f, 1.0f, alpha);
@@ -33,44 +36,52 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize == 5.0f)
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            alpha = 0.6f;
-            stop_check = true;
+            Test(StateMode.Stop);
         }
-        if(stop_check == true)
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            Stop_UI();
+            Test(StateMode.Play);
         }
 
-        if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize == 8.0f)
+        if (moveNow)
         {
-            alpha = 0.6f;
-            playback_check = true;
-        }
-        if(playback_check == true)
-        {
-            Playback_UI();
+            tes_Ui();
         }
     }
 
-    void Stop_UI()
+    void Test(StateMode mode)
     {
-        alpha -= 1.0f * Time.deltaTime;
-        if(alpha <= 0.0f)
+        if(moveNow || state == mode)
         {
-            stop_check = false;
+            return;
         }
-        stop_UI.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        
+        switch (mode)
+        {
+            case StateMode.Play:
+                modeImage_UI = playback_UI;               
+                break;
+            case StateMode.Stop:
+                modeImage_UI = stop_UI;
+                break;
+            default:
+                return;
+        }
+        alpha = 0.6f;
+        state = mode;
+        moveNow = true;
     }
 
-    void Playback_UI()
+    void tes_Ui()
     {
+        
         alpha -= 1.0f * Time.deltaTime;
         if (alpha <= 0.0f)
         {
-            playback_check = false;
+            moveNow = false;
         }
-        playback_UI.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        modeImage_UI.color = new Color(1.0f, 1.0f, 1.0f, alpha);
     }
 }

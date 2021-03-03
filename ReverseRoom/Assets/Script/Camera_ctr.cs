@@ -6,6 +6,9 @@ public class Camera_ctr : MonoBehaviour
 {
     Camera cam;
 
+    float normal_size = 5.0f;
+    float change_size = 8.0f;
+
     bool size_up;
     bool size_down;
 
@@ -20,33 +23,43 @@ public class Camera_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= 5.0f)
+        if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= normal_size)
         {
             size_up = true;
         }
-        if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= 8.0f)
+        if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= change_size)
         {
             size_down = true;
         }
 
         if(size_up == true)
         {
-            cam.orthographicSize += 5.0f * Time.deltaTime;
-            if(cam.orthographicSize >= 8.0f)
-            {
-                size_up = false;
-                cam.orthographicSize = 8.0f;
-            }
+            SizeUp();
         }
 
         if(size_down == true)
         {
-            cam.orthographicSize -= 5.0f * Time.deltaTime;
-            if (cam.orthographicSize <= 5.0f)
-            {
-                size_down = false;
-                cam.orthographicSize = 5.0f;
-            }
+            SizeDown();
+        }
+    }
+
+    void SizeUp()
+    {
+        cam.orthographicSize += 5.0f * Time.deltaTime;
+        if (cam.orthographicSize >= change_size)
+        {
+            cam.orthographicSize = change_size;
+            size_up = false;
+        }
+    }
+
+    void SizeDown()
+    {
+        cam.orthographicSize -= 5.0f * Time.deltaTime;
+        if (cam.orthographicSize <= normal_size)
+        {
+            cam.orthographicSize = normal_size;
+            size_down = false;
         }
     }
 }
