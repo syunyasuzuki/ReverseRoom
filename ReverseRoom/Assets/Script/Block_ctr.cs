@@ -21,13 +21,17 @@ public class Block_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Block();
+    }
 
+    void Block()
+    {
         if (layer_number == 1)
         {
             white = 1.0f;
             GetComponent<BoxCollider2D>().enabled = true;
         }
-        if(layer_number == -1)
+        if (layer_number == -1)
         {
             white = 0.5f;
             GetComponent<BoxCollider2D>().enabled = false;
