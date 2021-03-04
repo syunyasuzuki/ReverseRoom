@@ -30,10 +30,6 @@ public class Reverse_ctr : MonoBehaviour
         {
             reverse_check = true;
         }
-        if(cam.orthographicSize <= 7.95f)
-        {
-            reverse_check = false;
-        }
 
         if (reverse_check == true)
         {
@@ -45,6 +41,11 @@ public class Reverse_ctr : MonoBehaviour
 
     void Reverse()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            reverse_check = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             rotY_check = true;

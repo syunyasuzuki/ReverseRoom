@@ -28,12 +28,20 @@ public class Block_ctr : MonoBehaviour
     {
         if (layer_number == 1)
         {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                layer_number = -1;
+            }
             white = 1.0f;
             GetComponent<BoxCollider2D>().enabled = true;
         }
         if (layer_number == -1)
         {
-            white = 0.5f;
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                layer_number = 1;
+            }
+            white = 0.4f;
             GetComponent<BoxCollider2D>().enabled = false;
         }
 
