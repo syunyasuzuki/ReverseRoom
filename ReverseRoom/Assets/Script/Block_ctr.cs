@@ -28,7 +28,7 @@ public class Block_ctr : MonoBehaviour
     {
         if (layer_number == 1)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Reverse_ctr.rot_check == true)
             {
                 layer_number = -1;
             }
@@ -37,7 +37,7 @@ public class Block_ctr : MonoBehaviour
         }
         if (layer_number == -1)
         {
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Reverse_ctr.rot_check == true)
             {
                 layer_number = 1;
             }
