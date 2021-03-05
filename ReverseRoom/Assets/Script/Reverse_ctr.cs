@@ -11,7 +11,6 @@ public class Reverse_ctr : MonoBehaviour
     float rot_Z_max = 90.0f;
 
     bool reverse_check;
-    bool reverse_move;
     bool rotX_check;
     bool rotY_check;
     bool rotZ_check;
@@ -22,8 +21,6 @@ public class Reverse_ctr : MonoBehaviour
     void Start()
     {
         reverse_check = false;
-
-        reverse_move = false;
 
         rotY_check = false;
 
@@ -37,22 +34,21 @@ public class Reverse_ctr : MonoBehaviour
         {
             reverse_check = true;
         }
+        if(cam.orthographicSize <= 7.9f)
+        {
+            reverse_check = false;
+        }
 
         if (reverse_check == true)
         {
             Reverse();
         }
-        Debug.Log(reverse_move);
+
         transform.eulerAngles = new Vector3(room_rotato_x, room_rotato_y, room_rotato_Z);
     }
 
     void Reverse()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            reverse_check = false;
-        }
-
         if (room_rotato_x >= 90.0f && room_rotato_x <= 95.0f || room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
         {
             rot_check = true;
