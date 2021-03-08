@@ -16,7 +16,7 @@ public class Player_ctr : MonoBehaviour
 
     bool move_check;
 
-    bool key_get;
+    public static bool key_get;
 
     // Start is called before the first frame update
     void Start()

@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
 
         if (moveNow)
         {
-            tes_Ui();
+            Display_UI();
         }
     }
 
@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
         moveNow = true;
     }
 
-    void tes_Ui()
+    void Display_UI()
     {
         
         alpha -= 1.0f * Time.deltaTime;
