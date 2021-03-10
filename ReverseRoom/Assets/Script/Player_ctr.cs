@@ -38,12 +38,12 @@ public class Player_ctr : MonoBehaviour
             Move();
         }
 
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Z))
+        if (Camera_ctr.size_change == true)
         {
             rg2D.velocity = Vector2.zero;
             rg2D.isKinematic = true;
         }
-        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.X))
+        if (Camera_ctr.size_change == false)
         {
             rg2D.isKinematic = false;
         }
@@ -66,7 +66,7 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "Key")
         {
@@ -74,7 +74,7 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         if(col.gameObject.tag == "Door")
         {

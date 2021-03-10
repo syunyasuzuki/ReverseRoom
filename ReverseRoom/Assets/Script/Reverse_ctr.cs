@@ -22,7 +22,9 @@ public class Reverse_ctr : MonoBehaviour
     {
         reverse_check = false;
 
+        rotX_check = false;
         rotY_check = false;
+        rotZ_check = false;
 
         cam = Camera.main;
     }
@@ -30,11 +32,11 @@ public class Reverse_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cam.orthographicSize == 8.0f)
+        if (Camera_ctr.size_change == true)
         {
             reverse_check = true;
         }
-        if(cam.orthographicSize <= 7.9f)
+        if(Camera_ctr.size_change == false)
         {
             reverse_check = false;
         }

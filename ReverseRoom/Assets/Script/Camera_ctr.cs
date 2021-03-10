@@ -12,12 +12,16 @@ public class Camera_ctr : MonoBehaviour
     bool size_up;
     bool size_down;
 
+    public static bool size_change;
+
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
         size_up = false;
         size_down = false;
+
+        size_change = false;
     }
 
     // Update is called once per frame
@@ -25,6 +29,7 @@ public class Camera_ctr : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= normal_size)
         {
+            size_change = true;
             size_up = true;
         }
         if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= change_size)
@@ -60,6 +65,7 @@ public class Camera_ctr : MonoBehaviour
         {
             cam.orthographicSize = normal_size;
             size_down = false;
+            size_change = false;
         }
     }
 }
