@@ -16,12 +16,12 @@ public class Key_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Camera_ctr.size_change == true)
         {
             rg2D.velocity = Vector2.zero;
             rg2D.isKinematic = true;
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Camera_ctr.size_change == false)
         {
             rg2D.isKinematic = false;
         }
