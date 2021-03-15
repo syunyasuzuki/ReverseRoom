@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MapManager : MonoBehaviour
 {
@@ -28,17 +29,28 @@ public class MapManager : MonoBehaviour
     [SerializeField] float door_pos_x;
     [SerializeField] float door_pos_y;
 
+    string now_scene;
+
     // Start is called before the first frame update
     void Start()
     {
+        now_scene = SceneManager.GetActiveScene().name;
+
         for(int i = 0; i < block_Pre.Length; i++)
         {
             Instantiate(block_Pre[i]);
         }
 
         Instantiate(player, new Vector3(player_pos_x, player_pos_y, 0.0f), Quaternion.identity);
-        Instantiate(key, new Vector3(key_pos_x, key_pos_y, 0.0f), Quaternion.identity);
-        Instantiate(door, new Vector3(door_pos_x, door_pos_y, 0.0f), Quaternion.identity);
+        if(now_scene == "TitleScene")
+        {
+
+        }
+        else
+        {
+            Instantiate(key, new Vector3(key_pos_x, key_pos_y, 0.0f), Quaternion.identity);
+            Instantiate(door, new Vector3(door_pos_x, door_pos_y, 0.0f), Quaternion.identity);
+        }
     }
 
     // Update is called once per frame

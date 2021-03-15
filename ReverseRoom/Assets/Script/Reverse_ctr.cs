@@ -32,13 +32,9 @@ public class Reverse_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Camera_ctr.size_change == true)
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             reverse_check = true;
-        }
-        if(Camera_ctr.size_change == false)
-        {
-            reverse_check = false;
         }
 
         if (reverse_check == true)
@@ -51,6 +47,11 @@ public class Reverse_ctr : MonoBehaviour
 
     void Reverse()
     {
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            reverse_check = false;
+        }
+
         if (room_rotato_x >= 90.0f && room_rotato_x <= 95.0f || room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
         {
             rot_check = true;
