@@ -5,6 +5,9 @@ using UnityEngine;
 public class Reverse_ctr : MonoBehaviour
 {
     Camera cam;
+    [SerializeField] AudioClip reverse_SE;
+    AudioSource audio;
+
     float room_rotato_x;
     float room_rotato_y;
     float room_rotato_Z;
@@ -27,6 +30,9 @@ public class Reverse_ctr : MonoBehaviour
         rotZ_check = false;
 
         cam = Camera.main;
+
+        audio = GetComponent<AudioSource>();
+        audio.clip = reverse_SE;
     }
 
     // Update is called once per frame
@@ -79,18 +85,22 @@ public class Reverse_ctr : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            audio.Play();
             rotY_check = true;
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            audio.Play();
             rotY_check = false;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            audio.Play();
             rotX_check = true;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            audio.Play();
             rotX_check = false;
         }
         if (Input.GetKeyDown(KeyCode.Space))
@@ -98,6 +108,7 @@ public class Reverse_ctr : MonoBehaviour
             rotZ_check = true;
         }
 
+        // Y軸回転
         if (rotY_check == true)
         {
             room_rotato_y = Mathf.Clamp(room_rotato_y + Time.deltaTime * 200, 0, 180);
@@ -107,6 +118,7 @@ public class Reverse_ctr : MonoBehaviour
             room_rotato_y = Mathf.Clamp(room_rotato_y - Time.deltaTime * 200, 0, 180);
         }
 
+        // X軸回転
         if (rotX_check == true)
         {
             room_rotato_x = Mathf.Clamp(room_rotato_x + Time.deltaTime * 200, 0, 180);
@@ -116,6 +128,7 @@ public class Reverse_ctr : MonoBehaviour
             room_rotato_x = Mathf.Clamp(room_rotato_x - Time.deltaTime * 200, 0, 180);
         }
 
+        // Z軸回転
         if(rotZ_check == true)
         {
             if(room_rotato_Z >= 90.0f)
@@ -138,6 +151,7 @@ public class Reverse_ctr : MonoBehaviour
             room_rotato_Z += 200.0f * Time.deltaTime;
             if(room_rotato_Z >= rot_Z_max)
             {
+                audio.Play();
                 room_rotato_Z = rot_Z_max;
                 rotZ_check = false;
             }
