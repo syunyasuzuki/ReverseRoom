@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Player_ctr : MonoBehaviour
 {
+    Rigidbody2D rg2D;
+
+    Animator anima;
+
+    float speed_x;
     float speed = 500;
-
-    float move_x;
-
     float max_speed = 3.0f;
 
-    Vector2 move;
+    float sleep_count;
 
-    Rigidbody2D rg2D;
+    float move_x;
+    Vector2 move;
 
     bool move_check;
 
@@ -26,12 +29,15 @@ public class Player_ctr : MonoBehaviour
         key_get = false;
 
         rg2D = GetComponent<Rigidbody2D>();
+
+        anima = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        move_x = Input.GetAxisRaw("Horizontal");
+
+        Player_Animation();
 
         if(move_check == true)
         {
@@ -56,13 +62,27 @@ public class Player_ctr : MonoBehaviour
 
     void Move()
     {
-        float speed_x = Mathf.Abs(rg2D.velocity.x);
+        move_x = Input.GetAxisRaw("Horizontal");
+
+        speed_x = Mathf.Abs(rg2D.velocity.x);
 
         move = new Vector2(move_x * speed * Time.deltaTime, 0.0f);
 
         if (speed_x < max_speed)
         {
             rg2D.AddForce(move);
+        }
+    }
+
+    void Player_Animation()
+    {
+        if (speed_x > 0.1f)
+        {
+            anima.SetFloat("WalkFloat", speed_x);
+        }
+        else
+        {
+            anima.SetFloat("WalkFloat", 0.0f);
         }
     }
 

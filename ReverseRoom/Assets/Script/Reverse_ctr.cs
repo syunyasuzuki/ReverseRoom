@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Reverse_ctr : MonoBehaviour
 {
     Camera cam;
-    [SerializeField] AudioClip reverse_SE;
     AudioSource audio;
+
+    [SerializeField] AudioClip reverse_SE;
 
     float room_rotato_x;
     float room_rotato_y;
@@ -20,9 +22,13 @@ public class Reverse_ctr : MonoBehaviour
 
     public static bool rot_check;
 
+    string now_Scene;
+
     // Start is called before the first frame update
     void Start()
     {
+        now_Scene = SceneManager.GetActiveScene().name;
+
         reverse_check = false;
 
         rotX_check = false;
