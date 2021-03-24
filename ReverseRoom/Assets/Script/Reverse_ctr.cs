@@ -6,14 +6,16 @@ using UnityEngine.SceneManagement;
 public class Reverse_ctr : MonoBehaviour
 {
     Camera cam;
-    AudioSource audio;
 
+    AudioSource audio;
     [SerializeField] AudioClip reverse_SE;
 
     float room_rotato_x;
     float room_rotato_y;
     float room_rotato_Z;
     float rot_Z_max = 90.0f;
+    float rot_X_max = 180.0f;
+    float rot_Y_max = 180.0f;
 
     bool reverse_check;
     bool rotX_check;
@@ -64,26 +66,34 @@ public class Reverse_ctr : MonoBehaviour
             reverse_check = false;
         }
 
-        if (room_rotato_x >= 90.0f && room_rotato_x <= 95.0f || room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
+        if (room_rotato_x >= 90.0f && room_rotato_x <= 100.0f)
         {
             rot_check = true;
-            if (room_rotato_x >= 100.0f)
-            {
-                rot_check = false;
-            }
-            if (room_rotato_y >= 100.0f)
+            if (room_rotato_x >= 110.0f)
             {
                 rot_check = false;
             }
         }
-        if (room_rotato_x <= 90.0f && room_rotato_x >= 85.0f || room_rotato_y <= 90.0f && room_rotato_y >= 85.0f)
+        if(room_rotato_y >= 90.0f && room_rotato_y <= 100.0f)
         {
             rot_check = true;
-            if (room_rotato_x <= 80.0f)
+            if (room_rotato_y >= 110.0f)
             {
                 rot_check = false;
             }
-            if (room_rotato_y <= 80.0f)
+        }
+        if (room_rotato_x >= 270.0f && room_rotato_x <= 280.0f)
+        {
+            rot_check = true;
+            if (room_rotato_x >= 290.0f)
+            {
+                rot_check = false;
+            }
+        }
+        if(room_rotato_y >= 270.0f && room_rotato_y <= 280.0f)
+        {
+            rot_check = true;
+            if (room_rotato_y >= 290.0f)
             {
                 rot_check = false;
             }
@@ -91,23 +101,19 @@ public class Reverse_ctr : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            audio.Play();
             rotY_check = true;
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            audio.Play();
-            rotY_check = false;
+            rotY_check = true;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            audio.Play();
             rotX_check = true;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            audio.Play();
-            rotX_check = false;
+            rotX_check = true;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -117,25 +123,47 @@ public class Reverse_ctr : MonoBehaviour
         // Y軸回転
         if (rotY_check == true)
         {
-            room_rotato_y = Mathf.Clamp(room_rotato_y + Time.deltaTime * 200, 0, 180);
-        }
-        if (rotY_check == false)
-        {
-            room_rotato_y = Mathf.Clamp(room_rotato_y - Time.deltaTime * 200, 0, 180);
+            if(room_rotato_y >= 180.0f)
+            {
+                rot_Y_max = 360.0f;
+            }
+            if(room_rotato_y >= 360.0f)
+            {
+                room_rotato_y = 0.0f;
+                rot_Y_max = 180.0f;
+            }
+            room_rotato_y += 300 * Time.deltaTime;
+            if(room_rotato_y >= rot_Y_max)
+            {
+                audio.Play();
+                room_rotato_y = rot_Y_max;
+                rotY_check = false;
+            }
         }
 
         // X軸回転
         if (rotX_check == true)
         {
-            room_rotato_x = Mathf.Clamp(room_rotato_x + Time.deltaTime * 200, 0, 180);
-        }
-        if (rotX_check == false)
-        {
-            room_rotato_x = Mathf.Clamp(room_rotato_x - Time.deltaTime * 200, 0, 180);
+            if (room_rotato_x >= 180.0f)
+            {
+                rot_X_max = 360.0f;
+            }
+            if (room_rotato_x >= 360.0f)
+            {
+                room_rotato_x = 0.0f;
+                rot_X_max = 180.0f;
+            }
+            room_rotato_x += 300 * Time.deltaTime;
+            if (room_rotato_x >= rot_X_max)
+            {
+                audio.Play();
+                room_rotato_x = rot_X_max;
+                rotX_check = false;
+            }
         }
 
         // Z軸回転
-        if(rotZ_check == true)
+        if (rotZ_check == true)
         {
             if(room_rotato_Z >= 90.0f)
             {

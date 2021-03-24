@@ -36,9 +36,6 @@ public class Player_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Player_Animation();
-
         if(move_check == true)
         {
             Move();
@@ -46,17 +43,15 @@ public class Player_ctr : MonoBehaviour
 
         if (Camera_ctr.size_change == true)
         {
+            anima.SetFloat("WalkFloat", 0.0f);
+            anima.SetFloat("SleepFloat", 0.0f);
             rg2D.velocity = Vector2.zero;
             rg2D.isKinematic = true;
         }
         if (Camera_ctr.size_change == false)
         {
+            Player_Animation();
             rg2D.isKinematic = false;
-        }
-
-        if (move_x != 0)
-        {
-            transform.localScale = new Vector3(move_x, 1, 1);
         }
     }
 
@@ -76,6 +71,21 @@ public class Player_ctr : MonoBehaviour
 
     void Player_Animation()
     {
+        if(speed_x <= 0.01f)
+        {
+            sleep_count += 1.0f * Time.deltaTime;
+        }
+
+        if (sleep_count >= 7.0f)
+        {
+            anima.SetFloat("SleepFloat", sleep_count);
+        }
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            sleep_count = 0.0f;
+            anima.SetFloat("SleepFloat", 0.0f);
+        }
+
         if (speed_x > 0.1f)
         {
             anima.SetFloat("WalkFloat", speed_x);
@@ -83,6 +93,11 @@ public class Player_ctr : MonoBehaviour
         else
         {
             anima.SetFloat("WalkFloat", 0.0f);
+        }
+
+        if (move_x != 0)
+        {
+            transform.localScale = new Vector3(move_x, 1, 1);
         }
     }
 
