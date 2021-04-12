@@ -22,6 +22,8 @@ public class Reverse_ctr : MonoBehaviour
     bool rotY_check;
     bool rotZ_check;
 
+    public static bool now_rotato;
+
     public static bool rot_check;
 
     string now_Scene;
@@ -36,6 +38,10 @@ public class Reverse_ctr : MonoBehaviour
         rotX_check = false;
         rotY_check = false;
         rotZ_check = false;
+
+        now_rotato = false;
+
+        rot_check = false;
 
         cam = Camera.main;
 
@@ -56,68 +62,55 @@ public class Reverse_ctr : MonoBehaviour
             Reverse();
         }
 
+        Debug.Log(rot_check);
+
         transform.eulerAngles = new Vector3(room_rotato_x, room_rotato_y, room_rotato_Z);
     }
 
     void Reverse()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        if(now_rotato == false)
         {
-            reverse_check = false;
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                reverse_check = false;
+            }
         }
 
-        if (room_rotato_x >= 90.0f && room_rotato_x <= 100.0f)
+        if (room_rotato_x >= 90.0f && room_rotato_x <= 95.0f || room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
         {
             rot_check = true;
-            if (room_rotato_x >= 110.0f)
-            {
-                rot_check = false;
-            }
         }
-        if(room_rotato_y >= 90.0f && room_rotato_y <= 100.0f)
+
+        if (room_rotato_x >= 270.0f && room_rotato_x <= 275.0f || room_rotato_y >= 270.0f && room_rotato_y <= 275.0f)
         {
             rot_check = true;
-            if (room_rotato_y >= 110.0f)
-            {
-                rot_check = false;
-            }
-        }
-        if (room_rotato_x >= 270.0f && room_rotato_x <= 280.0f)
-        {
-            rot_check = true;
-            if (room_rotato_x >= 290.0f)
-            {
-                rot_check = false;
-            }
-        }
-        if(room_rotato_y >= 270.0f && room_rotato_y <= 280.0f)
-        {
-            rot_check = true;
-            if (room_rotato_y >= 290.0f)
-            {
-                rot_check = false;
-            }
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             rotY_check = true;
+            now_rotato = true;
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             rotY_check = true;
+            now_rotato = true;
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             rotX_check = true;
+            now_rotato = true;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             rotX_check = true;
+            now_rotato = true;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rotZ_check = true;
+            now_rotato = true;
         }
 
         // Y軸回転
@@ -138,6 +131,7 @@ public class Reverse_ctr : MonoBehaviour
                 audio.Play();
                 room_rotato_y = rot_Y_max;
                 rotY_check = false;
+                now_rotato = false;
             }
         }
 
@@ -159,6 +153,7 @@ public class Reverse_ctr : MonoBehaviour
                 audio.Play();
                 room_rotato_x = rot_X_max;
                 rotX_check = false;
+                now_rotato = false;
             }
         }
 
@@ -188,6 +183,7 @@ public class Reverse_ctr : MonoBehaviour
                 audio.Play();
                 room_rotato_Z = rot_Z_max;
                 rotZ_check = false;
+                now_rotato = false;
             }
         }
     }

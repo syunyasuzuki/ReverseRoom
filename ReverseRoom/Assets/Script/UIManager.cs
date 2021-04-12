@@ -40,9 +40,12 @@ public class UIManager : MonoBehaviour
         {
             Test(StateMode.Stop);
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if(Reverse_ctr.now_rotato == false)
         {
-            Test(StateMode.Play);
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Test(StateMode.Play);
+            }
         }
 
         if (moveNow)

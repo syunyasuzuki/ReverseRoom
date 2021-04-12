@@ -41,12 +41,16 @@ public class Camera_ctr : MonoBehaviour
             size_change = true;
             size_up = true;
         }
-        if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= change_size)
+
+        if(Reverse_ctr.now_rotato == false)
         {
-            size_down = true;
+            if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= change_size)
+            {
+                size_down = true;
+            }
         }
 
-        if(size_up == true)
+        if (size_up == true)
         {
             SizeUp();
         }

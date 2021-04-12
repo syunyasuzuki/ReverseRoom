@@ -75,14 +75,18 @@ public class Player_ctr : MonoBehaviour
         {
             sleep_count += 1.0f * Time.deltaTime;
         }
+        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            sleep_count = 0.0f;
+        }
 
         if (sleep_count >= 7.0f)
         {
             anima.SetFloat("SleepFloat", sleep_count);
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        else
         {
-            sleep_count = 0.0f;
+            anima.SetFloat("WalkFloat", speed_x);
             anima.SetFloat("SleepFloat", 0.0f);
         }
 

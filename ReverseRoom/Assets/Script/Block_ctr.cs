@@ -11,36 +11,48 @@ public class Block_ctr : MonoBehaviour
 
     float white;
 
+    bool front_block_check;
+    bool back_block_check;
+
     // Start is called before the first frame update
     void Start()
     {
         parent = GameObject.FindGameObjectWithTag("ReverseObject");
         transform.parent = parent.transform;
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
+
+        front_block_check = false;
+        back_block_check = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(Reverse_ctr.rot_check == true)
+        {
+            if (front_block_check == true)
+            {
+                layer_number = 1;
+            }
+            if(back_block_check == true)
+            {
+                layer_number = -1;
+            }
+        }
+
         Block();
+        Debug.Log(layer_number);
     }
 
     void Block()
     {
         if (layer_number == 1)
         {
-            if (Reverse_ctr.rot_check == true)
-            {
-                layer_number = -1;
-            }
             white = 1.0f;
             GetComponent<BoxCollider2D>().enabled = true;
         }
         if (layer_number == -1)
         {
-            if (Reverse_ctr.rot_check == true)
-            {
-                layer_number = 1;
-            }
             white = 0.4f;
             GetComponent<BoxCollider2D>().enabled = false;
         }
