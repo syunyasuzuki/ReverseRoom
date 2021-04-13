@@ -30,18 +30,35 @@ public class Block_ctr : MonoBehaviour
     {
         if(Reverse_ctr.rot_check == true)
         {
-            if (front_block_check == true)
+            if(layer_number == 1 && front_block_check == false)
             {
-                layer_number = 1;
+                back_block_check = true;
             }
-            if(back_block_check == true)
+            if(layer_number == -1 && back_block_check == false)
             {
-                layer_number = -1;
+                front_block_check = true;
             }
+        }
+
+        if(Reverse_ctr.rot_check == false)
+        {
+            back_block_check = false;
+            front_block_check = false;
+        }
+
+        if (front_block_check == true)
+        {
+            layer_number = 1;
+        }
+        if (back_block_check == true)
+        {
+            layer_number = -1;
         }
 
         Block();
         Debug.Log(layer_number);
+        Debug.Log(back_block_check);
+        Debug.Log(front_block_check);
     }
 
     void Block()

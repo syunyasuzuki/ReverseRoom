@@ -77,12 +77,19 @@ public class Reverse_ctr : MonoBehaviour
             }
         }
 
-        if (room_rotato_x >= 90.0f && room_rotato_x <= 95.0f || room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
+        if (room_rotato_x >= 90.0f && room_rotato_x <= 95.0f)
         {
             rot_check = true;
         }
-
-        if (room_rotato_x >= 270.0f && room_rotato_x <= 275.0f || room_rotato_y >= 270.0f && room_rotato_y <= 275.0f)
+        if (room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
+        {
+            rot_check = true;
+        }
+        if (room_rotato_x >= 270.0f && room_rotato_x <= 275.0f)
+        {
+            rot_check = true;
+        }
+        if (room_rotato_y >= 270.0f && room_rotato_y <= 275.0f)
         {
             rot_check = true;
         }
@@ -132,6 +139,7 @@ public class Reverse_ctr : MonoBehaviour
                 room_rotato_y = rot_Y_max;
                 rotY_check = false;
                 now_rotato = false;
+                rot_check = false;
             }
         }
 
@@ -154,6 +162,7 @@ public class Reverse_ctr : MonoBehaviour
                 room_rotato_x = rot_X_max;
                 rotX_check = false;
                 now_rotato = false;
+                rot_check = false;
             }
         }
 
