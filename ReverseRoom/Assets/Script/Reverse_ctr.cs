@@ -18,6 +18,7 @@ public class Reverse_ctr : MonoBehaviour
     float rot_Y_max = 180.0f;
 
     bool reverse_check;
+    bool title_reverse_check;
     bool rotX_check;
     bool rotY_check;
     bool rotZ_check;
@@ -34,6 +35,7 @@ public class Reverse_ctr : MonoBehaviour
         now_Scene = SceneManager.GetActiveScene().name;
 
         reverse_check = false;
+        title_reverse_check = false;
 
         rotX_check = false;
         rotY_check = false;
@@ -54,15 +56,24 @@ public class Reverse_ctr : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            reverse_check = true;
+            if(now_Scene == "TitleScene")
+            {
+                title_reverse_check = true;
+            }
+            else
+            {
+                reverse_check = true;
+            }
         }
 
         if (reverse_check == true)
         {
             Reverse();
         }
-
-        Debug.Log(rot_check);
+        if(title_reverse_check == true)
+        {
+            Title_Reverse();
+        }
 
         transform.eulerAngles = new Vector3(room_rotato_x, room_rotato_y, room_rotato_Z);
     }
@@ -193,6 +204,31 @@ public class Reverse_ctr : MonoBehaviour
                 room_rotato_Z = rot_Z_max;
                 rotZ_check = false;
                 now_rotato = false;
+            }
+        }
+    }
+
+    void Title_Reverse()
+    {
+        if (Camera_ctr.size_change == true)
+        {
+            if (room_rotato_y >= 180.0f)
+            {
+                rot_Y_max = 360.0f;
+            }
+            if (room_rotato_y >= 360.0f)
+            {
+                room_rotato_y = 0.0f;
+                rot_Y_max = 180.0f;
+            }
+            room_rotato_y += 300 * Time.deltaTime;
+            if (room_rotato_y >= rot_Y_max)
+            {
+                audio.Play();
+                room_rotato_y = rot_Y_max;
+                rotY_check = false;
+                now_rotato = false;
+                rot_check = false;
             }
         }
     }

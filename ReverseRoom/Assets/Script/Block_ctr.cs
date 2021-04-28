@@ -56,9 +56,6 @@ public class Block_ctr : MonoBehaviour
         }
 
         Block();
-        Debug.Log(layer_number);
-        Debug.Log(back_block_check);
-        Debug.Log(front_block_check);
     }
 
     void Block()

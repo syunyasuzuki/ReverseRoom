@@ -9,8 +9,10 @@ public class Player_ctr : MonoBehaviour
     Animator anima;
 
     float speed_x;
-    float speed = 500;
-    float max_speed = 3.0f;
+    float speed = 1000;
+    float jump;
+    float jump_Force = 500;
+    float max_speed = 4.0f;
 
     float sleep_count;
 
@@ -39,6 +41,7 @@ public class Player_ctr : MonoBehaviour
         if(move_check == true)
         {
             Move();
+            Jump();
         }
 
         if (Camera_ctr.size_change == true)
@@ -59,9 +62,9 @@ public class Player_ctr : MonoBehaviour
     {
         move_x = Input.GetAxisRaw("Horizontal");
 
-        speed_x = Mathf.Abs(rg2D.velocity.x);
-
         move = new Vector2(move_x * speed * Time.deltaTime, 0.0f);
+
+        speed_x = Mathf.Abs(rg2D.velocity.x);
 
         if (speed_x < max_speed)
         {
@@ -69,25 +72,41 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
+    void Jump()
+    {
+        jump = Mathf.Abs(rg2D.velocity.y);
+
+        if (Input.GetKeyDown(KeyCode.Space) && rg2D.velocity.y == 0)
+        {
+            rg2D.AddForce(transform.up * jump_Force);
+        }
+    }
+
     void Player_Animation()
     {
-        if(speed_x <= 0.01f)
+        if(speed_x <= 0.01f && jump <= 0.01f)
         {
             sleep_count += 1.0f * Time.deltaTime;
         }
-        if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.anyKeyDown)
         {
+            anima.SetFloat("SleepFloat", 0.0f);
             sleep_count = 0.0f;
+        }
+
+        if(jump > 0.01f)
+        {
+            anima.SetFloat("JumpFloat", jump);
+        }
+        else
+        {
+            anima.SetFloat("JumpFloat", 0.0f);
         }
 
         if (sleep_count >= 7.0f)
         {
             anima.SetFloat("SleepFloat", sleep_count);
-        }
-        else
-        {
-            anima.SetFloat("WalkFloat", speed_x);
-            anima.SetFloat("SleepFloat", 0.0f);
+            move_check = false;
         }
 
         if (speed_x > 0.1f)
