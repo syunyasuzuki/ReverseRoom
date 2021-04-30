@@ -15,6 +15,7 @@ public class Player_ctr : MonoBehaviour
     float max_speed = 4.0f;
 
     float sleep_count;
+    float wait_count;
 
     float move_x;
     Vector2 move;
@@ -94,7 +95,7 @@ public class Player_ctr : MonoBehaviour
             sleep_count = 0.0f;
         }
 
-        if(jump > 0.01f)
+        if (jump > 0.01f)
         {
             anima.SetFloat("JumpFloat", jump);
         }
@@ -103,7 +104,7 @@ public class Player_ctr : MonoBehaviour
             anima.SetFloat("JumpFloat", 0.0f);
         }
 
-        if (sleep_count >= 7.0f)
+        if (sleep_count >= 15.0f)
         {
             anima.SetFloat("SleepFloat", sleep_count);
             move_check = false;
@@ -118,6 +119,12 @@ public class Player_ctr : MonoBehaviour
             anima.SetFloat("WalkFloat", 0.0f);
         }
 
+        if (anima.GetCurrentAnimatorStateInfo(0).IsName("Player_Wait"))
+        {
+            move_check = true;
+        }
+
+        //プレイヤーの向きを変える
         if (move_x != 0)
         {
             transform.localScale = new Vector3(move_x, 1, 1);
