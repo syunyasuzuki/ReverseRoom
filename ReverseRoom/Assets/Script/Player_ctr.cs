@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player_ctr : MonoBehaviour
 {
     Rigidbody2D rg2D;
 
     Animator anima;
+
+    string now_scene;
 
     float speed_x;
     float speed = 1000;
@@ -27,6 +30,8 @@ public class Player_ctr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        now_scene = SceneManager.GetActiveScene().name;
+
         move_check = true;
 
         key_get = false;
@@ -39,10 +44,14 @@ public class Player_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.game_clear == true)
+        {
+            move_check = false;
+        }
+
         if(move_check == true)
         {
             Move();
-            Jump();
         }
 
         if (Camera_ctr.size_change == true)
@@ -61,6 +70,7 @@ public class Player_ctr : MonoBehaviour
 
     void Move()
     {
+        // 左右移動の処理
         move_x = Input.GetAxisRaw("Horizontal");
 
         move = new Vector2(move_x * speed * Time.deltaTime, 0.0f);
@@ -71,10 +81,8 @@ public class Player_ctr : MonoBehaviour
         {
             rg2D.AddForce(move);
         }
-    }
 
-    void Jump()
-    {
+        // ジャンプの処理
         jump = Mathf.Abs(rg2D.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.Space) && rg2D.velocity.y == 0)
@@ -104,7 +112,7 @@ public class Player_ctr : MonoBehaviour
             anima.SetFloat("JumpFloat", 0.0f);
         }
 
-        if (sleep_count >= 15.0f)
+        if (sleep_count >= 30.0f)
         {
             anima.SetFloat("SleepFloat", sleep_count);
             move_check = false;
@@ -137,6 +145,10 @@ public class Player_ctr : MonoBehaviour
         {
             key_get = true;
         }
+        if (col.gameObject.tag == "DeadLine")
+        {
+            SceneManager.LoadScene(now_scene);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -145,7 +157,7 @@ public class Player_ctr : MonoBehaviour
         {
             if(key_get == true)
             {
-
+                GameManager.game_clear = true;
             }
         }
     }
