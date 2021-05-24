@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Camera_ctr : MonoBehaviour
 {
     // メインカメラを取得する変数
     Camera cam;
+
+    string now_scene;
 
     // 標準のカメラサイズ
     float normal_size = 5.0f;
@@ -26,6 +29,8 @@ public class Camera_ctr : MonoBehaviour
         // メインカメラを取得
         cam = Camera.main;
 
+        now_scene = SceneManager.GetActiveScene().name;
+
         //------変数の初期化------
         size_up = false;
         size_down = false;
@@ -36,13 +41,25 @@ public class Camera_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= normal_size)
+        if(ClearManager.clear_check == true)
         {
-            size_change = true;
-            size_up = true;
+            return;
         }
 
-        if(Reverse_ctr.now_rotato == false)
+        if(now_scene == "TitleScene")
+        {
+
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= normal_size)
+            {
+                size_change = true;
+                size_up = true;
+            }
+        }
+
+        if (Reverse_ctr.now_rotato == false)
         {
             if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= change_size)
             {

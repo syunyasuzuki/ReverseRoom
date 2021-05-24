@@ -42,7 +42,8 @@ public class MapManager : MonoBehaviour
         }
 
         Instantiate(player, new Vector3(player_pos_x, player_pos_y, 0.0f), Quaternion.identity);
-        if(now_scene == "TitleScene")
+
+        if (now_scene == "TitleScene")
         {
 
         }

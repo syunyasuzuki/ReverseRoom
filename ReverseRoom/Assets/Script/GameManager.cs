@@ -5,36 +5,64 @@ using UnityEngine.UI;
 
 public class GameManager : Button_ctr
 {
-    //[SerializeField] Image m_StageClear;
-    //[SerializeField] Image m_Title;
-    //[SerializeField] Image m_Select;
-    //[SerializeField] Image m_Back;
-    [SerializeField] GameObject m_Menu;
+    [Header("メニューUIを入れる")]
+    [SerializeField] GameObject m_MenuPanel;
+    [SerializeField] Image m_Menu;
+    [SerializeField] Image m_Retry;
+    [SerializeField] Image m_Title;
+    [SerializeField] Image m_Back;
     [SerializeField] Button m_List1;
     [SerializeField] Button m_List2;
     [SerializeField] Button m_List3;
 
+    [Header("BGMを入れる")]
+    [SerializeField] AudioClip gameBGM;
+
+    AudioSource audio;
+
+    float rot_Z;
+    float menu_alpha;
+    float button_alpha;
+
+    bool menu_open;
+
     public static bool game_start;
-    public static bool game_clear;
 
     // Start is called before the first frame update
     void Start()
     {
-        game_start = true;
-        game_clear = false;
+        rot_Z = 45.0f;
 
-        m_Menu.SetActive(false);
+        menu_alpha = 0.0f;
+        button_alpha = 0.0f;
+
+        menu_open = false;
+        game_start = true;
+
+        audio = GetComponent<AudioSource>();
+        audio.clip = gameBGM;
+        audio.Play();
+
+        m_MenuPanel.SetActive(false);
+
+        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, rot_Z);
+        m_Menu.color = new Color(1.0f, 1.0f, 1.0f, menu_alpha);
+        m_Retry.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Title.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Back.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(game_clear == true)
-        {
-            GameClear();
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            menu_open = true;
+        }
+
+        if(menu_open == true)
         {
             OpenMenu();
         }
@@ -42,19 +70,45 @@ public class GameManager : Button_ctr
 
     void OpenMenu()
     {
-        m_Menu.SetActive(true);
-        m_List1.Select();
-        Time.timeScale = 0.0f;
-    }
+        m_MenuPanel.SetActive(true);
+        menu_alpha += 3.0f * Time.deltaTime;
+        if(menu_alpha >= 1.0f)
+        {
+            rot_Z -= 180.0f * Time.deltaTime;
+            if(rot_Z <= 0.0f)
+            {
+                rot_Z = 0.0f;
+                button_alpha += 3.0f * Time.deltaTime;
+                if(button_alpha >= 1.0f)
+                {
+                    m_List1.Select();
+                    menu_open = false;
+                    Time.timeScale = 0.0f;
+                }
+            }
+        }
 
-    void GameClear()
-    {
-
+        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, rot_Z);
+        m_Menu.color = new Color(1.0f, 1.0f, 1.0f, menu_alpha);
+        m_Retry.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Title.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Back.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
     }
 
     public void Back()
     {
-        m_Menu.SetActive(false);
+        m_MenuPanel.SetActive(false);
         Time.timeScale = 1.0f;
+
+        rot_Z = 45.0f;
+
+        menu_alpha = 0.0f;
+        button_alpha = 0.0f;
+
+        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, rot_Z);
+        m_Menu.color = new Color(1.0f, 1.0f, 1.0f, menu_alpha);
+        m_Retry.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Title.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Back.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
     }
 }

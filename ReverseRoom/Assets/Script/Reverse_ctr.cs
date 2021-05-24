@@ -54,13 +54,21 @@ public class Reverse_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if(ClearManager.clear_check == true)
         {
-            if(now_Scene == "TitleScene")
+            return;
+        }
+
+        if (now_Scene == "TitleScene")
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 title_reverse_check = true;
             }
-            else
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Z))
             {
                 reverse_check = true;
             }
@@ -210,26 +218,11 @@ public class Reverse_ctr : MonoBehaviour
 
     void Title_Reverse()
     {
-        if (Camera_ctr.size_change == true)
+        if (room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
         {
-            if (room_rotato_y >= 180.0f)
-            {
-                rot_Y_max = 360.0f;
-            }
-            if (room_rotato_y >= 360.0f)
-            {
-                room_rotato_y = 0.0f;
-                rot_Y_max = 180.0f;
-            }
-            room_rotato_y += 300 * Time.deltaTime;
-            if (room_rotato_y >= rot_Y_max)
-            {
-                audio.Play();
-                room_rotato_y = rot_Y_max;
-                rotY_check = false;
-                now_rotato = false;
-                rot_check = false;
-            }
+            rot_check = true;
         }
+
+        room_rotato_y = Mathf.Clamp(room_rotato_y + Time.deltaTime * 300, 0, 180);
     }
 }

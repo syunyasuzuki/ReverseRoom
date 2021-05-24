@@ -63,12 +63,12 @@ public class Block_ctr : MonoBehaviour
         if (layer_number == 1)
         {
             white = 1.0f;
-            GetComponent<BoxCollider2D>().enabled = true;
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         }
         if (layer_number == -1)
         {
             white = 0.4f;
-            GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
 
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, 1.0f);

@@ -56,6 +56,11 @@ public class UIManager : MonoBehaviour
 
     void Test(StateMode mode)
     {
+        if(ClearManager.clear_check == true)
+        {
+            return;
+        }
+
         if(moveNow || state == mode)
         {
             return;

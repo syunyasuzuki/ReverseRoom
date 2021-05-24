@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Player_ctr : MonoBehaviour
 {
+    GameObject goal;
+
     Rigidbody2D rg2D;
 
     Animator anima;
@@ -13,24 +15,32 @@ public class Player_ctr : MonoBehaviour
 
     float speed_x;
     float speed = 1000;
+    float move_x;
+    float max_speed = 4.0f;
+    Vector2 move;
     float jump;
     float jump_Force = 500;
-    float max_speed = 4.0f;
 
     float sleep_count;
     float wait_count;
 
-    float move_x;
-    Vector2 move;
+    Vector3 chase;
+
+    float alpha;
 
     bool move_check;
+    bool player_goal;
 
     public static bool key_get;
 
     // Start is called before the first frame update
     void Start()
     {
+        goal = GameObject.FindGameObjectWithTag("Door");
+
         now_scene = SceneManager.GetActiveScene().name;
+
+        player_goal = false;
 
         move_check = true;
 
@@ -39,37 +49,53 @@ public class Player_ctr : MonoBehaviour
         rg2D = GetComponent<Rigidbody2D>();
 
         anima = GetComponent<Animator>();
+
+        alpha = 1.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.game_clear == true)
+        if(now_scene == "TitleScene")
         {
-            move_check = false;
+            TitlePlayer();
+            PlayerAnimation();
+        }
+        else
+        {
+            if (player_goal == true)
+            {
+                move_check = false;
+                ClearMove();
+            }
+
+            if (move_check == true)
+            {
+                Move();
+                PlayerAnimation();
+            }
+            else
+            {
+                rg2D.isKinematic = true;
+                rg2D.velocity = Vector2.zero;
+            }
+
+            if (Camera_ctr.size_change == true)
+            {
+                move_check = false;
+            }
+            if (Camera_ctr.size_change == false)
+            {
+                move_check = true;
+            }
         }
 
-        if(move_check == true)
-        {
-            Move();
-        }
-
-        if (Camera_ctr.size_change == true)
-        {
-            anima.SetFloat("WalkFloat", 0.0f);
-            anima.SetFloat("SleepFloat", 0.0f);
-            rg2D.velocity = Vector2.zero;
-            rg2D.isKinematic = true;
-        }
-        if (Camera_ctr.size_change == false)
-        {
-            Player_Animation();
-            rg2D.isKinematic = false;
-        }
     }
 
     void Move()
     {
+        rg2D.isKinematic = false;
+
         // 左右移動の処理
         move_x = Input.GetAxisRaw("Horizontal");
 
@@ -91,7 +117,7 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
-    void Player_Animation()
+    void PlayerAnimation()
     {
         if(speed_x <= 0.01f && jump <= 0.01f)
         {
@@ -139,6 +165,40 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
+    void TitlePlayer()
+    {
+        rg2D.isKinematic = true;
+        jump = Mathf.Abs(rg2D.velocity.y);
+
+        if (Reverse_ctr.rot_check == true)
+        {
+            rg2D.isKinematic = false;
+        }
+    }
+
+    void ClearMove()
+    {
+        float pos_x;
+        float pos_y;
+
+        chase += (goal.transform.position - transform.position) * 4.0f;
+        chase *= 0.6f;
+        transform.position += chase * Time.deltaTime;
+
+        pos_x = Mathf.Abs(goal.transform.position.x - transform.position.x);
+        pos_y = Mathf.Abs(goal.transform.position.y - transform.position.y);
+
+        if(pos_x <= 0.1 && pos_y <= 0.1)
+        {
+            alpha -= 1.0f * Time.deltaTime;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+            if(alpha <= 0.0f && alpha >= -0.05f)
+            {
+                ClearManager.clear_check = true;
+            }
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "Key")
@@ -155,9 +215,9 @@ public class Player_ctr : MonoBehaviour
     {
         if(col.gameObject.tag == "Door")
         {
-            if(key_get == true)
+            if (key_get == true)
             {
-                GameManager.game_clear = true;
+                player_goal = true;
             }
         }
     }
