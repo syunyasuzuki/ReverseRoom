@@ -6,13 +6,11 @@ public class Goal_ctr : MonoBehaviour
 {
     Animator anima;
 
-    GameObject parent;
-
     float goal_rotato;
 
     float white;
 
-    bool goal_open;
+    public static bool goal_open;
     bool alpha_switch;
 
     // Use this for initialization
@@ -21,21 +19,11 @@ public class Goal_ctr : MonoBehaviour
         white = 1.0f;
         goal_open = false;
         anima = GetComponent<Animator>();
-
-        parent = GameObject.FindGameObjectWithTag("ReverseObject");
-
-        transform.parent = parent.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Player_ctr.key_get == true)
-        {
-            goal_open = true;
-            anima.SetTrigger("OpenTrigger");
-        }
-
         if(Camera_ctr.size_change == true)
         {
             GetComponent<BoxCollider2D>().enabled = false;
@@ -47,14 +35,14 @@ public class Goal_ctr : MonoBehaviour
 
         if (goal_open == true)
         {
+            anima.SetTrigger("OpenTrigger");
             GoalOpen();
         }
     }
 
     void GoalOpen()
     {
-        goal_rotato = Mathf.Clamp(goal_rotato + Time.deltaTime * 200, 0, 180);
-        transform.eulerAngles = new Vector3(0.0f, 0.0f, goal_rotato);
+        goal_rotato = Mathf.Clamp(goal_rotato + Time.deltaTime * 300, 0, 180);
 
         if (alpha_switch == true)
         {
@@ -72,6 +60,8 @@ public class Goal_ctr : MonoBehaviour
                 alpha_switch = true;
             }
         }
+
+        transform.eulerAngles = new Vector3(0.0f, 0.0f, goal_rotato);
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, 1.0f);
     }
 }

@@ -63,6 +63,7 @@ public class Reverse_ctr : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Z))
             {
+                audio.Play();
                 title_reverse_check = true;
             }
         }
@@ -80,7 +81,7 @@ public class Reverse_ctr : MonoBehaviour
         }
         if(title_reverse_check == true)
         {
-            Title_Reverse();
+            TitleReverse();
         }
 
         transform.eulerAngles = new Vector3(room_rotato_x, room_rotato_y, room_rotato_Z);
@@ -96,44 +97,44 @@ public class Reverse_ctr : MonoBehaviour
             }
         }
 
-        if (room_rotato_x >= 90.0f && room_rotato_x <= 95.0f)
+        if (room_rotato_x >= 85.0f && room_rotato_x <= 95.0f)
         {
             rot_check = true;
         }
-        if (room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
+        if (room_rotato_y >= 85.0f && room_rotato_y <= 95.0f)
         {
             rot_check = true;
         }
-        if (room_rotato_x >= 270.0f && room_rotato_x <= 275.0f)
+        if (room_rotato_x >= 265.0f && room_rotato_x <= 275.0f)
         {
             rot_check = true;
         }
-        if (room_rotato_y >= 270.0f && room_rotato_y <= 275.0f)
+        if (room_rotato_y >= 265.0f && room_rotato_y <= 275.0f)
         {
             rot_check = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (now_rotato == false && Input.GetKeyDown(KeyCode.RightArrow))
         {
             rotY_check = true;
             now_rotato = true;
         }
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (now_rotato == false && Input.GetKeyDown(KeyCode.LeftArrow))
         {
             rotY_check = true;
             now_rotato = true;
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (now_rotato == false && Input.GetKeyDown(KeyCode.UpArrow))
         {
             rotX_check = true;
             now_rotato = true;
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (now_rotato == false && Input.GetKeyDown(KeyCode.DownArrow))
         {
             rotX_check = true;
             now_rotato = true;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (now_rotato == false && Input.GetKeyDown(KeyCode.Space))
         {
             rotZ_check = true;
             now_rotato = true;
@@ -151,7 +152,7 @@ public class Reverse_ctr : MonoBehaviour
                 room_rotato_y = 0.0f;
                 rot_Y_max = 180.0f;
             }
-            room_rotato_y += 300 * Time.deltaTime;
+            room_rotato_y += 350 * Time.deltaTime;
             if(room_rotato_y >= rot_Y_max)
             {
                 audio.Play();
@@ -174,7 +175,7 @@ public class Reverse_ctr : MonoBehaviour
                 room_rotato_x = 0.0f;
                 rot_X_max = 180.0f;
             }
-            room_rotato_x += 300 * Time.deltaTime;
+            room_rotato_x += 350 * Time.deltaTime;
             if (room_rotato_x >= rot_X_max)
             {
                 audio.Play();
@@ -205,7 +206,7 @@ public class Reverse_ctr : MonoBehaviour
                 rot_Z_max = 90.0f;
                 room_rotato_Z = 0.0f;
             }
-            room_rotato_Z += 200.0f * Time.deltaTime;
+            room_rotato_Z += 250.0f * Time.deltaTime;
             if(room_rotato_Z >= rot_Z_max)
             {
                 audio.Play();
@@ -216,9 +217,9 @@ public class Reverse_ctr : MonoBehaviour
         }
     }
 
-    void Title_Reverse()
+    void TitleReverse()
     {
-        if (room_rotato_y >= 90.0f && room_rotato_y <= 95.0f)
+        if (room_rotato_y >= 85.0f && room_rotato_y <= 95.0f)
         {
             rot_check = true;
         }

@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class Key_ctr : MonoBehaviour
 {
+    GameObject goal;
 
     Rigidbody2D rg2D;
+
+    Vector3 chase;
+
+    float rot_Y;
+
+    float alpha;
 
     // Start is called before the first frame update
     void Start()
     {
+        goal = GameObject.FindGameObjectWithTag("Door");
+
         rg2D = GetComponent<Rigidbody2D>();
     }
 
@@ -25,13 +34,40 @@ public class Key_ctr : MonoBehaviour
         {
             rg2D.isKinematic = false;
         }
+
+        if(Player_ctr.key_get == true)
+        {
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            rg2D.isKinematic = true;
+            rg2D.velocity = Vector2.zero;
+            KeyMove();
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D col)
+    void KeyMove()
     {
-        if(col.gameObject.tag == "Player")
+        float pos_x;
+        float pos_y;
+
+        rot_Y += 600.0f * Time.deltaTime;
+
+        chase += (goal.transform.position - transform.position) * 4.0f;
+        chase *= 0.45f;
+        transform.position += chase * Time.deltaTime;
+
+        pos_x = Mathf.Abs(goal.transform.position.x - transform.position.x);
+        pos_y = Mathf.Abs(goal.transform.position.y - transform.position.y);
+
+        if (pos_x <= 0.1 && pos_y <= 0.1)
         {
-            Destroy(gameObject);
+            rot_Y = 0.0f;
+            alpha -= 1.0f * Time.deltaTime;
+            gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+            if (alpha <= 0.0f)
+            {
+                Goal_ctr.goal_open = true;
+            }
         }
+        transform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
     }
 }

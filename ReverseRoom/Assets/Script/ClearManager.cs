@@ -9,6 +9,8 @@ public class ClearManager : Button_ctr
     //クリアしたかどうかを判定する変数
     public static bool clear_check;
 
+    string now_scene;
+
     //メインカメラを取得する変数
     Camera cam;
 
@@ -17,6 +19,7 @@ public class ClearManager : Button_ctr
     //-----------クリアメニュー一覧を取得する変数たち-----------//
     [SerializeField] GameObject panel;
     [SerializeField] Image clear_Logo;
+    [SerializeField] Image clear_Effect;
     [SerializeField] Image clear_menu;
     [SerializeField] Image next;
     [SerializeField] Image select;
@@ -30,6 +33,9 @@ public class ClearManager : Button_ctr
     //クリアメニューの透明度を変える変数
     float alpha;
 
+    float effect_scale;
+    float effect_alpha;
+
     //クリアロゴのY軸移動に使う変数
     float pos_Y = 250.0f;
     float rot_Y;
@@ -39,6 +45,9 @@ public class ClearManager : Button_ctr
     void Start()
     {
         audio = GetComponent<AudioSource>();
+
+        effect_alpha = 1.0f;
+        effect_scale = 0.0f;
 
         rot_Y = 0.0f;
         logo_scale = 0.0f;
@@ -65,6 +74,8 @@ public class ClearManager : Button_ctr
         next.color = new Color(1.0f, 1.0f, 1.0f, alpha);
         select.color = new Color(1.0f, 1.0f, 1.0f, alpha);
         retry.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        clear_Effect.color = new Color(1.0f, 1.0f, 1.0f, effect_alpha);
+        clear_Effect.GetComponent<RectTransform>().localScale = new Vector3(effect_scale, effect_scale);
     }
 
     // Update is called once per frame
@@ -96,12 +107,12 @@ public class ClearManager : Button_ctr
         }
         if(rot_Y < 360.0f)
         {
-            rot_Y += 300.0f * Time.deltaTime;
+            rot_Y += 450.0f * Time.deltaTime;
         }
         else
         {
+            ClearEffect();
             rot_Y = 360.0f;
-            GameClear2();
         }
         clear_Logo.rectTransform.localScale = new Vector2(logo_scale, logo_scale);
         clear_Logo.rectTransform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
@@ -124,7 +135,25 @@ public class ClearManager : Button_ctr
             {
                 List1.Select();
                 clear_check = false;
+                Time.timeScale = 0.0f;
             }
         }
+    }
+
+    void ClearEffect()
+    {
+        if (effect_scale <= 0.2f)
+        {
+            audio.Play();
+        }
+        effect_scale += 13.0f * Time.deltaTime;
+        effect_alpha -= 2.5f * Time.deltaTime;
+        if(effect_scale >= 15.0f)
+        {
+            GameClear2();
+        }
+
+        clear_Effect.color = new Color(1.0f, 1.0f, 1.0f, effect_alpha);
+        clear_Effect.GetComponent<RectTransform>().localScale = new Vector3(effect_scale, effect_scale);
     }
 }

@@ -11,6 +11,9 @@ public class Player_ctr : MonoBehaviour
 
     Animator anima;
 
+    AudioSource audio;
+    [SerializeField] AudioClip walk_se;
+
     string now_scene;
 
     float speed_x;
@@ -22,13 +25,16 @@ public class Player_ctr : MonoBehaviour
     float jump_Force = 500;
 
     float sleep_count;
-    float wait_count;
+    float walk_count;
+    const float sleep_time = 30.0f;
 
     Vector3 chase;
 
     float alpha;
 
     bool move_check;
+    bool animation_check;
+    bool now_sleep;
     bool player_goal;
 
     public static bool key_get;
@@ -43,6 +49,7 @@ public class Player_ctr : MonoBehaviour
         player_goal = false;
 
         move_check = true;
+        now_sleep = false;
 
         key_get = false;
 
@@ -50,7 +57,19 @@ public class Player_ctr : MonoBehaviour
 
         anima = GetComponent<Animator>();
 
+        audio = GetComponent<AudioSource>();
+        audio.clip = walk_se;
+
         alpha = 1.0f;
+
+        if(now_scene == "TitleScene")
+        {
+            animation_check = false;
+        }
+        else
+        {
+            animation_check = true;
+        }
     }
 
     // Update is called once per frame
@@ -69,10 +88,14 @@ public class Player_ctr : MonoBehaviour
                 ClearMove();
             }
 
+            if(animation_check == true)
+            {
+                PlayerAnimation();
+            }
+
             if (move_check == true)
             {
                 Move();
-                PlayerAnimation();
             }
             else
             {
@@ -83,13 +106,14 @@ public class Player_ctr : MonoBehaviour
             if (Camera_ctr.size_change == true)
             {
                 move_check = false;
+                animation_check = false;
             }
-            if (Camera_ctr.size_change == false)
+            if (Camera_ctr.size_change == false && now_sleep == false)
             {
                 move_check = true;
+                animation_check = true;
             }
         }
-
     }
 
     void Move()
@@ -108,11 +132,22 @@ public class Player_ctr : MonoBehaviour
             rg2D.AddForce(move);
         }
 
+        if(speed_x >= 0.1f && jump <= 0.01)
+        {
+            walk_count += 1.0f * Time.deltaTime;
+        }
+        if(walk_count >= 0.18f)
+        {
+            audio.Play();
+            walk_count = 0.0f;
+        }
+
         // ジャンプの処理
         jump = Mathf.Abs(rg2D.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space) && rg2D.velocity.y == 0)
+        if (Input.GetKeyDown(KeyCode.Space) && jump <= 0.01)
         {
+            audio.Play();
             rg2D.AddForce(transform.up * jump_Force);
         }
     }
@@ -138,10 +173,11 @@ public class Player_ctr : MonoBehaviour
             anima.SetFloat("JumpFloat", 0.0f);
         }
 
-        if (sleep_count >= 30.0f)
+        if (sleep_count >= sleep_time)
         {
-            anima.SetFloat("SleepFloat", sleep_count);
+            now_sleep = true;
             move_check = false;
+            anima.SetFloat("SleepFloat", sleep_count);
         }
 
         if (speed_x > 0.1f)
@@ -155,6 +191,7 @@ public class Player_ctr : MonoBehaviour
 
         if (anima.GetCurrentAnimatorStateInfo(0).IsName("Player_Wait"))
         {
+            now_sleep = false;
             move_check = true;
         }
 
@@ -169,6 +206,10 @@ public class Player_ctr : MonoBehaviour
     {
         rg2D.isKinematic = true;
         jump = Mathf.Abs(rg2D.velocity.y);
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            animation_check = true;
+        }
 
         if (Reverse_ctr.rot_check == true)
         {
@@ -182,7 +223,7 @@ public class Player_ctr : MonoBehaviour
         float pos_y;
 
         chase += (goal.transform.position - transform.position) * 4.0f;
-        chase *= 0.6f;
+        chase *= 0.5f;
         transform.position += chase * Time.deltaTime;
 
         pos_x = Mathf.Abs(goal.transform.position.x - transform.position.x);
@@ -199,6 +240,11 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
+    void Retry()
+    {
+        SceneManager.LoadScene(now_scene);
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.tag == "Key")
@@ -207,7 +253,9 @@ public class Player_ctr : MonoBehaviour
         }
         if (col.gameObject.tag == "DeadLine")
         {
-            SceneManager.LoadScene(now_scene);
+            Fade_ctr.fade = true;
+            Fade_ctr.fade_out = true;
+            Invoke(nameof(Retry), 0.5f);
         }
     }
 

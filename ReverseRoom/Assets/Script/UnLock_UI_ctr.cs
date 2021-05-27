@@ -32,7 +32,7 @@ public class UnLock_UI_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Player_ctr.key_get == true && unlock_out == false)
+        if (Goal_ctr.goal_open == true && unlock_out == false)
         {
             unlock_in = true;
         }
@@ -65,5 +65,9 @@ public class UnLock_UI_ctr : MonoBehaviour
     void UnLock_Out()
     {
         alpha -= 2.0f * Time.deltaTime;
+        if(alpha <= 0.0f)
+        {
+            Goal_ctr.goal_open = false;
+        }
     }
 }

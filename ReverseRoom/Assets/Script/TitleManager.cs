@@ -16,6 +16,12 @@ public class TitleManager : Button_ctr
     [SerializeField] Button m_List2;
     [SerializeField] Button m_List3;
 
+    [Header("TitleLogoを入れる")]
+    [SerializeField] GameObject title;
+
+    float title_pos_y;
+    float alpha;
+
     float rot_Z;
     float menu_alpha;
     float button_alpha;
@@ -23,10 +29,14 @@ public class TitleManager : Button_ctr
     bool menu_open;
 
     float invokeTime = 1.2f;
+    float load_time = 0.5f;
 
     // Start is called before the first frame update
     void Start()
     {
+        alpha = 0.0f;
+        title_pos_y = 0.0f;
+
         rot_Z = 45.0f;
 
         menu_alpha = 0.0f;
@@ -41,11 +51,16 @@ public class TitleManager : Button_ctr
         m_Credit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
         m_Exit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
         m_Back.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+
+        title.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        title.transform.position = new Vector3(0.0f, title_pos_y, 0.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        TitleLogo();
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu_open = true;
@@ -66,14 +81,27 @@ public class TitleManager : Button_ctr
     {
         Fade_ctr.fade = true;
         Fade_ctr.fade_out = true;
-        Invoke(nameof(LoadSelect), 0.5f);
+        Invoke(nameof(LoadSelect), load_time);
     }
     void LoadSelect()
     {
         SceneManager.LoadScene("SelectScene");
     }
 
+    void TitleLogo()
+    {
+        if(Fade_ctr.fade == false)
+        {
+            alpha += 0.7f * Time.deltaTime;
+            if(title_pos_y <= 1.0f)
+            {
+                title_pos_y += 0.7f * Time.deltaTime;
+            }
+        }
 
+        title.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+        title.transform.position = new Vector3(0.0f, title_pos_y, 0.0f);
+    }
     void OpenMenu()
     {
         m_MenuPanel.SetActive(true);
@@ -122,7 +150,7 @@ public class TitleManager : Button_ctr
     {
         Fade_ctr.fade = true;
         Fade_ctr.fade_out = true;
-        Invoke(nameof(EndApplication2), 0.5f);
+        Invoke(nameof(EndApplication2), load_time);
         Time.timeScale = 1.0f;
     }
     void EndApplication2()

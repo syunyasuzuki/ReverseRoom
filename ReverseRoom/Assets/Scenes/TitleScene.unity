@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4841d1e9e35a3c45a7ef42044f03ba2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reverse_SE: {fileID: 8300000, guid: d48aa374ce5361748ae1236a03abf6da, type: 3}
+  reverse_SE: {fileID: 8300000, guid: d421b7c4d66839041bfbd363b77383a0, type: 3}
 --- !u!82 &322717756
 AudioSource:
   m_ObjectHideFlags: 0
@@ -526,6 +526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 713279295}
   - component: {fileID: 713279296}
+  - component: {fileID: 713279297}
   m_Layer: 0
   m_Name: Logo
   m_TagString: Untagged
@@ -597,6 +598,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &713279297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 713279294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d1d4df82c5b4a84fb7b3ee50ed2012e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &767664365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1376,8 +1389,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5628c439440309c4a978099eabfa7fa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  load_Time: 0.28
-  now_scene: 
   m_MenuPanel: {fileID: 649081549}
   m_Menu: {fileID: 1293474289}
   m_Credit: {fileID: 1024455678}
@@ -1386,6 +1397,7 @@ MonoBehaviour:
   m_List1: {fileID: 1024455677}
   m_List2: {fileID: 767664367}
   m_List3: {fileID: 1582863754}
+  title: {fileID: 700938632}
 --- !u!82 &1952708722
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1398,7 +1410,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d1674e2f619d67b46832754598458765, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Block_ctr : MonoBehaviour
 {
-    [Header("Order in Layerの数を指定(1 or -1)")]
+    [Header("Order in Layerの数を指定(2 or -2)")]
     [SerializeField] int layer_number;
 
     GameObject parent;
 
     float white;
+
+    float alpha;
 
     bool front_block_check;
     bool back_block_check;
@@ -21,26 +23,40 @@ public class Block_ctr : MonoBehaviour
         transform.parent = parent.transform;
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
 
+        alpha = 0.0f;
+
         front_block_check = false;
         back_block_check = false;
+
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Reverse_ctr.rot_check == true)
+        Block();
+    }
+
+    void Block()
+    {
+        if (Fade_ctr.fade == false)
         {
-            if(layer_number == 1 && front_block_check == false)
+            alpha += 1.0f * Time.deltaTime;
+        }
+
+        if (Reverse_ctr.rot_check == true)
+        {
+            if (layer_number == 2 && front_block_check == false)
             {
                 back_block_check = true;
             }
-            if(layer_number == -1 && back_block_check == false)
+            if (layer_number == -2 && back_block_check == false)
             {
                 front_block_check = true;
             }
         }
 
-        if(Reverse_ctr.rot_check == false)
+        if (Reverse_ctr.rot_check == false)
         {
             back_block_check = false;
             front_block_check = false;
@@ -48,30 +64,25 @@ public class Block_ctr : MonoBehaviour
 
         if (front_block_check == true)
         {
-            layer_number = 1;
+            layer_number = 2;
         }
         if (back_block_check == true)
         {
-            layer_number = -1;
+            layer_number = -2;
         }
 
-        Block();
-    }
-
-    void Block()
-    {
-        if (layer_number == 1)
+        if (layer_number == 2)
         {
             white = 1.0f;
             gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         }
-        if (layer_number == -1)
+        if (layer_number == -2)
         {
             white = 0.4f;
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         }
 
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, 1.0f);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
     }
 }
