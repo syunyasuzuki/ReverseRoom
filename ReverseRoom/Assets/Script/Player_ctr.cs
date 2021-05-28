@@ -22,7 +22,7 @@ public class Player_ctr : MonoBehaviour
     float max_speed = 4.0f;
     Vector2 move;
     float jump;
-    float jump_Force = 500;
+    float jump_Force = 460;
 
     float sleep_count;
     float walk_count;
