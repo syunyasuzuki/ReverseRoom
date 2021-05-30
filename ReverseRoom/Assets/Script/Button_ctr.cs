@@ -45,6 +45,18 @@ public class Button_ctr : MonoBehaviour
         SceneManager.LoadScene("SelectScene");
     }
 
+    public void Go_Credit()
+    {
+        Time.timeScale = 1.0f;
+        Fade_ctr.fade = true;
+        Fade_ctr.fade_out = true;
+        Invoke(nameof(LoadCredit), load_Time);
+    }
+    void LoadCredit()
+    {
+        SceneManager.LoadScene("CreditScene");
+    }
+
     // ---------------ステージ移動のメソッド---------------------
     public void Stage1()
     {

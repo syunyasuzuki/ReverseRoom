@@ -35,12 +35,6 @@ public class Fade_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            fade = true;
-            fade_out = true;
-            Goal_ctr.goal_open = false;
-        }
         if(fade == true)
         {
             if(fade_in == true)
@@ -78,19 +72,7 @@ public class Fade_ctr : MonoBehaviour
         alpha += 2.5f * Time.deltaTime;
         if (alpha >= 1.0f)
         {
-            if(now_scene == "Stage1")
-            {
-                SceneManager.LoadScene("Stage3");
-            }
-            if(now_scene == "Stage3")
-            {
-                SceneManager.LoadScene("Stage7");
-            }
-            if(now_scene == "Stage7")
-            {
-                SceneManager.LoadScene("Stage9");
-            }
-            if(now_scene == "Stage9")
+            if(now_scene == "CreditScene")
             {
                 SceneManager.LoadScene("TitleScene");
             }
