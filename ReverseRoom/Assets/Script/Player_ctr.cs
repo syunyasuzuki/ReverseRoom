@@ -145,7 +145,7 @@ public class Player_ctr : MonoBehaviour
         // ジャンプの処理
         jump = Mathf.Abs(rg2D.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.Space) && jump <= 0.01)
+        if (jump <= 0.01 && Input.GetKeyDown(KeyCode.Space) || jump <= 0.01f && Input.GetKeyDown(KeyCode.UpArrow))
         {
             audio.Play();
             rg2D.AddForce(transform.up * jump_Force);
