@@ -39,6 +39,10 @@ public class Block_ctr : MonoBehaviour
 
     void Block()
     {
+        if(Player_ctr.game_over == true)
+        {
+            alpha = 0.0f;
+        }
         if (Fade_ctr.fade == false)
         {
             alpha += 1.0f * Time.deltaTime;
@@ -74,12 +78,12 @@ public class Block_ctr : MonoBehaviour
         if (layer_number == 2)
         {
             white = 1.0f;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
+            gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
         if (layer_number == -2)
         {
             white = 0.4f;
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
         }
 
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);

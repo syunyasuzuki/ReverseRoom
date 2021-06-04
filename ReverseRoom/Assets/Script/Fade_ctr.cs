@@ -37,6 +37,7 @@ public class Fade_ctr : MonoBehaviour
     {
         if(fade == true)
         {
+            fade_Image.enabled = true;
             if(fade_in == true)
             {
                 FadeIn();
@@ -58,6 +59,7 @@ public class Fade_ctr : MonoBehaviour
             if (alpha <= 0.0f)
             {
                 rot_Z = 0.0f;
+                fade_Image.enabled = false;
                 fade = false;
                 fade_in = false;
             }

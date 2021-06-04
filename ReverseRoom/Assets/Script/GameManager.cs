@@ -55,8 +55,6 @@ public class GameManager : Button_ctr
     // Update is called once per frame
     void Update()
     {
-        
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu_open = true;

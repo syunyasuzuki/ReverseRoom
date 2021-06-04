@@ -34,6 +34,8 @@ public class TitleManager : Button_ctr
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
+
         alpha = 0.0f;
         title_pos_y = 0.0f;
 
@@ -59,6 +61,11 @@ public class TitleManager : Button_ctr
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        {
+            m_List1.Select();
+        }
+
         TitleLogo();
 
         if (Input.GetKeyDown(KeyCode.Escape))

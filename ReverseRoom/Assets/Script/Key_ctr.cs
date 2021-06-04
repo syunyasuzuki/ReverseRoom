@@ -17,6 +17,8 @@ public class Key_ctr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        alpha = 1.0f;
+
         goal = GameObject.FindGameObjectWithTag("Door");
 
         rg2D = GetComponent<Rigidbody2D>();
@@ -25,6 +27,11 @@ public class Key_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Player_ctr.game_over == true)
+        {
+            alpha = 0.0f;
+        }
+
         if (Camera_ctr.size_change == true)
         {
             rg2D.velocity = Vector2.zero;
@@ -42,6 +49,8 @@ public class Key_ctr : MonoBehaviour
             rg2D.velocity = Vector2.zero;
             KeyMove();
         }
+
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
     }
 
     void KeyMove()
@@ -49,7 +58,7 @@ public class Key_ctr : MonoBehaviour
         float pos_x;
         float pos_y;
 
-        rot_Y += 600.0f * Time.deltaTime;
+        rot_Y += 750.0f * Time.deltaTime;
 
         chase += (goal.transform.position - transform.position) * 4.0f;
         chase *= 0.45f;
@@ -61,8 +70,7 @@ public class Key_ctr : MonoBehaviour
         if (pos_x <= 0.1 && pos_y <= 0.1)
         {
             rot_Y = 0.0f;
-            alpha -= 1.0f * Time.deltaTime;
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+            alpha -= 5.0f * Time.deltaTime;
             if (alpha <= 0.0f)
             {
                 Goal_ctr.goal_open = true;

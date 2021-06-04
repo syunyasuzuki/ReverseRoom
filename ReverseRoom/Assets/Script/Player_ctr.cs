@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player_ctr : MonoBehaviour
 {
     GameObject goal;
+    GameObject dead_point;
 
     Rigidbody2D rg2D;
 
@@ -13,6 +14,7 @@ public class Player_ctr : MonoBehaviour
 
     AudioSource audio;
     [SerializeField] AudioClip walk_se;
+    [SerializeField] AudioClip dead_se;
 
     string now_scene;
 
@@ -30,7 +32,9 @@ public class Player_ctr : MonoBehaviour
 
     Vector3 chase;
 
+    float rot_X;
     float alpha;
+    const float invoke_time = 0.5f;
 
     bool move_check;
     bool animation_check;
@@ -38,11 +42,13 @@ public class Player_ctr : MonoBehaviour
     bool player_goal;
 
     public static bool key_get;
+    public static bool game_over;
 
     // Start is called before the first frame update
     void Start()
     {
         goal = GameObject.FindGameObjectWithTag("Door");
+        dead_point = GameObject.FindGameObjectWithTag("DeadPoint");
 
         now_scene = SceneManager.GetActiveScene().name;
 
@@ -51,6 +57,7 @@ public class Player_ctr : MonoBehaviour
         move_check = true;
         now_sleep = false;
 
+        game_over = false;
         key_get = false;
 
         rg2D = GetComponent<Rigidbody2D>();
@@ -60,6 +67,7 @@ public class Player_ctr : MonoBehaviour
         audio = GetComponent<AudioSource>();
         audio.clip = walk_se;
 
+        rot_X = 0.0f;
         alpha = 1.0f;
 
         if(now_scene == "TitleScene")
@@ -82,6 +90,21 @@ public class Player_ctr : MonoBehaviour
         }
         else
         {
+            if(dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
+            {
+                GetComponent<BoxCollider2D>().isTrigger = true;
+                if(Camera_ctr.size_change == false)
+                {
+                    game_over = true;
+                    move_check = false;
+                    Invoke(nameof(PlayerDead), invoke_time);
+                }
+            }
+            else
+            {
+                GetComponent<BoxCollider2D>().isTrigger = false;
+            }
+
             if (player_goal == true)
             {
                 move_check = false;
@@ -105,13 +128,25 @@ public class Player_ctr : MonoBehaviour
 
             if (Camera_ctr.size_change == true)
             {
+                anima.SetFloat("WalkFloat", 0.0f);
                 move_check = false;
                 animation_check = false;
             }
             if (Camera_ctr.size_change == false && now_sleep == false)
             {
-                move_check = true;
-                animation_check = true;
+                if(dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
+                {
+                    audio.clip = dead_se;
+
+                    animation_check = true;
+                }
+                else
+                {
+                    audio.clip = walk_se;
+
+                    move_check = true;
+                    animation_check = true;
+                }
             }
         }
     }
@@ -154,7 +189,16 @@ public class Player_ctr : MonoBehaviour
 
     void PlayerAnimation()
     {
-        if(speed_x <= 0.01f && jump <= 0.01f)
+        if(dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
+        {
+            anima.SetTrigger("DeadTrigger");
+        }
+        else
+        {
+            anima.SetTrigger("WaitTrigger");
+        }
+
+        if (speed_x <= 0.01f && jump <= 0.01f)
         {
             sleep_count += 1.0f * Time.deltaTime;
         }
@@ -217,6 +261,30 @@ public class Player_ctr : MonoBehaviour
         }
     }
 
+    void PlayerDead()
+    {
+        if(rot_X <= 0.0f)
+        {
+            audio.Play();
+        }
+        if (rot_X >= -90.0f)
+        {
+            rot_X -= 100.0f * Time.deltaTime;
+        }
+        if(rot_X < -90.0f)
+        {
+            alpha = 0.0f;
+        }
+        if(alpha <= 0.0f)
+        {
+            Fade_ctr.fade = true;
+            Fade_ctr.fade_out = true;
+            Invoke(nameof(Retry), invoke_time);
+        }
+        transform.eulerAngles = new Vector3(rot_X, 0.0f, 0.0f);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
+    }
+
     void ClearMove()
     {
         float pos_x;
@@ -242,6 +310,8 @@ public class Player_ctr : MonoBehaviour
 
     void Retry()
     {
+        game_over = false;
+        dead_point.GetComponent<DeadPoint_ctr>().player_dead = false;
         SceneManager.LoadScene(now_scene);
     }
 
@@ -255,7 +325,7 @@ public class Player_ctr : MonoBehaviour
         {
             Fade_ctr.fade = true;
             Fade_ctr.fade_out = true;
-            Invoke(nameof(Retry), 0.5f);
+            Invoke(nameof(Retry), invoke_time);
         }
     }
 
