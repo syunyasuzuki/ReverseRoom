@@ -69,7 +69,7 @@ public class Reverse_ctr : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (cam.orthographicSize >= 8.0f)
             {
                 reverse_check = true;
             }
