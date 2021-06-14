@@ -3342,7 +3342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   block_Pre: []
-  player: {fileID: 5102667803479805573, guid: 492a20b72537b0c408ec059987a3418f, type: 3}
+  player: {fileID: 1621031997127844216, guid: c9be1ba6d60600b468f9cdb88569302e, type: 3}
   player_pos_x: -3
   player_pos_y: -3
   key: {fileID: 6371319859704464842, guid: 558e15bc71df1ec4b881a83ee0e0c615, type: 3}

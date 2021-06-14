@@ -14,7 +14,6 @@ public class Player_ctr : MonoBehaviour
 
     AudioSource audio;
     [SerializeField] AudioClip walk_se;
-    [SerializeField] AudioClip dead_se;
 
     string now_scene;
 
@@ -37,7 +36,6 @@ public class Player_ctr : MonoBehaviour
     const float invoke_time = 0.5f;
 
     bool move_check;
-    bool animation_check;
     bool now_sleep;
     bool player_goal;
 
@@ -69,15 +67,6 @@ public class Player_ctr : MonoBehaviour
 
         rot_X = 0.0f;
         alpha = 1.0f;
-
-        if(now_scene == "TitleScene")
-        {
-            animation_check = false;
-        }
-        else
-        {
-            animation_check = true;
-        }
     }
 
     // Update is called once per frame
@@ -85,24 +74,34 @@ public class Player_ctr : MonoBehaviour
     {
         if(now_scene == "TitleScene")
         {
-            TitlePlayer();
-            PlayerAnimation();
+            TitleMove();
         }
         else
         {
-            if(dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
+            if (Reverse_ctr.now_rotato == false && dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
             {
+                anima.SetFloat("PanicFloat", 1.0f);
                 GetComponent<BoxCollider2D>().isTrigger = true;
                 if(Camera_ctr.size_change == false)
                 {
                     game_over = true;
-                    move_check = false;
-                    Invoke(nameof(PlayerDead), invoke_time);
                 }
             }
             else
             {
+                anima.SetFloat("PanicFloat", 0.0f);
                 GetComponent<BoxCollider2D>().isTrigger = false;
+            }
+
+            if (Camera_ctr.size_change == true)
+            {
+                move_check = false;
+                anima.SetFloat("JumpFloat", 0.0f);
+                anima.SetFloat("WalkFloat", 0.0f);
+            }
+            if (Camera_ctr.size_change == false && now_sleep == false)
+            {
+                move_check = true;
             }
 
             if (player_goal == true)
@@ -111,9 +110,12 @@ public class Player_ctr : MonoBehaviour
                 ClearMove();
             }
 
-            if(animation_check == true)
+            if (game_over == true)
             {
-                PlayerAnimation();
+                anima.SetTrigger("DeadTrigger");
+                move_check = false;
+                GetComponent<BoxCollider2D>().enabled = false;
+                Invoke(nameof(PlayerDead), invoke_time);
             }
 
             if (move_check == true)
@@ -126,27 +128,10 @@ public class Player_ctr : MonoBehaviour
                 rg2D.velocity = Vector2.zero;
             }
 
-            if (Camera_ctr.size_change == true)
+            if(now_sleep == true)
             {
-                anima.SetFloat("WalkFloat", 0.0f);
                 move_check = false;
-                animation_check = false;
-            }
-            if (Camera_ctr.size_change == false && now_sleep == false)
-            {
-                if(dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
-                {
-                    audio.clip = dead_se;
-
-                    animation_check = true;
-                }
-                else
-                {
-                    audio.clip = walk_se;
-
-                    move_check = true;
-                    animation_check = true;
-                }
+                PlayerSleep();
             }
         }
     }
@@ -167,63 +152,7 @@ public class Player_ctr : MonoBehaviour
             rg2D.AddForce(move);
         }
 
-        if(speed_x >= 0.1f && jump <= 0.01)
-        {
-            walk_count += 1.0f * Time.deltaTime;
-        }
-        if(walk_count >= 0.18f)
-        {
-            audio.Play();
-            walk_count = 0.0f;
-        }
-
-        // ジャンプの処理
-        jump = Mathf.Abs(rg2D.velocity.y);
-
-        if (jump <= 0.01 && Input.GetKeyDown(KeyCode.Space) || jump <= 0.01f && Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            audio.Play();
-            rg2D.AddForce(transform.up * jump_Force);
-        }
-    }
-
-    void PlayerAnimation()
-    {
-        if(dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
-        {
-            anima.SetTrigger("DeadTrigger");
-        }
-        else
-        {
-            anima.SetTrigger("WaitTrigger");
-        }
-
-        if (speed_x <= 0.01f && jump <= 0.01f)
-        {
-            sleep_count += 1.0f * Time.deltaTime;
-        }
-        if (Input.anyKeyDown)
-        {
-            anima.SetFloat("SleepFloat", 0.0f);
-            sleep_count = 0.0f;
-        }
-
-        if (jump > 0.01f)
-        {
-            anima.SetFloat("JumpFloat", jump);
-        }
-        else
-        {
-            anima.SetFloat("JumpFloat", 0.0f);
-        }
-
-        if (sleep_count >= sleep_time)
-        {
-            now_sleep = true;
-            move_check = false;
-            anima.SetFloat("SleepFloat", sleep_count);
-        }
-
+        // X軸に変化があればウォークアニメーション起動
         if (speed_x > 0.1f)
         {
             anima.SetFloat("WalkFloat", speed_x);
@@ -233,10 +162,14 @@ public class Player_ctr : MonoBehaviour
             anima.SetFloat("WalkFloat", 0.0f);
         }
 
-        if (anima.GetCurrentAnimatorStateInfo(0).IsName("Player_Wait"))
+        if (speed_x >= 0.1f && jump <= 0.01)
         {
-            now_sleep = false;
-            move_check = true;
+            walk_count += 1.0f * Time.deltaTime;
+        }
+        if (walk_count >= 0.18f)
+        {
+            audio.Play();
+            walk_count = 0.0f;
         }
 
         //プレイヤーの向きを変える
@@ -244,29 +177,66 @@ public class Player_ctr : MonoBehaviour
         {
             transform.localScale = new Vector3(move_x, 1, 1);
         }
+
+        // ジャンプの処理
+        jump = Mathf.Abs(rg2D.velocity.y);
+
+        if (jump <= 0.05 && Input.GetKeyDown(KeyCode.Space))
+        {
+            audio.Play();
+            rg2D.AddForce(transform.up * jump_Force);
+        }
+
+        // Y軸の値に変化があったらジャンプアニメーション起動
+        if (jump > 0.01f)
+        {
+            anima.SetFloat("JumpFloat", jump);
+        }
+        else
+        {
+            anima.SetFloat("JumpFloat", 0.0f);
+        }
+
+        if (speed_x <= 0.01f && jump <= 0.01f)
+        {
+            sleep_count += Time.deltaTime;
+        }
+        if(sleep_count >= sleep_time)
+        {
+            now_sleep = true;
+        }
     }
 
-    void TitlePlayer()
+    void PlayerSleep()
+    {
+        anima.SetFloat("SleepFloat", sleep_count);
+
+        if (Input.anyKeyDown)
+        {
+            sleep_count = 0.0f;
+            anima.SetFloat("SleepFloat", 0.0f);
+        }
+
+        if (anima.GetCurrentAnimatorStateInfo(0).IsName("Player_Wait"))
+        {
+            now_sleep = false;
+        }
+    }
+
+    void TitleMove()
     {
         rg2D.isKinematic = true;
         jump = Mathf.Abs(rg2D.velocity.y);
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            animation_check = true;
-        }
 
         if (Reverse_ctr.rot_check == true)
         {
+            anima.SetFloat("JumpFloat", jump);
             rg2D.isKinematic = false;
         }
     }
 
     void PlayerDead()
     {
-        if(rot_X <= 0.0f)
-        {
-            audio.Play();
-        }
         if (rot_X >= -90.0f)
         {
             rot_X -= 100.0f * Time.deltaTime;

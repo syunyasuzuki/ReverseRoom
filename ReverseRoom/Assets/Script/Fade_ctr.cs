@@ -8,6 +8,7 @@ public class Fade_ctr : MonoBehaviour
 {
     [SerializeField] Image fade_Image;
 
+
     string now_scene;
 
     float alpha;

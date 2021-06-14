@@ -34,8 +34,6 @@ public class TitleManager : Button_ctr
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
-
         alpha = 0.0f;
         title_pos_y = 0.0f;
 

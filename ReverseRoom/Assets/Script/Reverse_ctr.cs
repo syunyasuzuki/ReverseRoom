@@ -73,6 +73,10 @@ public class Reverse_ctr : MonoBehaviour
             {
                 reverse_check = true;
             }
+            else
+            {
+                reverse_check = false;
+            }
         }
 
         if (reverse_check == true)

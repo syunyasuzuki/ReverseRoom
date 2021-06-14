@@ -3371,7 +3371,7 @@ MonoBehaviour:
   - {fileID: 7686356879145836387, guid: 08fd755b387a85347ae965fae904c678, type: 3}
   - {fileID: 431961587935865282, guid: ade00bdc6783c164da4e6bb01069290a, type: 3}
   - {fileID: 863567376390549855, guid: 5a636299855e3cd41a17ab210503f1b8, type: 3}
-  player: {fileID: 5102667803479805573, guid: 492a20b72537b0c408ec059987a3418f, type: 3}
+  player: {fileID: 1621031997127844216, guid: c9be1ba6d60600b468f9cdb88569302e, type: 3}
   player_pos_x: -2
   player_pos_y: -3
   key: {fileID: 6371319859704464842, guid: 558e15bc71df1ec4b881a83ee0e0c615, type: 3}

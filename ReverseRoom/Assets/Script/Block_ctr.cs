@@ -7,11 +7,20 @@ public class Block_ctr : MonoBehaviour
     [Header("Order in Layerの数を指定(2 or -2)")]
     [SerializeField] int layer_number;
 
+    [Header("回転するブロックかどうか？")]
+    [SerializeField] bool spin_block = false;
+
     GameObject parent;
 
     float white;
-
     float alpha;
+
+    float rot_x;
+    float rot_y;
+    float rot_z;
+    float rot_Z_max = 90.0f;
+    float spin_time;
+    bool rot_z_check;
 
     bool front_block_check;
     bool back_block_check;
@@ -35,6 +44,17 @@ public class Block_ctr : MonoBehaviour
     void Update()
     {
         Block();
+
+        if (spin_block == true && Camera_ctr.size_change == false)
+        {
+            spin_time += Time.deltaTime;
+            if(spin_time >= 2.0f)
+            {
+                rot_z_check = true;
+                spin_time = 0.0f;
+            }
+            SpinBlock();
+        }
     }
 
     void Block()
@@ -88,5 +108,37 @@ public class Block_ctr : MonoBehaviour
 
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
+    }
+
+    void SpinBlock()
+    {
+        // Z軸回転
+        if (rot_z_check == true)
+        {
+            if (rot_z >= 90.0f)
+            {
+                rot_Z_max = 180.0f;
+            }
+            if (rot_z >= 180.0f)
+            {
+                rot_Z_max = 270.0f;
+            }
+            if (rot_z >= 270.0f)
+            {
+                rot_Z_max = 360f;
+            }
+            if (rot_z >= 360.0f)
+            {
+                rot_Z_max = 90.0f;
+                rot_z = 0.0f;
+            }
+            rot_z += 500.0f * Time.deltaTime;
+            if (rot_z >= rot_Z_max)
+            {
+                rot_z = rot_Z_max;
+                rot_z_check = false;
+            }
+        }
+        transform.eulerAngles = new Vector3(rot_x, rot_y, rot_z);
     }
 }

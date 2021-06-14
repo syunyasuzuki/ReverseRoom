@@ -70,6 +70,5 @@ public class Goal_ctr : MonoBehaviour
         }
 
         transform.eulerAngles = new Vector3(0.0f, 0.0f, goal_rotato);
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
     }
 }
