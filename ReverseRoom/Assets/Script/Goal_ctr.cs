@@ -31,19 +31,23 @@ public class Goal_ctr : MonoBehaviour
             alpha = 0.0f;
         }
 
-        if(Camera_ctr.size_change == true)
-        {
-            GetComponent<BoxCollider2D>().enabled = false;
-        }
-        else
-        {
-            GetComponent<BoxCollider2D>().enabled = true;
-        }
+        //if(Camera_ctr.size_change == true)
+        //{
+        //    GetComponent<BoxCollider2D>().enabled = false;
+        //}
+        //else
+        //{
+        //    GetComponent<BoxCollider2D>().enabled = true;
+        //}
 
         if (goal_open == true)
         {
             anima.SetTrigger("OpenTrigger");
             GoalOpen();
+        }
+        else
+        {
+            GetComponent<BoxCollider2D>().enabled = false;
         }
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
     }
@@ -67,6 +71,11 @@ public class Goal_ctr : MonoBehaviour
             {
                 color_switch = true;
             }
+        }
+
+        if(goal_rotato >= 180.0f)
+        {
+            GetComponent<BoxCollider2D>().enabled = true;
         }
 
         transform.eulerAngles = new Vector3(0.0f, 0.0f, goal_rotato);

@@ -38,6 +38,7 @@ public class Player_ctr : MonoBehaviour
     bool move_check;
     bool now_sleep;
     bool player_goal;
+    public static bool now_jump;
 
     public static bool key_get;
     public static bool game_over;
@@ -54,6 +55,7 @@ public class Player_ctr : MonoBehaviour
 
         move_check = true;
         now_sleep = false;
+        now_jump = false;
 
         game_over = false;
         key_get = false;
@@ -181,19 +183,21 @@ public class Player_ctr : MonoBehaviour
         // ジャンプの処理
         jump = Mathf.Abs(rg2D.velocity.y);
 
-        if (jump <= 0.05 && Input.GetKeyDown(KeyCode.Space))
+        if (now_jump == false && Input.GetKeyDown(KeyCode.Space))
         {
             audio.Play();
             rg2D.AddForce(transform.up * jump_Force);
         }
 
         // Y軸の値に変化があったらジャンプアニメーション起動
-        if (jump > 0.01f)
+        if (jump > 0.05f)
         {
+            now_jump = true;
             anima.SetFloat("JumpFloat", jump);
         }
         else
         {
+            now_jump = false;
             anima.SetFloat("JumpFloat", 0.0f);
         }
 
@@ -201,6 +205,11 @@ public class Player_ctr : MonoBehaviour
         {
             sleep_count += Time.deltaTime;
         }
+        else
+        {
+            sleep_count = 0.0f;
+        }
+
         if(sleep_count >= sleep_time)
         {
             now_sleep = true;

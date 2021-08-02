@@ -10,16 +10,15 @@ public class Block_ctr : MonoBehaviour
     [Header("回転するブロックかどうか？")]
     [SerializeField] bool spin_block = false;
 
+    GameObject player;
+
     GameObject parent;
 
     float white;
     float alpha;
 
-    float rot_x;
-    float rot_y;
     float rot_z;
     float rot_Z_max = 90.0f;
-    float spin_time;
     bool rot_z_check;
 
     bool front_block_check;
@@ -28,6 +27,8 @@ public class Block_ctr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+
         parent = GameObject.FindGameObjectWithTag("ReverseObject");
         transform.parent = parent.transform;
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
@@ -47,13 +48,11 @@ public class Block_ctr : MonoBehaviour
 
         if (spin_block == true && Camera_ctr.size_change == false)
         {
-            spin_time += Time.deltaTime;
-            if(spin_time >= 2.0f)
+            if(Player_ctr.now_jump == false && Input.GetKeyDown(KeyCode.Space))
             {
                 rot_z_check = true;
-                spin_time = 0.0f;
             }
-            SpinBlock();
+            SpinBlockZ();
         }
     }
 
@@ -110,9 +109,8 @@ public class Block_ctr : MonoBehaviour
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
     }
 
-    void SpinBlock()
+    void SpinBlockZ()
     {
-        // Z軸回転
         if (rot_z_check == true)
         {
             if (rot_z >= 90.0f)
@@ -139,6 +137,6 @@ public class Block_ctr : MonoBehaviour
                 rot_z_check = false;
             }
         }
-        transform.eulerAngles = new Vector3(rot_x, rot_y, rot_z);
+        transform.eulerAngles = new Vector3(0.0f, 0.0f, rot_z);
     }
 }

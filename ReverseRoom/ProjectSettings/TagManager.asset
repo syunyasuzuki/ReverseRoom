@@ -10,6 +10,7 @@ TagManager:
   - DeadLine
   - Door
   - DeadPoint
+  - BlockPlus
   layers:
   - Default
   - TransparentFX
