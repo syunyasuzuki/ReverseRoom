@@ -26,8 +26,10 @@ public class Player_ctr : MonoBehaviour
     float jump_Force = 460;
 
     float sleep_count;
+    float blink_count;
     float walk_count;
-    const float sleep_time = 30.0f;
+    const float blink_time = 7.0f;
+    const float sleep_time = 25.0f;
 
     Vector3 chase;
 
@@ -203,11 +205,23 @@ public class Player_ctr : MonoBehaviour
 
         if (speed_x <= 0.01f && jump <= 0.01f)
         {
+            blink_count += Time.deltaTime;
             sleep_count += Time.deltaTime;
         }
         else
         {
+            blink_count = 0.0f;
             sleep_count = 0.0f;
+        }
+
+        if(blink_count >= blink_time)
+        {
+            anima.SetFloat("BlinkFloat", blink_time);
+            if(blink_count >= 7.1)
+            {
+                anima.SetFloat("BlinkFloat", 0.0f);
+                blink_count = 0.0f;
+            }
         }
 
         if(sleep_count >= sleep_time)
@@ -236,6 +250,17 @@ public class Player_ctr : MonoBehaviour
     {
         rg2D.isKinematic = true;
         jump = Mathf.Abs(rg2D.velocity.y);
+        blink_count += Time.deltaTime;
+
+        if (blink_count >= blink_time)
+        {
+            anima.SetFloat("BlinkFloat", blink_time);
+            if (blink_count >= 7.1)
+            {
+                anima.SetFloat("BlinkFloat", 0.0f);
+                blink_count = 0.0f;
+            }
+        }
 
         if (Reverse_ctr.rot_check == true)
         {

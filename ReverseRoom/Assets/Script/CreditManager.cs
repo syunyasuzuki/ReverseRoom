@@ -23,9 +23,9 @@ public class CreditManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (credit_pos_y <= 18.5f)
+        if (credit_pos_y <= 25.5f)
         {
-            if (Input.GetKey(KeyCode.Return))
+            if (Input.GetKey(KeyCode.Space))
             {
                 credit_pos_y += 5.0f * Time.deltaTime;
             }
@@ -34,7 +34,7 @@ public class CreditManager : MonoBehaviour
                 credit_pos_y += 1.0f * Time.deltaTime;
             }
         }
-        if (credit_pos_y > 18.5f)
+        if (credit_pos_y > 25.5f)
         {
             if (thank_alpha <= 3.0f)
             {

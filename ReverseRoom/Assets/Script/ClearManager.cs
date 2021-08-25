@@ -37,9 +37,12 @@ public class ClearManager : Button_ctr
     float effect_alpha;
 
     //クリアロゴのY軸移動に使う変数
-    float pos_Y = 250.0f;
+    float pos_Y;
+
     float rot_Y;
     float logo_scale;
+
+    float menu_rot_x;
 
     // Use this for initialization
     void Start()
@@ -51,6 +54,10 @@ public class ClearManager : Button_ctr
 
         rot_Y = 0.0f;
         logo_scale = 0.0f;
+
+        pos_Y = 0.0f;
+
+        menu_rot_x = -90.0f;
 
         //現在のシーン名取得
         now_scene = SceneManager.GetActiveScene().name;
@@ -67,10 +74,10 @@ public class ClearManager : Button_ctr
         //クリアメニューアルファ値の初期化
         alpha = 0.0f;
 
-        //クリアメニューの初期値設定
-        clear_menu.rectTransform.localPosition = new Vector3(-30.0f, -500.0f, 0.0f);
-
         //上記値を反映
+        clear_Logo.rectTransform.localPosition = new Vector3(0.0f, pos_Y, 0.0f);
+        clear_menu.rectTransform.localPosition = new Vector3(0.0f, -70.0f, 0.0f);
+        clear_menu.rectTransform.eulerAngles = new Vector3(menu_rot_x, 0.0f, 0.0f);
         next.color = new Color(1.0f, 1.0f, 1.0f, alpha);
         select.color = new Color(1.0f, 1.0f, 1.0f, alpha);
         retry.color = new Color(1.0f, 1.0f, 1.0f, alpha);
@@ -120,24 +127,32 @@ public class ClearManager : Button_ctr
 
     void GameClear2()
     {
-        if (clear_Logo.rectTransform.localPosition.y <= 120)
+        if (pos_Y <= 120)
         {
-            clear_Logo.rectTransform.localPosition += new Vector3(0.0f, pos_Y, 0.0f) * Time.deltaTime;
+            pos_Y += 250.0f * Time.deltaTime;
         }
         else
         {
-            clear_menu.rectTransform.localPosition = new Vector3(-30.0f, -20.0f, 0.0f);
-            alpha += 2.0f * Time.deltaTime;
-            next.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-            select.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-            retry.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-            if (alpha >= 1.0f)
+            if(menu_rot_x <= 0.0f)
             {
-                List1.Select();
-                clear_check = false;
-                Time.timeScale = 0.0f;
+                menu_rot_x += 270.0f * Time.deltaTime;
+            }
+            else
+            {
+                alpha += 2.0f * Time.deltaTime;
+                next.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+                select.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+                retry.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+                if (alpha >= 1.0f)
+                {
+                    List1.Select();
+                    clear_check = false;
+                    Time.timeScale = 0.0f;
+                }
             }
         }
+        clear_Logo.rectTransform.localPosition = new Vector3(0.0f, pos_Y, 0.0f);
+        clear_menu.rectTransform.eulerAngles = new Vector3(menu_rot_x, 0.0f, 0.0f);
     }
 
     void ClearEffect()

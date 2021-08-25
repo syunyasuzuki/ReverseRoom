@@ -101,19 +101,19 @@ public class Reverse_ctr : MonoBehaviour
             }
         }
 
-        if (room_rotato_x >= 85.0f && room_rotato_x <= 95.0f)
+        if (room_rotato_x >= 83.0f && room_rotato_x <= 97.0f)
         {
             rot_check = true;
         }
-        if (room_rotato_y >= 85.0f && room_rotato_y <= 95.0f)
+        if (room_rotato_y >= 83.0f && room_rotato_y <= 97.0f)
         {
             rot_check = true;
         }
-        if (room_rotato_x >= 265.0f && room_rotato_x <= 275.0f)
+        if (room_rotato_x >= 263.0f && room_rotato_x <= 277.0f)
         {
             rot_check = true;
         }
-        if (room_rotato_y >= 265.0f && room_rotato_y <= 275.0f)
+        if (room_rotato_y >= 263.0f && room_rotato_y <= 277.0f)
         {
             rot_check = true;
         }
@@ -156,7 +156,7 @@ public class Reverse_ctr : MonoBehaviour
                 room_rotato_y = 0.0f;
                 rot_Y_max = 180.0f;
             }
-            room_rotato_y += 350 * Time.deltaTime;
+            room_rotato_y += 400 * Time.deltaTime;
             if(room_rotato_y >= rot_Y_max)
             {
                 audio.Play();
@@ -179,7 +179,7 @@ public class Reverse_ctr : MonoBehaviour
                 room_rotato_x = 0.0f;
                 rot_X_max = 180.0f;
             }
-            room_rotato_x += 350 * Time.deltaTime;
+            room_rotato_x += 400 * Time.deltaTime;
             if (room_rotato_x >= rot_X_max)
             {
                 audio.Play();
