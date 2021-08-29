@@ -100,7 +100,7 @@ public class Key_ctr : MonoBehaviour
 
         if (pos_x <= 0.1 && pos_y <= 0.1 && rot_Y >= 540)
         {
-            rot_Y = 540.0f;
+            rot_Y = 720.0f;
             alpha -= 5.0f * Time.deltaTime;
             if (alpha <= 0.0f)
             {
