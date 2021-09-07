@@ -36,21 +36,28 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if(Button_ctr.now_button_select == true)
         {
-            Test(StateMode.Stop);
-        }
-        if(Reverse_ctr.now_rotato == false)
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                Test(StateMode.Play);
-            }
-        }
 
-        if (moveNow)
+        }
+        else
         {
-            Display_UI();
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                Test(StateMode.Stop);
+            }
+            if (Reverse_ctr.now_rotato == false)
+            {
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    Test(StateMode.Play);
+                }
+            }
+
+            if (moveNow)
+            {
+                Display_UI();
+            }
         }
     }
 

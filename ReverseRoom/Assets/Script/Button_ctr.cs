@@ -9,10 +9,12 @@ public class Button_ctr : MonoBehaviour
     // シーン遷移にかける時間
     float load_Time = 0.5f;
 
+    public static bool now_button_select;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        now_button_select = false;
     }
 
     // Update is called once per frame
@@ -30,6 +32,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadTitle()
     {
+        now_button_select = false;
         SceneManager.LoadScene("TitleScene");
     }
 
@@ -42,6 +45,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadSelect()
     {
+        now_button_select = false;
         SceneManager.LoadScene("SelectScene");
     }
 
@@ -54,6 +58,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadCredit()
     {
+        now_button_select = false;
         SceneManager.LoadScene("CreditScene");
     }
 
@@ -68,6 +73,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage1()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage1");
     }
 
@@ -81,6 +87,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage2()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage2");
     }
 
@@ -93,6 +100,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage3()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage3");
     }
 
@@ -105,6 +113,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage4()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage4");
     }
 
@@ -117,6 +126,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage5()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage5");
     }
 
@@ -129,6 +139,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage6()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage6");
     }
 
@@ -141,6 +152,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage7()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage7");
     }
 
@@ -153,6 +165,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage8()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage8");
     }
 
@@ -165,6 +178,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage9()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage9");
     }
 
@@ -177,6 +191,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage10()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage10");
     }
 
@@ -187,9 +202,9 @@ public class Button_ctr : MonoBehaviour
         Fade_ctr.fade_out = true;
         Invoke(nameof(LoadStage11), load_Time);
     }
-
     void LoadStage11()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage11");
     }
 
@@ -202,6 +217,7 @@ public class Button_ctr : MonoBehaviour
     }
     void LoadStage12()
     {
+        now_button_select = false;
         SceneManager.LoadScene("Stage12");
     }
     // --------------------------------------------------------

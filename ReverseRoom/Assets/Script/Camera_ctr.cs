@@ -46,35 +46,42 @@ public class Camera_ctr : MonoBehaviour
             return;
         }
 
-        if(now_scene == "TitleScene")
+        if(Button_ctr.now_button_select == true)
         {
 
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= normal_size)
+            if (now_scene == "TitleScene")
             {
-                size_change = true;
-                size_up = true;
-            }
-        }
 
-        if (Reverse_ctr.now_rotato == false)
-        {
-            if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= change_size)
+            }
+            else
             {
-                size_down = true;
+                if (Input.GetKeyDown(KeyCode.Z) && cam.orthographicSize <= normal_size)
+                {
+                    size_change = true;
+                    size_up = true;
+                }
             }
-        }
 
-        if (size_up == true)
-        {
-            SizeUp();
-        }
+            if (Reverse_ctr.now_rotato == false)
+            {
+                if (Input.GetKeyDown(KeyCode.X) && cam.orthographicSize >= change_size)
+                {
+                    size_down = true;
+                }
+            }
 
-        if(size_down == true)
-        {
-            SizeDown();
+            if (size_up == true)
+            {
+                SizeUp();
+            }
+
+            if (size_down == true)
+            {
+                SizeDown();
+            }
         }
     }
 

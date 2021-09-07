@@ -76,66 +76,73 @@ public class Player_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(now_scene == "TitleScene")
+        if(now_scene == "TitleScene" || now_scene == "SelectScene")
         {
             TitleMove();
         }
         else
         {
-            if (Reverse_ctr.now_rotato == false && dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
+            if(Button_ctr.now_button_select == true)
             {
-                anima.SetFloat("PanicFloat", 1.0f);
-                GetComponent<BoxCollider2D>().isTrigger = true;
-                if(Camera_ctr.size_change == false)
+                move_check = false;
+            }
+            else
+            {
+                if (Reverse_ctr.now_rotato == false && dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
                 {
-                    game_over = true;
+                    anima.SetFloat("PanicFloat", 1.0f);
+                    GetComponent<BoxCollider2D>().isTrigger = true;
+                    if (Camera_ctr.size_change == false)
+                    {
+                        game_over = true;
+                    }
                 }
-            }
-            else
-            {
-                anima.SetFloat("PanicFloat", 0.0f);
-                GetComponent<BoxCollider2D>().isTrigger = false;
-            }
+                else
+                {
+                    anima.SetFloat("PanicFloat", 0.0f);
+                    GetComponent<BoxCollider2D>().isTrigger = false;
+                }
 
-            if (Camera_ctr.size_change == true)
-            {
-                move_check = false;
-                anima.SetFloat("JumpFloat", 0.0f);
-                anima.SetFloat("WalkFloat", 0.0f);
-            }
-            if (Camera_ctr.size_change == false && now_sleep == false)
-            {
-                move_check = true;
-            }
+                if (Camera_ctr.size_change == true)
+                {
+                    move_check = false;
+                    anima.SetFloat("JumpFloat", 0.0f);
+                    anima.SetFloat("WalkFloat", 0.0f);
+                }
+                if (Camera_ctr.size_change == false && now_sleep == false)
+                {
+                    move_check = true;
+                }
 
-            if (player_goal == true)
-            {
-                move_check = false;
-                ClearMove();
-            }
+                if (player_goal == true)
+                {
+                    move_check = false;
+                    ClearMove();
+                }
 
-            if (game_over == true)
-            {
-                anima.SetTrigger("DeadTrigger");
-                move_check = false;
-                GetComponent<BoxCollider2D>().enabled = false;
-                Invoke(nameof(PlayerDead), invoke_time);
-            }
+                if (game_over == true)
+                {
+                    anima.SetTrigger("DeadTrigger");
+                    move_check = false;
+                    GetComponent<BoxCollider2D>().enabled = false;
+                    Invoke(nameof(PlayerDead), invoke_time);
+                }
 
-            if (move_check == true)
-            {
-                Move();
-            }
-            else
-            {
-                rg2D.isKinematic = true;
-                rg2D.velocity = Vector2.zero;
-            }
+                if (move_check == true)
+                {
+                    Move();
+                }
+                else
+                {
+                    rg2D.isKinematic = true;
+                    rg2D.velocity = Vector2.zero;
+                }
 
-            if(now_sleep == true)
-            {
-                move_check = false;
-                PlayerSleep();
+                if (now_sleep == true)
+                {
+                    move_check = false;
+                    PlayerSleep();
+                }
             }
         }
     }
@@ -307,6 +314,7 @@ public class Player_ctr : MonoBehaviour
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
             if(alpha <= 0.0f && alpha >= -0.05f)
             {
+                Button_ctr.now_button_select = true;
                 ClearManager.clear_check = true;
             }
         }

@@ -143,7 +143,7 @@ public class ClearManager : Button_ctr
                 next.color = new Color(1.0f, 1.0f, 1.0f, alpha);
                 select.color = new Color(1.0f, 1.0f, 1.0f, alpha);
                 retry.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-                if (alpha >= 1.0f)
+                if (alpha >= 1.0f && alpha <= 1.05f)
                 {
                     List1.Select();
                     clear_check = false;
