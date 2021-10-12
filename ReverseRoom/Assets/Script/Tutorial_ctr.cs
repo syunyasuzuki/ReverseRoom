@@ -42,7 +42,7 @@ public class Tutorial_ctr : MonoBehaviour
             alpha = 0.6f;
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             alpha = 0.0f;
         }

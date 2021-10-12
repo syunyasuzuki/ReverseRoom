@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class Player_ctr : MonoBehaviour
 {
     GameObject goal;
+
+    GameObject warp_point1;
+    GameObject warp_point2;
+
     GameObject dead_point;
 
     Rigidbody2D rg2D;
@@ -29,17 +33,29 @@ public class Player_ctr : MonoBehaviour
     float blink_count;
     float walk_count;
     const float blink_time = 7.0f;
-    const float sleep_time = 25.0f;
+    const float sleep_time = 45.0f;
+
+    float warp_point1_x;
+    float warp_point1_y;
+    float warp_point2_x;
+    float warp_point2_y;
 
     Vector3 chase;
 
     float rot_X;
+    float rot_Y;
     float alpha;
     const float invoke_time = 0.5f;
 
     bool move_check;
     bool now_sleep;
     bool player_goal;
+    bool warp_check1;
+    bool warp_check2;
+
+    bool warp_start1;
+    bool warp_start2;
+
     public static bool now_jump;
 
     public static bool key_get;
@@ -49,6 +65,8 @@ public class Player_ctr : MonoBehaviour
     void Start()
     {
         goal = GameObject.FindGameObjectWithTag("Door");
+        warp_point1 = GameObject.FindGameObjectWithTag("WarpPoint");
+        warp_point2 = GameObject.FindGameObjectWithTag("WarpPoint2");
         dead_point = GameObject.FindGameObjectWithTag("DeadPoint");
 
         now_scene = SceneManager.GetActiveScene().name;
@@ -63,6 +81,7 @@ public class Player_ctr : MonoBehaviour
         key_get = false;
 
         rg2D = GetComponent<Rigidbody2D>();
+        var material = GetComponent<Rigidbody2D>().sharedMaterial;
 
         anima = GetComponent<Animator>();
 
@@ -71,6 +90,18 @@ public class Player_ctr : MonoBehaviour
 
         rot_X = 0.0f;
         alpha = 1.0f;
+
+        if(warp_point1 == null)
+        {
+
+        }
+        else
+        {
+            warp_point1_x = warp_point1.transform.position.x;
+            warp_point1_y = warp_point1.transform.position.y;
+            warp_point2_x = warp_point2.transform.position.x;
+            warp_point2_y = warp_point2.transform.position.y;
+        }
     }
 
     // Update is called once per frame
@@ -138,6 +169,18 @@ public class Player_ctr : MonoBehaviour
                     rg2D.velocity = Vector2.zero;
                 }
 
+                if(warp_check2 == false && warp_check1 == true)
+                {
+                    warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
+                    PlayerWarp1();
+                }
+
+                if (warp_check1 == false && warp_check2 == true)
+                {
+                    warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
+                    PlayerWarp2();
+                }
+
                 if (now_sleep == true)
                 {
                     move_check = false;
@@ -199,7 +242,7 @@ public class Player_ctr : MonoBehaviour
         }
 
         // Y軸の値に変化があったらジャンプアニメーション起動
-        if (jump > 0.05f)
+        if (jump > 0.01f)
         {
             now_jump = true;
             anima.SetFloat("JumpFloat", jump);
@@ -235,6 +278,60 @@ public class Player_ctr : MonoBehaviour
         {
             now_sleep = true;
         }
+    }
+
+    void PlayerWarp1()
+    {
+        rg2D.isKinematic = true;
+        rg2D.velocity = Vector2.zero;
+
+        if (transform.position.x != warp_point2_x || transform.position.y != warp_point2_y)
+        {
+            rot_Y += 300.0f * Time.deltaTime;
+        }
+        if (rot_Y >= 90.0f)
+        {
+            transform.position = new Vector3(warp_point2_x, warp_point2_y);
+        }
+        if(transform.position.x == warp_point2_x && transform.position.y == warp_point2_y)
+        {
+            rot_Y -= 300.0f * Time.deltaTime;
+            if(rot_Y <= 0.0f)
+            {
+                rot_Y = 0.0f;
+                warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
+                warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
+                warp_check1 = false;
+            }
+        }
+        transform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
+    }
+
+    void PlayerWarp2()
+    {
+        rg2D.isKinematic = true;
+        rg2D.velocity = Vector2.zero;
+
+        if (transform.position.x != warp_point1_x || transform.position.y != warp_point1_y)
+        {
+            rot_Y += 300.0f * Time.deltaTime;
+        }
+        if (rot_Y >= 90.0f)
+        {
+            transform.position = new Vector3(warp_point1_x, warp_point1_y);
+        }
+        if(transform.position.x == warp_point1_x && transform.position.y == warp_point1_y)
+        {
+            rot_Y -= 300.0f * Time.deltaTime;
+            if(rot_Y <= 0.0f)
+            {
+                rot_Y = 0.0f;
+                warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
+                warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
+                warp_check2 = false;
+            }
+        }
+        transform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
     }
 
     void PlayerSleep()
@@ -348,6 +445,30 @@ public class Player_ctr : MonoBehaviour
             if (key_get == true)
             {
                 player_goal = true;
+            }
+        }
+    }
+
+    void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "WarpPoint")
+        {
+            if(warp_check2 == false)
+            {
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    warp_check1 = true;
+                }
+            }
+        }
+        if(col.gameObject.tag == "WarpPoint2")
+        {
+            if(warp_check1 == false)
+            {
+                if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    warp_check2 = true;
+                }
             }
         }
     }

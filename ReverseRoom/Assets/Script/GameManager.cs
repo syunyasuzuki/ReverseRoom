@@ -66,13 +66,13 @@ public class GameManager : Button_ctr
             menu_open = true;
         }
 
-        if(menu_open == true)
+        if(menu_close == false && menu_open == true)
         {
             now_button_select = true;
             OpenMenu();
         }
 
-        if(menu_close == true)
+        if(menu_open == false && menu_close == true)
         {
             MenuClose();
         }
@@ -81,7 +81,7 @@ public class GameManager : Button_ctr
     void OpenMenu()
     {
         m_MenuPanel.SetActive(true);
-        panel_rot_Y -= 300.0f * Time.deltaTime;
+        panel_rot_Y -= 400.0f * Time.deltaTime;
         if(panel_rot_Y <= 0.0f)
         {
             panel_rot_Y = 0.0f;
@@ -89,7 +89,7 @@ public class GameManager : Button_ctr
             if (menu_alpha >= 1.0f)
             {
                 menu_alpha = 1.0f;
-                menu_rot_Z -= 180.0f * Time.deltaTime;
+                menu_rot_Z -= 230.0f * Time.deltaTime;
                 if (menu_rot_Z <= 0.0f)
                 {
                     menu_rot_Z = 0.0f;

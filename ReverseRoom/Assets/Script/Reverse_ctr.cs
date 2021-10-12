@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class Reverse_ctr : MonoBehaviour
 {
+    GameObject spin_effect;
+
     Camera cam;
 
     AudioSource audio;
     [SerializeField] AudioClip reverse_SE;
+
+    float alpha;
 
     float room_rotato_x;
     float room_rotato_y;
@@ -16,6 +20,9 @@ public class Reverse_ctr : MonoBehaviour
     float rot_Z_max = 90.0f;
     float rot_X_max = 180.0f;
     float rot_Y_max = 180.0f;
+
+    bool effect_start;
+    bool alpha_switch;
 
     bool reverse_check;
     bool title_reverse_check;
@@ -32,6 +39,8 @@ public class Reverse_ctr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spin_effect = GameObject.FindGameObjectWithTag("SpinEffect");
+
         now_Scene = SceneManager.GetActiveScene().name;
 
         reverse_check = false;
@@ -61,7 +70,7 @@ public class Reverse_ctr : MonoBehaviour
 
         if (now_Scene == "TitleScene")
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 audio.Play();
                 title_reverse_check = true;
@@ -87,20 +96,11 @@ public class Reverse_ctr : MonoBehaviour
         {
             TitleReverse();
         }
-
         transform.eulerAngles = new Vector3(room_rotato_x, room_rotato_y, room_rotato_Z);
     }
 
     void Reverse()
     {
-        if(now_rotato == false)
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                reverse_check = false;
-            }
-        }
-
         if (room_rotato_x >= 83.0f && room_rotato_x <= 97.0f)
         {
             rot_check = true;
@@ -161,6 +161,7 @@ public class Reverse_ctr : MonoBehaviour
             {
                 audio.Play();
                 room_rotato_y = rot_Y_max;
+                spin_effect.GetComponent<SpinEffect_ctr>().effect_start = true;
                 rotY_check = false;
                 now_rotato = false;
                 rot_check = false;
@@ -184,6 +185,7 @@ public class Reverse_ctr : MonoBehaviour
             {
                 audio.Play();
                 room_rotato_x = rot_X_max;
+                spin_effect.GetComponent<SpinEffect_ctr>().effect_start = true;
                 rotX_check = false;
                 now_rotato = false;
                 rot_check = false;
@@ -215,6 +217,7 @@ public class Reverse_ctr : MonoBehaviour
             {
                 audio.Play();
                 room_rotato_Z = rot_Z_max;
+                spin_effect.GetComponent<SpinEffect_ctr>().effect_start = true;
                 rotZ_check = false;
                 now_rotato = false;
             }

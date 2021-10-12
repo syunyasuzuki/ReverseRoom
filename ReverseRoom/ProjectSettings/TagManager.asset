@@ -11,6 +11,9 @@ TagManager:
   - Door
   - DeadPoint
   - BlockPlus
+  - WarpPoint
+  - WarpPoint2
+  - SpinEffect
   layers:
   - Default
   - TransparentFX

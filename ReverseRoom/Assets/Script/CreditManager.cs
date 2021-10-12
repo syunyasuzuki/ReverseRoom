@@ -25,13 +25,13 @@ public class CreditManager : MonoBehaviour
     {
         if (credit_pos_y <= 26.5f)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Return))
             {
                 credit_pos_y += 5.0f * Time.deltaTime;
             }
             else
             {
-                credit_pos_y += 1.0f * Time.deltaTime;
+                credit_pos_y += 0.9f * Time.deltaTime;
             }
         }
         if (credit_pos_y > 26.5f)

@@ -14,6 +14,7 @@ public class Fade_ctr : MonoBehaviour
     float alpha;
 
     float rot_Z;
+    float rot_Y;
 
     public static bool fade;
     public static bool fade_in;
@@ -82,6 +83,17 @@ public class Fade_ctr : MonoBehaviour
             fade = false;
             fade_out = false;
         }
+        fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+    }
+
+    void FadeIn2()
+    {
+        fade_Image.rectTransform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
+        fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+    }
+    void FadeOut2()
+    {
+        fade_Image.rectTransform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
         fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
     }
 }

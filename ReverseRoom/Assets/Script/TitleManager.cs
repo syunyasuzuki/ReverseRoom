@@ -22,11 +22,13 @@ public class TitleManager : Button_ctr
     float title_pos_y;
     float alpha;
 
-    float rot_Z;
+    float panel_rot_Y;
+    float menu_rot_Z;
     float menu_alpha;
     float button_alpha;
 
     bool menu_open;
+    bool menu_close;
 
     float invokeTime = 1.2f;
     float load_time = 0.5f;
@@ -37,16 +39,18 @@ public class TitleManager : Button_ctr
         alpha = 0.0f;
         title_pos_y = 0.0f;
 
-        rot_Z = 45.0f;
+        panel_rot_Y = 90.0f;
+        menu_rot_Z = 45.0f;
 
         menu_alpha = 0.0f;
         button_alpha = 0.0f;
 
         menu_open = false;
+        menu_close = false;
 
         m_MenuPanel.SetActive(false);
 
-        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, rot_Z);
+        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, menu_rot_Z);
         m_Menu.color = new Color(1.0f, 1.0f, 1.0f, menu_alpha);
         m_Credit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
         m_Exit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
@@ -75,8 +79,12 @@ public class TitleManager : Button_ctr
         {
             OpenMenu();
         }
+        if(menu_close == true)
+        {
+            MenuClose();
+        }
 
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             Invoke(nameof(FadeStart), invokeTime);
         }
@@ -107,27 +115,71 @@ public class TitleManager : Button_ctr
         title.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
         title.transform.position = new Vector3(0.0f, title_pos_y, 0.0f);
     }
+
     void OpenMenu()
     {
         m_MenuPanel.SetActive(true);
-        menu_alpha += 3.0f * Time.deltaTime;
-        if (menu_alpha >= 1.0f)
+        panel_rot_Y -= 300.0f * Time.deltaTime;
+        if (panel_rot_Y <= 0.0f)
         {
-            rot_Z -= 180.0f * Time.deltaTime;
-            if (rot_Z <= 0.0f)
+            panel_rot_Y = 0.0f;
+            menu_alpha += 3.0f * Time.deltaTime;
+            if (menu_alpha >= 1.0f)
             {
-                rot_Z = 0.0f;
-                button_alpha += 3.0f * Time.deltaTime;
-                if (button_alpha >= 1.0f)
+                menu_alpha = 1.0f;
+                menu_rot_Z -= 180.0f * Time.deltaTime;
+                if (menu_rot_Z <= 0.0f)
                 {
-                    m_List1.Select();
-                    menu_open = false;
-                    Time.timeScale = 0.0f;
+                    menu_rot_Z = 0.0f;
+                    button_alpha += 3.0f * Time.deltaTime;
+                    if (button_alpha >= 1.0f)
+                    {
+                        button_alpha = 1.0f;
+                        m_List1.Select();
+                        now_button_select = true;
+                        menu_open = false;
+                        Time.timeScale = 0.0f;
+                    }
                 }
             }
         }
 
-        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, rot_Z);
+        m_MenuPanel.transform.eulerAngles = new Vector3(0.0f, panel_rot_Y, 0.0f);
+        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, menu_rot_Z);
+        m_Menu.color = new Color(1.0f, 1.0f, 1.0f, menu_alpha);
+        m_Credit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Exit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        m_Back.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+    }
+
+    void MenuClose()
+    {
+        button_alpha -= 6.0f * Time.deltaTime;
+        if (button_alpha <= 0.0f)
+        {
+            button_alpha = 0.0f;
+            menu_rot_Z += 300.0f * Time.deltaTime;
+            if (menu_rot_Z >= 45.0f)
+            {
+                menu_rot_Z = 45.0f;
+                menu_alpha -= 6.0f * Time.deltaTime;
+                if (menu_alpha <= 0.0f)
+                {
+                    menu_alpha = 0.0f;
+                    panel_rot_Y += 400 * Time.deltaTime;
+                    if (panel_rot_Y >= 90.0f)
+                    {
+                        panel_rot_Y = 90.0f;
+                        m_MenuPanel.SetActive(false);
+                        menu_close = false;
+                        now_button_select = false;
+                    }
+                }
+            }
+        }
+
+        m_MenuPanel.transform.eulerAngles = new Vector3(0.0f, panel_rot_Y, 0.0f);
+        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, menu_rot_Z);
         m_Menu.color = new Color(1.0f, 1.0f, 1.0f, menu_alpha);
         m_Credit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
         m_Exit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
@@ -136,19 +188,9 @@ public class TitleManager : Button_ctr
 
     public void Back()
     {
-        m_MenuPanel.SetActive(false);
         Time.timeScale = 1.0f;
 
-        rot_Z = 45.0f;
-
-        menu_alpha = 0.0f;
-        button_alpha = 0.0f;
-
-        m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, rot_Z);
-        m_Menu.color = new Color(1.0f, 1.0f, 1.0f, menu_alpha);
-        m_Credit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
-        m_Exit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
-        m_Back.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+        menu_close = true;
     }
 
     public void EndApplication()

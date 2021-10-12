@@ -42,13 +42,13 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 Test(StateMode.Stop);
             }
             if (Reverse_ctr.now_rotato == false)
             {
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.Return))
                 {
                     Test(StateMode.Play);
                 }
