@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: 2968417454421418312
     second: Arrow3_1
+  - first:
+      213: 668857657807970679
+    second: Arrow3_2
+  - first:
+      213: -3219922784679393470
+    second: Arrow3_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -111,7 +117,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 14
-        height: 12
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -129,10 +135,10 @@ TextureImporter:
       name: Arrow3_1
       rect:
         serializedVersion: 2
-        x: 15
+        x: 14
         y: 0
         width: 14
-        height: 12
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,6 +148,48 @@ TextureImporter:
       bones: []
       spriteID: 841abdb82ffe13920800000000000000
       internalID: 2968417454421418312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Arrow3_2
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 771a1fafe72484900800000000000000
+      internalID: 668857657807970679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Arrow3_3
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 0
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2478ff689498053d0800000000000000
+      internalID: -3219922784679393470
       vertices: []
       indices: 
       edges: []
