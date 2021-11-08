@@ -9,6 +9,8 @@ public class SelectNumber_ctr : MonoBehaviour
     [SerializeField] Sprite[] number;
 
     int select_number = 0;
+    // 選べるステージの最大値を決める
+    int max_number = 14;
 
     float rot_Y;
 
@@ -42,15 +44,21 @@ public class SelectNumber_ctr : MonoBehaviour
 
     void NumberRotate()
     {
-        if (number_down == false && number_up == false && select_number < 11 && Input.GetKeyDown(KeyCode.RightArrow))
+        if (number_down == false && number_up == false && select_number < max_number)
         {
-            select_number += 1;
-            number_up = true;
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                select_number += 1;
+                number_up = true;
+            }
         }
-        if (number_up == false && number_down == false && select_number > 0 && Input.GetKeyDown(KeyCode.LeftArrow))
+        if (number_up == false && number_down == false && select_number > 0)
         {
-            select_number -= 1;
-            number_down = true;
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                select_number -= 1;
+                number_down = true;
+            }
         }
 
         if (number_up == true)

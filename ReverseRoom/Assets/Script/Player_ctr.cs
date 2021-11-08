@@ -35,6 +35,8 @@ public class Player_ctr : MonoBehaviour
     const float blink_time = 7.0f;
     const float sleep_time = 45.0f;
 
+    float warp_count = 0;
+
     float warp_point1_x;
     float warp_point1_y;
     float warp_point2_x;
@@ -110,6 +112,23 @@ public class Player_ctr : MonoBehaviour
         if(now_scene == "TitleScene" || now_scene == "SelectScene")
         {
             TitleMove();
+            if(warp_count < 1.2f)
+            {
+                warp_count += Time.deltaTime;
+            }
+            if (warp_count >= 1.2f)
+            {
+                if (warp_check2 == false && warp_check1 == true)
+                {
+                    warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
+                    PlayerWarp1();
+                }
+                if (warp_check1 == false && warp_check2 == true)
+                {
+                    warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
+                    PlayerWarp2();
+                }
+            }
         }
         else
         {
@@ -291,13 +310,21 @@ public class Player_ctr : MonoBehaviour
         }
         if (rot_Y >= 90.0f)
         {
+            if (now_scene == "SelectScene")
+            {
+                transform.localScale = new Vector3(1, 1, 1);
+            }
             transform.position = new Vector3(warp_point2_x, warp_point2_y);
         }
-        if(transform.position.x == warp_point2_x && transform.position.y == warp_point2_y)
+        if (transform.position.x == warp_point2_x && transform.position.y == warp_point2_y)
         {
             rot_Y -= 300.0f * Time.deltaTime;
             if(rot_Y <= 0.0f)
             {
+                if (now_scene == "SelectScene")
+                {
+                    warp_count = 0.0f;
+                }
                 rot_Y = 0.0f;
                 warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
                 warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
@@ -318,6 +345,10 @@ public class Player_ctr : MonoBehaviour
         }
         if (rot_Y >= 90.0f)
         {
+            if(now_scene == "SelectScene")
+            {
+                transform.localScale = new Vector3(-1, 1, 1);
+            }
             transform.position = new Vector3(warp_point1_x, warp_point1_y);
         }
         if(transform.position.x == warp_point1_x && transform.position.y == warp_point1_y)
@@ -325,6 +356,10 @@ public class Player_ctr : MonoBehaviour
             rot_Y -= 300.0f * Time.deltaTime;
             if(rot_Y <= 0.0f)
             {
+                if (now_scene == "SelectScene")
+                {
+                    warp_count = 0.0f;
+                }
                 rot_Y = 0.0f;
                 warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
                 warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
@@ -451,23 +486,43 @@ public class Player_ctr : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D col)
     {
-        if (col.gameObject.tag == "WarpPoint")
+        if(now_scene == "SelectScene")
         {
-            if(warp_check2 == false)
+            if (col.gameObject.tag == "WarpPoint")
             {
-                if (Input.GetKey(KeyCode.UpArrow))
+                if (warp_check2 == false)
                 {
                     warp_check1 = true;
                 }
             }
-        }
-        if(col.gameObject.tag == "WarpPoint2")
-        {
-            if(warp_check1 == false)
+            if (col.gameObject.tag == "WarpPoint2")
             {
-                if (Input.GetKey(KeyCode.UpArrow))
+                if (warp_check1 == false)
                 {
                     warp_check2 = true;
+                }
+            }
+        }
+        else
+        {
+            if (col.gameObject.tag == "WarpPoint")
+            {
+                if (warp_check2 == false)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        warp_check1 = true;
+                    }
+                }
+            }
+            if (col.gameObject.tag == "WarpPoint2")
+            {
+                if (warp_check1 == false)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        warp_check2 = true;
+                    }
                 }
             }
         }

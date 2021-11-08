@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WarpPoint_ctr : MonoBehaviour
 {
-    GameObject warp1;
-    GameObject warp2;
-
     AudioSource audio;
     [SerializeField] AudioClip warp_SE;
 
-    string my_name;
+    string now_scene;
 
     float white;
     float alpha;
@@ -28,6 +26,8 @@ public class WarpPoint_ctr : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        now_scene = SceneManager.GetActiveScene().name;
+
         audio = GetComponent<AudioSource>();
         audio.clip = warp_SE;
 
@@ -54,25 +54,31 @@ public class WarpPoint_ctr : MonoBehaviour
             GetComponent<BoxCollider2D>().enabled = true;
         }
 
-
-        if (now_warp == true)
+        if(now_scene == "SelectScene")
         {
-            if (warp_se_ON == true)
-            {
-                audio.Play();
-                warp_se_ON = false;
-            }
+
         }
         else
         {
-            if (player_touch == true)
+            if (now_warp == true)
             {
-                if (Input.GetKey(KeyCode.UpArrow))
+                if (warp_se_ON == true)
                 {
-                    now_warp = true;
+                    audio.Play();
+                    warp_se_ON = false;
                 }
             }
-            warp_se_ON = true;
+            else
+            {
+                if (player_touch == true)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        now_warp = true;
+                    }
+                }
+                warp_se_ON = true;
+            }
         }
     }
 

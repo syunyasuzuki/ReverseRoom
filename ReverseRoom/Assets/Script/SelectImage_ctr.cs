@@ -11,11 +11,14 @@ public class SelectImage_ctr : MonoBehaviour
 
     [SerializeField] Image left_arrow;
     [SerializeField] Image right_arrow;
+    [SerializeField] GameObject warp1;
+    [SerializeField] GameObject warp2;
 
     [SerializeField] Sprite[] select;
     [SerializeField] Button[] button_list;
 
     int select_number = 0;
+    int max_number = 14;
 
     float rot_Y;
 
@@ -39,6 +42,9 @@ public class SelectImage_ctr : MonoBehaviour
         left_alpha = 0.0f;
         right_alpha = 1.0f;
 
+        warp1.SetActive(false);
+        warp2.SetActive(false);
+
         number_up = false;
         number_down = false;
 
@@ -55,15 +61,21 @@ public class SelectImage_ctr : MonoBehaviour
 
     void SelectRotate()
     {
-        if (number_down == false && number_up == false && select_number < 11 && Input.GetKeyDown(KeyCode.RightArrow))
+        if (number_down == false && number_up == false && select_number < max_number)
         {
-            select_number += 1;
-            number_up = true;
+            if (Input.GetKey(KeyCode.RightArrow))
+            {
+                select_number += 1;
+                number_up = true;
+            }
         }
-        if (number_up == false && number_down == false && select_number > 0 && Input.GetKeyDown(KeyCode.LeftArrow))
+        if (number_up == false && number_down == false && select_number > 0)
         {
-            select_number -= 1;
-            number_down = true;
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                select_number -= 1;
+                number_down = true;
+            }
         }
 
         if(number_up == true)
@@ -72,6 +84,7 @@ public class SelectImage_ctr : MonoBehaviour
             if(rot_Y >= 360.0f)
             {
                 audio.Play();
+                GimmickImage();
                 rot_Y = 0.0f;
                 number_up = false;
             }
@@ -82,6 +95,7 @@ public class SelectImage_ctr : MonoBehaviour
             if(rot_Y <= -360.0f)
             {
                 audio.Play();
+                GimmickImage();
                 rot_Y = 0.0f;
                 number_down = false;
             }
@@ -110,7 +124,7 @@ public class SelectImage_ctr : MonoBehaviour
             left_alpha = 1.0f;
         }
 
-        if(select_number == 11 || number_down == true || number_up == true)
+        if(select_number == max_number || number_down == true || number_up == true)
         {
             right_alpha = 0.0f;
         }
@@ -120,5 +134,19 @@ public class SelectImage_ctr : MonoBehaviour
         }
         left_arrow.color = new Color(1.0f, 1.0f, 1.0f, left_alpha);
         right_arrow.color = new Color(1.0f, 1.0f, 1.0f, right_alpha);
+    }
+
+    void GimmickImage()
+    {
+        if(select_number >= 12)
+        {
+            warp1.SetActive(true);
+            warp2.SetActive(true);
+        }
+        else
+        {
+            warp1.SetActive(false);
+            warp2.SetActive(false);
+        }
     }
 }

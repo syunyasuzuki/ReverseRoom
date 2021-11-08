@@ -30,6 +30,8 @@ public class TitleManager : Button_ctr
     bool menu_open;
     bool menu_close;
 
+    public static bool title_start;
+
     float invokeTime = 1.2f;
     float load_time = 0.5f;
 
@@ -47,6 +49,8 @@ public class TitleManager : Button_ctr
 
         menu_open = false;
         menu_close = false;
+
+        title_start = false;
 
         m_MenuPanel.SetActive(false);
 
@@ -78,15 +82,19 @@ public class TitleManager : Button_ctr
         if (menu_open == true)
         {
             OpenMenu();
+            title_start = false;
         }
         if(menu_close == true)
         {
             MenuClose();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if(title_start == true)
         {
-            Invoke(nameof(FadeStart), invokeTime);
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                Invoke(nameof(FadeStart), invokeTime);
+            }
         }
     }
 
@@ -109,6 +117,11 @@ public class TitleManager : Button_ctr
             if(title_pos_y <= 1.0f)
             {
                 title_pos_y += 0.7f * Time.deltaTime;
+            }
+            if(title_pos_y >= 1.0f)
+            {
+                title_start = true;
+                Fade_ctr.fade = true;
             }
         }
 
@@ -173,6 +186,7 @@ public class TitleManager : Button_ctr
                         m_MenuPanel.SetActive(false);
                         menu_close = false;
                         now_button_select = false;
+                        title_start = true;
                     }
                 }
             }

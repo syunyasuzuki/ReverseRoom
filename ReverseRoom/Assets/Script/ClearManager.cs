@@ -161,15 +161,15 @@ public class ClearManager : Button_ctr
         {
             audio.Play();
         }
-        if(effect_scale >= 3.5f)
+        if(effect_scale >= 1.5f)
         {
-            effect_alpha -= 8.0f * Time.deltaTime;
+            effect_alpha -= 3.0f * Time.deltaTime;
         }
-        if(effect_scale >= 15.0f)
+        if(effect_scale >= 13.0f)
         {
             GameClear2();
         }
-        effect_scale += 13.0f * Time.deltaTime;
+        effect_scale += 10.0f * Time.deltaTime;
 
         clear_Effect.color = new Color(1.0f, 1.0f, 1.0f, effect_alpha);
         clear_Effect.GetComponent<RectTransform>().localScale = new Vector3(effect_scale, effect_scale);

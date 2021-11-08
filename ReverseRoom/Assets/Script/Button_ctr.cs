@@ -234,7 +234,6 @@ public class Button_ctr : MonoBehaviour
         SceneManager.LoadScene("Stage13");
     }
 
-
     public void Stage14()
     {
         Time.timeScale = 1.0f;
@@ -246,6 +245,19 @@ public class Button_ctr : MonoBehaviour
     {
         now_button_select = false;
         SceneManager.LoadScene("Stage14");
+    }
+
+    public void Stage15()
+    {
+        Time.timeScale = 1.0f;
+        Fade_ctr.fade = true;
+        Fade_ctr.fade_out = true;
+        Invoke(nameof(LoadStage15), load_Time);
+    }
+    void LoadStage15()
+    {
+        now_button_select = false;
+        SceneManager.LoadScene("Stage15");
     }
 
 
