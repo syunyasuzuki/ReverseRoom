@@ -38,6 +38,30 @@ TextureImporter:
   - first:
       213: -9070652100310461767
     second: Select_Number_11
+  - first:
+      213: 1803871360772624791
+    second: Select_Number_12
+  - first:
+      213: 8245039919590574247
+    second: Select_Number_13
+  - first:
+      213: -5831945811613819360
+    second: Select_Number_14
+  - first:
+      213: 8991591992514758534
+    second: Select_Number_15
+  - first:
+      213: 8119097524374034918
+    second: Select_Number_16
+  - first:
+      213: 5433305442477884246
+    second: Select_Number_17
+  - first:
+      213: -2217654452738901215
+    second: Select_Number_18
+  - first:
+      213: 2508664464371240342
+    second: Select_Number_19
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -382,6 +406,174 @@ TextureImporter:
       bones: []
       spriteID: 9b218df19f19e1280800000000000000
       internalID: -9070652100310461767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_12
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 0
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7915a5ff173a80910800000000000000
+      internalID: 1803871360772624791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_13
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 0
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a88c1e6f144c6270800000000000000
+      internalID: 8245039919590574247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_14
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 0
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02e5e6dee24c01fa0800000000000000
+      internalID: -5831945811613819360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_15
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 0
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 687c617174d88cc70800000000000000
+      internalID: 8991591992514758534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_16
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e9511d7e24dca070800000000000000
+      internalID: 8119097524374034918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_17
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 21
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6534717538af66b40800000000000000
+      internalID: 5433305442477884246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_18
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 0
+        width: 17
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b3fed560f4931e0800000000000000
+      internalID: -2217654452738901215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Select_Number_19
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 0
+        width: 15
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69d4e73f90190d220800000000000000
+      internalID: 2508664464371240342
       vertices: []
       indices: 
       edges: []

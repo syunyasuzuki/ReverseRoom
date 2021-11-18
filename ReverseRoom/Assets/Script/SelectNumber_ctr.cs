@@ -10,7 +10,7 @@ public class SelectNumber_ctr : MonoBehaviour
 
     int select_number = 0;
     // 選べるステージの最大値を決める
-    int max_number = 14;
+    int max_number = 16;
 
     float rot_Y;
 

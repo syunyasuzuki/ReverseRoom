@@ -11,14 +11,13 @@ public class SelectImage_ctr : MonoBehaviour
 
     [SerializeField] Image left_arrow;
     [SerializeField] Image right_arrow;
-    [SerializeField] GameObject warp1;
-    [SerializeField] GameObject warp2;
+    GameObject player;
 
     [SerializeField] Sprite[] select;
     [SerializeField] Button[] button_list;
 
     int select_number = 0;
-    int max_number = 14;
+    int max_number = 16;
 
     float rot_Y;
 
@@ -28,9 +27,13 @@ public class SelectImage_ctr : MonoBehaviour
     bool number_up;
     bool number_down;
 
+    public static bool gimmick_on;
+
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+
         audio = GetComponent<AudioSource>();
 
         select_sprite = gameObject.GetComponent<SpriteRenderer>();
@@ -42,11 +45,10 @@ public class SelectImage_ctr : MonoBehaviour
         left_alpha = 0.0f;
         right_alpha = 1.0f;
 
-        warp1.SetActive(false);
-        warp2.SetActive(false);
-
         number_up = false;
         number_down = false;
+
+        gimmick_on = false;
 
         left_arrow.color = new Color(1.0f, 1.0f, 1.0f, left_alpha);
         right_arrow.color = new Color(1.0f, 1.0f, 1.0f, right_alpha);
@@ -84,7 +86,7 @@ public class SelectImage_ctr : MonoBehaviour
             if(rot_Y >= 360.0f)
             {
                 audio.Play();
-                GimmickImage();
+                WarpGimmickOn();
                 rot_Y = 0.0f;
                 number_up = false;
             }
@@ -95,7 +97,7 @@ public class SelectImage_ctr : MonoBehaviour
             if(rot_Y <= -360.0f)
             {
                 audio.Play();
-                GimmickImage();
+                WarpGimmickOn();
                 rot_Y = 0.0f;
                 number_down = false;
             }
@@ -136,17 +138,15 @@ public class SelectImage_ctr : MonoBehaviour
         right_arrow.color = new Color(1.0f, 1.0f, 1.0f, right_alpha);
     }
 
-    void GimmickImage()
+    void WarpGimmickOn()
     {
         if(select_number >= 12)
         {
-            warp1.SetActive(true);
-            warp2.SetActive(true);
+            gimmick_on = true;
         }
         else
         {
-            warp1.SetActive(false);
-            warp2.SetActive(false);
+            gimmick_on = false;
         }
     }
 }

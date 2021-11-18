@@ -260,6 +260,32 @@ public class Button_ctr : MonoBehaviour
         SceneManager.LoadScene("Stage15");
     }
 
+    public void Stage16()
+    {
+        Time.timeScale = 1.0f;
+        Fade_ctr.fade = true;
+        Fade_ctr.fade_out = true;
+        Invoke(nameof(LoadStage16), load_Time);
+    }
+    void LoadStage16()
+    {
+        now_button_select = false;
+        SceneManager.LoadScene("Stage16");
+    }
+
+    public void Stage17()
+    {
+        Time.timeScale = 1.0f;
+        Fade_ctr.fade = true;
+        Fade_ctr.fade_out = true;
+        Invoke(nameof(LoadStage17), load_Time);
+    }
+    void LoadStage17()
+    {
+        now_button_select = false;
+        SceneManager.LoadScene("Stage17");
+    }
+
 
     // --------------------------------------------------------
 }

@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4257807b0916fe3448eb0258e631fba7, type: 3}
+  m_Name: Stage Database
+  m_EditorClassIdentifier: 
+  stageList:
+  - stageImage: {fileID: -3502998294920707719, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 5428199387489880705, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 5383339976488921067, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 5605055758961578347, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 8265873419776141874, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 6675552033823289191, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 2913311595942971066, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: -1526463884518523584, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: -3194571194470336020, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 5069326246305694069, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: 965680175711921891, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: -8909002199972852020, guid: d42b45dd5714d99449c4b5f990240620,
+      type: 3}
+    warpEvent: 0
+  - stageImage: {fileID: -7729575352967958130, guid: e38a5ed2a34c195448fd4109390304af,
+      type: 3}
+    warpEvent: 1
+  - stageImage: {fileID: 4097819927845890726, guid: e38a5ed2a34c195448fd4109390304af,
+      type: 3}
+    warpEvent: 1
+  - stageImage: {fileID: 6373820552905506828, guid: e38a5ed2a34c195448fd4109390304af,
+      type: 3}
+    warpEvent: 1
+  - stageImage: {fileID: -5106821673831043888, guid: e38a5ed2a34c195448fd4109390304af,
+      type: 3}
+    warpEvent: 1
+  - stageImage: {fileID: 4852211852631968092, guid: e38a5ed2a34c195448fd4109390304af,
+      type: 3}
+    warpEvent: 1

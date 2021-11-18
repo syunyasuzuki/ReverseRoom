@@ -109,21 +109,28 @@ public class Player_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(now_scene == "TitleScene" || now_scene == "SelectScene")
+        if(now_scene == "TitleScene")
         {
             TitleMove();
-            if(warp_count < 1.2f)
+        }
+        else if(now_scene == "SelectScene")
+        {
+            if (SelectImage_ctr.gimmick_on == true)
             {
-                warp_count += Time.deltaTime;
+                if (warp_count <= 0.8f)
+                {
+                    warp_count += Time.deltaTime;
+                }
             }
-            if (warp_count >= 1.2f)
+
+            if (warp_count >= 0.8f)
             {
                 if (warp_check2 == false && warp_check1 == true)
                 {
                     warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
                     PlayerWarp1();
                 }
-                if (warp_check1 == false && warp_check2 == true)
+                else if (warp_check1 == false && warp_check2 == true)
                 {
                     warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
                     PlayerWarp2();

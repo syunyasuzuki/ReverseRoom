@@ -36,8 +36,6 @@ public class WarpPoint_ctr : MonoBehaviour
         color_switch = true;
 
         now_warp = false;
-
-        alpha = 1.0f;
     }
 
     // Update is called once per frame
@@ -56,10 +54,19 @@ public class WarpPoint_ctr : MonoBehaviour
 
         if(now_scene == "SelectScene")
         {
-
+            if(SelectImage_ctr.gimmick_on == true)
+            {
+                alpha = 1.0f;
+            }
+            else
+            {
+                alpha = 0.0f;
+            }
         }
         else
         {
+            alpha = 1.0f;
+
             if (now_warp == true)
             {
                 if (warp_se_ON == true)
@@ -100,7 +107,7 @@ public class WarpPoint_ctr : MonoBehaviour
                 color_switch = true;
             }
         }
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, 1.0f);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
     }
 
     void OnTriggerEnter2D(Collider2D col)
