@@ -19,15 +19,17 @@ public class Player_ctr : MonoBehaviour
     AudioSource audio;
     [SerializeField] AudioClip walk_se;
 
+    int sprite_number;
+
     string now_scene;
 
+    Vector2 move;
     float speed_x;
-    float speed = 1000;
+    const float speed = 1000;
     float move_x;
     float max_speed = 4.0f;
-    Vector2 move;
     float jump;
-    float jump_Force = 460;
+    const float jump_Force = 460;
 
     float sleep_count;
     float blink_count;
@@ -51,6 +53,7 @@ public class Player_ctr : MonoBehaviour
 
     bool move_check;
     bool now_sleep;
+    bool now_squat;
     bool player_goal;
     bool warp_check1;
     bool warp_check2;
@@ -261,28 +264,50 @@ public class Player_ctr : MonoBehaviour
         // ジャンプの処理
         jump = Mathf.Abs(rg2D.velocity.y);
 
-        if (now_jump == false && Input.GetKeyDown(KeyCode.Space))
-        {
-            audio.Play();
-            rg2D.AddForce(transform.up * jump_Force);
-        }
-
         // Y軸の値に変化があったらジャンプアニメーション起動
         if (jump > 0.01f)
         {
-            now_jump = true;
             anima.SetFloat("JumpFloat", jump);
         }
         else
         {
-            now_jump = false;
             anima.SetFloat("JumpFloat", 0.0f);
+
+            if (anima.GetCurrentAnimatorStateInfo(0).IsName("Player_Jump"))
+            {
+
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    audio.Play();
+                    rg2D.AddForce(transform.up * jump_Force);
+                }
+            }
         }
 
         if (speed_x <= 0.01f && jump <= 0.01f)
         {
             blink_count += Time.deltaTime;
             sleep_count += Time.deltaTime;
+
+            // しゃがむ
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                now_squat = true;
+                anima.SetFloat("SquatFloat", 1.0f);
+            }
+            else if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                now_squat = false;
+                anima.SetFloat("SquatFloat", 0.0f);
+            }
+            else
+            {
+                now_squat = false;
+                anima.SetFloat("SquatFloat", 0.0f);
+            }
         }
         else
         {
@@ -379,6 +404,7 @@ public class Player_ctr : MonoBehaviour
     void PlayerSleep()
     {
         anima.SetFloat("SleepFloat", sleep_count);
+        transform.localScale = new Vector3(1, 1, 1);
 
         if (Input.anyKeyDown)
         {

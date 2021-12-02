@@ -14,9 +14,14 @@ public class SwitchBlock_ctr : MonoBehaviour
     int switch_number;
 
     float white;
+    float scale;
+
+    const float scale_speed = 3.5f;
 
     bool player_is_on;
     bool color_switch;
+    bool scale_switch;
+    bool push_now;
 
     [Header("TRUE：アクティブ　FALSE：非アクティブ")]
     public bool active_switch;
@@ -29,8 +34,10 @@ public class SwitchBlock_ctr : MonoBehaviour
         audio.clip = switch_SE;
 
         switch_number = 0;
+        scale = 1.0f;
 
         player_is_on = false;
+        push_now = false;
 
         if(active_switch == true)
         {
@@ -54,6 +61,7 @@ public class SwitchBlock_ctr : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     active_switch = true;
+                    push_now = true;
                     audio.Play();
                     switch_number = 1;
                 }
@@ -63,17 +71,41 @@ public class SwitchBlock_ctr : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     active_switch = false;
+                    push_now = true;
                     audio.Play();
                     switch_number = 0;
                 }
             }
         }
+
+        if(push_now == true)
+        {
+            NowPush();
+        }
         switch_image.sprite = switch_on_off[switch_number];
     }
 
-    void ColorBlinking()
+    void NowPush()
     {
-
+        if(scale_switch == false)
+        {
+            scale -= scale_speed * Time.deltaTime;
+            if(scale <= 0.8f)
+            {
+                scale_switch = true;
+            }
+        }
+        else
+        {
+            scale += scale_speed * Time.deltaTime;
+            if(scale >= 1.0f)
+            {
+                scale = 1.0f;
+                scale_switch = false;
+                push_now = false;
+            }
+        }
+        transform.localScale = new Vector2(scale, scale);
     }
 
     private void OnCollisionEnter2D(Collision2D col)

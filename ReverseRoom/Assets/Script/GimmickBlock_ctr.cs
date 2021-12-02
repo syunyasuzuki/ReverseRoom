@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GimmickBlock_ctr : MonoBehaviour
 {
-    [Header("Order in Layerの数を指定(2 or -2)")]
+    [Header("Order in Layerの数を指定(3 or -3)")]
     [SerializeField] int layer_number;
+
+    Animator anima;
 
     GameObject parent;
     GameObject switch_block;
@@ -13,6 +15,8 @@ public class GimmickBlock_ctr : MonoBehaviour
     float white;
     float alpha;
     float start_alpha;
+
+    bool start;
 
     bool front_block_check;
     bool back_block_check;
@@ -26,6 +30,8 @@ public class GimmickBlock_ctr : MonoBehaviour
         transform.parent = parent.transform;
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
 
+        anima = GetComponent<Animator>();
+
         alpha = 0.0f;
         if(switch_block.GetComponent<SwitchBlock_ctr>().active_switch == true)
         {
@@ -36,14 +42,16 @@ public class GimmickBlock_ctr : MonoBehaviour
             start_alpha = 0.4f;
         }
 
-        if(layer_number == 2)
+        if(layer_number == 3)
         {
             white = 1.0f;
         }
-        else if(layer_number == -2)
+        else if(layer_number == -3)
         {
             white = 0.4f;
         }
+
+        start = false;
 
         front_block_check = false;
         back_block_check = false;
@@ -54,43 +62,55 @@ public class GimmickBlock_ctr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Fade_ctr.fade == false)
+        if (Fade_ctr.fade == false)
         {
             if (Player_ctr.game_over == true)
             {
                 alpha = 0.0f;
             }
-            if(alpha <= start_alpha)
+            if (alpha < start_alpha)
             {
                 alpha += Time.deltaTime;
             }
+            else if(alpha >= start_alpha)
+            {
+                start = true;
+            }
         }
 
-        if (switch_block.GetComponent<SwitchBlock_ctr>().active_switch == true)
+        if(start == true && Player_ctr.game_over == false)
         {
-            Block();
-            alpha = 1.0f;
-            transform.parent = parent.transform;
-        }
-        else
-        {
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            alpha = 0.4f;
-            transform.parent = null;
+            if (switch_block.GetComponent<SwitchBlock_ctr>().active_switch == true)
+            {
+                Block();
+                alpha = 1.0f;
+                transform.parent = parent.transform;
+            }
+            else
+            {
+                gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                alpha = 0.4f;
+                transform.parent = null;
+            }
         }
 
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
+    }
+
+    void ColorBlink()
+    {
+
     }
 
     void Block()
     {
         if (Reverse_ctr.rot_check == true)
         {
-            if (layer_number == 2 && front_block_check == false)
+            if (layer_number == 3 && front_block_check == false)
             {
                 back_block_check = true;
             }
-            if (layer_number == -2 && back_block_check == false)
+            if (layer_number == -3 && back_block_check == false)
             {
                 front_block_check = true;
             }
@@ -104,19 +124,19 @@ public class GimmickBlock_ctr : MonoBehaviour
 
         if (front_block_check == true)
         {
-            layer_number = 2;
+            layer_number = 3;
         }
         if (back_block_check == true)
         {
-            layer_number = -2;
+            layer_number = -3;
         }
 
-        if (layer_number == 2)
+        if (layer_number == 3)
         {
             white = 1.0f;
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
         }
-        if (layer_number == -2)
+        if (layer_number == -3)
         {
             white = 0.4f;
             gameObject.GetComponent<BoxCollider2D>().enabled = false;

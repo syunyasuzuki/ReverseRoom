@@ -409,6 +409,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walk_se: {fileID: 8300000, guid: cb5b85e972fe39446acc50d69fc4e2d3, type: 3}
+  squat_image:
+  - {fileID: -2311659948842064771, guid: 71d40c10f119f7545ab04f0341688af3, type: 3}
+  - {fileID: -4529042392078601758, guid: 71d40c10f119f7545ab04f0341688af3, type: 3}
 --- !u!82 &6056148959727844901
 AudioSource:
   m_ObjectHideFlags: 0
