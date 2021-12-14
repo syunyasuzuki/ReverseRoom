@@ -151,7 +151,7 @@ public class Player_ctr : MonoBehaviour
                 if (Reverse_ctr.now_rotato == false && dead_point.GetComponent<DeadPoint_ctr>().player_dead == true)
                 {
                     anima.SetFloat("PanicFloat", 1.0f);
-                    GetComponent<BoxCollider2D>().isTrigger = true;
+                    GetComponent<Collider2D>().isTrigger = true;
                     if (Camera_ctr.size_change == false)
                     {
                         game_over = true;
@@ -160,7 +160,7 @@ public class Player_ctr : MonoBehaviour
                 else
                 {
                     anima.SetFloat("PanicFloat", 0.0f);
-                    GetComponent<BoxCollider2D>().isTrigger = false;
+                    GetComponent<Collider2D>().isTrigger = false;
                 }
 
                 if (Camera_ctr.size_change == true)
@@ -184,7 +184,7 @@ public class Player_ctr : MonoBehaviour
                 {
                     anima.SetTrigger("DeadTrigger");
                     move_check = false;
-                    GetComponent<BoxCollider2D>().enabled = false;
+                    GetComponent<Collider2D>().enabled = false;
                     Invoke(nameof(PlayerDead), invoke_time);
                 }
 

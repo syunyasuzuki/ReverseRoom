@@ -7,16 +7,23 @@ public class GimmickBlock_ctr : MonoBehaviour
     [Header("Order in Layerの数を指定(3 or -3)")]
     [SerializeField] int layer_number;
 
-    Animator anima;
+    SpriteRenderer gimmick_block_image;
+
+    [SerializeField] Sprite[] gimmick_on_off;
 
     GameObject parent;
     GameObject switch_block;
 
+    int gimmick_number;
+
     float white;
     float alpha;
+    float blink;
+    const float blink_speed = 0.3f;
     float start_alpha;
 
-    bool start;
+    bool gimmick_start;
+    bool color_switch;
 
     bool front_block_check;
     bool back_block_check;
@@ -30,16 +37,17 @@ public class GimmickBlock_ctr : MonoBehaviour
         transform.parent = parent.transform;
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = layer_number;
 
-        anima = GetComponent<Animator>();
+        gimmick_block_image = GetComponent<SpriteRenderer>();
 
-        alpha = 0.0f;
+        alpha = 1.0f;
+
         if(switch_block.GetComponent<SwitchBlock_ctr>().active_switch == true)
         {
-            start_alpha = 1.0f;
+            gimmick_number = 1;
         }
         else
         {
-            start_alpha = 0.4f;
+            gimmick_number = 0;
         }
 
         if(layer_number == 3)
@@ -51,11 +59,12 @@ public class GimmickBlock_ctr : MonoBehaviour
             white = 0.4f;
         }
 
-        start = false;
+        gimmick_start = false;
 
         front_block_check = false;
         back_block_check = false;
 
+        gimmick_block_image.sprite = gimmick_on_off[gimmick_number];
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
     }
 
@@ -68,38 +77,54 @@ public class GimmickBlock_ctr : MonoBehaviour
             {
                 alpha = 0.0f;
             }
-            if (alpha < start_alpha)
+            if (alpha < 1.0f)
             {
                 alpha += Time.deltaTime;
             }
-            else if(alpha >= start_alpha)
+            else if(alpha >= 1.0f)
             {
-                start = true;
+                gimmick_start = true;
             }
         }
 
-        if(start == true && Player_ctr.game_over == false)
+        if(gimmick_start == true && Player_ctr.game_over == false)
         {
             if (switch_block.GetComponent<SwitchBlock_ctr>().active_switch == true)
             {
                 Block();
-                alpha = 1.0f;
+                gimmick_number = 1;
                 transform.parent = parent.transform;
             }
             else
             {
                 gameObject.GetComponent<BoxCollider2D>().enabled = false;
-                alpha = 0.4f;
+                gimmick_number = 0;
                 transform.parent = null;
             }
         }
 
+        gimmick_block_image.sprite = gimmick_on_off[gimmick_number];
         gameObject.GetComponent<SpriteRenderer>().color = new Color(white, white, white, alpha);
     }
 
     void ColorBlink()
     {
-
+        if(color_switch == true)
+        {
+            blink -= blink_speed * Time.deltaTime;
+            if(blink <= -0.2f)
+            {
+                color_switch = false;
+            }
+        }
+        else
+        {
+            blink += blink_speed * Time.deltaTime;
+            if(blink >= 0.0f)
+            {
+                color_switch = true;
+            }
+        }
     }
 
     void Block()

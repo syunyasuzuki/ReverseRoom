@@ -1,25 +1,37 @@
 fileFormatVersion: 2
-guid: bc10b66c0ae85b444882c5ae83d53eaa
+guid: 6ef1edb70c7dc8f4495e94dd928d4b3f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7603666905177727253
-    second: GimmickBlock3_0
+      213: -4839033856031950493
+    second: GimmickBlock2_0
   - first:
-      213: 8093375130177166986
-    second: GimmickBlock3_1
+      213: -8931023466781712402
+    second: GimmickBlock2_1
   - first:
-      213: -8501392435876283500
-    second: GimmickBlock3_2
+      213: 3933355066205477734
+    second: GimmickBlock2_2
   - first:
-      213: -5837197180343558968
-    second: GimmickBlock3_3
+      213: 2263846653232202119
+    second: GimmickBlock2_3
   - first:
-      213: 8512433479055209444
-    second: GimmickBlock3_4
+      213: 7201801147710768747
+    second: GimmickBlock2_4
   - first:
-      213: 480266152077975230
-    second: GimmickBlock3_5
+      213: -336463094225306390
+    second: GimmickBlock2_5
+  - first:
+      213: -1414637287543116170
+    second: GimmickBlock2_6
+  - first:
+      213: -5747559992945410546
+    second: GimmickBlock2_7
+  - first:
+      213: 6440072795190317067
+    second: GimmickBlock2_8
+  - first:
+      213: -2573207678705136957
+    second: GimmickBlock2_9
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -117,7 +129,112 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GimmickBlock3_0
+      name: GimmickBlock2_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 50
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3697023a85c48dcb0800000000000000
+      internalID: -4839033856031950493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GimmickBlock2_1
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 50
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef5ccdb971ae0480800000000000000
+      internalID: -8931023466781712402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GimmickBlock2_2
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 50
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b19a8c795169630800000000000000
+      internalID: 3933355066205477734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GimmickBlock2_3
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 50
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 781ccd7698cca6f10800000000000000
+      internalID: 2263846653232202119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GimmickBlock2_4
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 50
+        width: 50
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b660d40bcffe1f360800000000000000
+      internalID: 7201801147710768747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GimmickBlock2_5
       rect:
         serializedVersion: 2
         x: 0
@@ -131,14 +248,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5112389a3c6a58960800000000000000
-      internalID: 7603666905177727253
+      spriteID: aecfba43994a45bf0800000000000000
+      internalID: -336463094225306390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GimmickBlock3_1
+      name: GimmickBlock2_6
       rect:
         serializedVersion: 2
         x: 50
@@ -152,14 +269,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8ed034ecc1715070800000000000000
-      internalID: 8093375130177166986
+      spriteID: 67e68fdc1e23e5ce0800000000000000
+      internalID: -1414637287543116170
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GimmickBlock3_2
+      name: GimmickBlock2_7
       rect:
         serializedVersion: 2
         x: 100
@@ -173,14 +290,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 49bb6633f9cf40a80800000000000000
-      internalID: -8501392435876283500
+      spriteID: e0efd3763a09c30b0800000000000000
+      internalID: -5747559992945410546
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GimmickBlock3_3
+      name: GimmickBlock2_8
       rect:
         serializedVersion: 2
         x: 150
@@ -194,14 +311,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8ccd5bd571c1efea0800000000000000
-      internalID: -5837197180343558968
+      spriteID: b00d9f4161cbf5950800000000000000
+      internalID: 6440072795190317067
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GimmickBlock3_4
+      name: GimmickBlock2_9
       rect:
         serializedVersion: 2
         x: 200
@@ -215,29 +332,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e37a3df52d322670800000000000000
-      internalID: 8512433479055209444
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GimmickBlock3_5
-      rect:
-        serializedVersion: 2
-        x: 250
-        y: 0
-        width: 50
-        height: 50
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ebe5040558f3aa600800000000000000
-      internalID: 480266152077975230
+      spriteID: 3ca0979ef312a4cd0800000000000000
+      internalID: -2573207678705136957
       vertices: []
       indices: 
       edges: []
