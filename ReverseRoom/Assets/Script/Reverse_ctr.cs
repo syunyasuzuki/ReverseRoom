@@ -74,7 +74,10 @@ public class Reverse_ctr : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Return))
                 {
-                    audio.Play();
+                    if(title_reverse_check == false)
+                    {
+                        audio.Play();
+                    }
                     title_reverse_check = true;
                 }
             }

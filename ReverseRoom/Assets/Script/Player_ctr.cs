@@ -289,12 +289,11 @@ public class Player_ctr : MonoBehaviour
 
         if (speed_x <= 0.01f && jump <= 0.01f)
         {
-            blink_count += Time.deltaTime;
-            sleep_count += Time.deltaTime;
-
             // しゃがむ
             if (Input.GetKey(KeyCode.DownArrow))
             {
+                blink_count = 0.0f;
+                sleep_count = 0.0f;
                 now_squat = true;
                 anima.SetFloat("SquatFloat", 1.0f);
             }
@@ -305,6 +304,8 @@ public class Player_ctr : MonoBehaviour
             }
             else
             {
+                blink_count += Time.deltaTime;
+                sleep_count += Time.deltaTime;
                 now_squat = false;
                 anima.SetFloat("SquatFloat", 0.0f);
             }
@@ -313,9 +314,10 @@ public class Player_ctr : MonoBehaviour
         {
             blink_count = 0.0f;
             sleep_count = 0.0f;
+            anima.SetFloat("BlinkFloat", 0.0f);
         }
 
-        if(blink_count >= blink_time)
+        if (blink_count >= blink_time)
         {
             anima.SetFloat("BlinkFloat", blink_time);
             if(blink_count >= 7.1)

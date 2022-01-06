@@ -8,7 +8,7 @@ public class SelectNumber_ctr : MonoBehaviour
 
     [SerializeField] Sprite[] number;
 
-    int select_number = 0;
+    static int select_number = 0;
     // 選べるステージの最大値を決める
     int max_number = 16;
 

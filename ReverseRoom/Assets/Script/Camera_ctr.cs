@@ -15,6 +15,13 @@ public class Camera_ctr : MonoBehaviour
     // 変更後のカメラサイズ
     float change_size = 8.0f;
 
+    float white;
+
+    const float blink_speed = 0.5f;
+
+    bool color_switch;
+    bool blink_check;
+
     // カメラサイズを変更させるときの変数
     bool size_up;
     // カメラサイズをもとに戻すときの変数
@@ -31,11 +38,13 @@ public class Camera_ctr : MonoBehaviour
 
         now_scene = SceneManager.GetActiveScene().name;
 
+
         //------変数の初期化------
         size_up = false;
         size_down = false;
         size_change = false;
         //-----------------------
+
     }
 
     // Update is called once per frame
@@ -103,6 +112,26 @@ public class Camera_ctr : MonoBehaviour
             cam.orthographicSize = normal_size;
             size_down = false;
             size_change = false;
+        }
+    }
+
+    void ColorBlink()
+    {
+        if (color_switch == true)
+        {
+            white -= blink_speed * Time.deltaTime;
+            if (white <= 0.0f)
+            {
+                color_switch = false;
+            }
+        }
+        else
+        {
+            white += blink_speed * Time.deltaTime;
+            if (white >= 0.3f)
+            {
+                color_switch = true;
+            }
         }
     }
 }

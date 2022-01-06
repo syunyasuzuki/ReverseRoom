@@ -16,7 +16,7 @@ public class SelectImage_ctr : MonoBehaviour
     [SerializeField] Sprite[] select;
     [SerializeField] Button[] button_list;
 
-    int select_number = 0;
+    static int select_number = 0;
     int max_number = 16;
 
     float rot_Y;
@@ -48,7 +48,14 @@ public class SelectImage_ctr : MonoBehaviour
         number_up = false;
         number_down = false;
 
-        gimmick_on = false;
+        if (select_number >= 12)
+        {
+            gimmick_on = true;
+        }
+        else
+        {
+            gimmick_on = false;
+        }
 
         left_arrow.color = new Color(1.0f, 1.0f, 1.0f, left_alpha);
         right_arrow.color = new Color(1.0f, 1.0f, 1.0f, right_alpha);

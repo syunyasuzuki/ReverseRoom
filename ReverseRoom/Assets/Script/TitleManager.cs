@@ -18,9 +18,13 @@ public class TitleManager : Button_ctr
 
     [Header("TitleLogoを入れる")]
     [SerializeField] GameObject title;
+    [SerializeField] GameObject title2;
+    [SerializeField] GameObject logo;
 
     float title_pos_y;
+    float title2_rot_y;
     float alpha;
+    float logo_alpha;
 
     float panel_rot_Y;
     float menu_rot_Z;
@@ -40,6 +44,7 @@ public class TitleManager : Button_ctr
     {
         alpha = 0.0f;
         title_pos_y = 0.0f;
+        title2_rot_y = 90.0f;
 
         panel_rot_Y = 90.0f;
         menu_rot_Z = 45.0f;
@@ -52,6 +57,7 @@ public class TitleManager : Button_ctr
 
         title_start = false;
 
+        logo.SetActive(false);
         m_MenuPanel.SetActive(false);
 
         m_Menu.rectTransform.eulerAngles = new Vector3(0.0f, 0.0f, menu_rot_Z);
@@ -62,6 +68,7 @@ public class TitleManager : Button_ctr
 
         title.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
         title.transform.position = new Vector3(0.0f, title_pos_y, 0.0f);
+        title2.transform.eulerAngles = new Vector3(0.0f, title2_rot_y, 0.0f);
     }
 
     // Update is called once per frame
@@ -71,8 +78,6 @@ public class TitleManager : Button_ctr
         {
             m_List1.Select();
         }
-
-        TitleLogo();
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -95,6 +100,10 @@ public class TitleManager : Button_ctr
             {
                 Invoke(nameof(FadeStart), invokeTime);
             }
+        }
+        else
+        {
+            TitleLogo();
         }
     }
 
@@ -120,13 +129,21 @@ public class TitleManager : Button_ctr
             }
             if(title_pos_y >= 1.0f)
             {
-                title_start = true;
-                Fade_ctr.fade = true;
+                title_pos_y = 1.0f;
+                title2_rot_y -= 150 * Time.deltaTime;
+                if (title2_rot_y <= 0.0f)
+                {
+                    title2_rot_y = 0.0f;
+                    logo.SetActive(true);
+                    title_start = true;
+                    Fade_ctr.fade = true;
+                }
             }
         }
 
         title.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
         title.transform.position = new Vector3(0.0f, title_pos_y, 0.0f);
+        title2.transform.eulerAngles = new Vector3(0.0f, title2_rot_y, 0.0f);
     }
 
     void OpenMenu()
