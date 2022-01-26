@@ -6,7 +6,7 @@ public class DeadPoint_ctr : MonoBehaviour
 {
     Camera cam;
 
-    AudioSource audio;
+    new AudioSource audio;
     [SerializeField] AudioClip dead_se;
 
     bool no_death;

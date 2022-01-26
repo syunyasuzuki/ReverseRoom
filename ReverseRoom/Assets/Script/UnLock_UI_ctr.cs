@@ -13,7 +13,7 @@ public class UnLock_UI_ctr : MonoBehaviour
 
     [SerializeField] AudioClip unlock_se;
 
-    AudioSource audio;
+    new AudioSource audio;
 
     // Start is called before the first frame update
     void Start()

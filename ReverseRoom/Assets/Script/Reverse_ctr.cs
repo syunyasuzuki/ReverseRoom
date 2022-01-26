@@ -9,7 +9,7 @@ public class Reverse_ctr : MonoBehaviour
 
     Camera cam;
 
-    AudioSource audio;
+    new AudioSource audio;
     [SerializeField] AudioClip reverse_SE;
 
     float alpha;

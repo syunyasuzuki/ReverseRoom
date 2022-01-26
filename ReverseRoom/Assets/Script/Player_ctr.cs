@@ -10,13 +10,16 @@ public class Player_ctr : MonoBehaviour
     GameObject warp_point1;
     GameObject warp_point2;
 
+    GameObject warp_pointR1;
+    GameObject warp_pointR2;
+
     GameObject dead_point;
 
     Rigidbody2D rg2D;
 
     Animator anima;
 
-    AudioSource audio;
+    new AudioSource audio;
     [SerializeField] AudioClip walk_se;
 
     int sprite_number;
@@ -37,26 +40,37 @@ public class Player_ctr : MonoBehaviour
     const float blink_time = 7.0f;
     const float sleep_time = 45.0f;
 
-    float warp_count = 0;
+    //float warp_count = 0;
 
     float warp_point1_x;
     float warp_point1_y;
     float warp_point2_x;
     float warp_point2_y;
 
+    float warp_pointR1_x;
+    float warp_pointR1_y;
+    float warp_pointR2_x;
+    float warp_pointR2_y;
+
     Vector3 chase;
 
     float rot_X;
     float rot_Y;
+    float scale;
+    const float scale_speed = 3.0f;
+
     float alpha;
     const float invoke_time = 0.5f;
 
     bool move_check;
     bool now_sleep;
-    bool now_squat;
     bool player_goal;
+
     bool warp_check1;
     bool warp_check2;
+
+    bool warp_R_check1;
+    bool warp_R_check2;
 
     bool warp_start1;
     bool warp_start2;
@@ -72,6 +86,8 @@ public class Player_ctr : MonoBehaviour
         goal = GameObject.FindGameObjectWithTag("Door");
         warp_point1 = GameObject.FindGameObjectWithTag("WarpPoint");
         warp_point2 = GameObject.FindGameObjectWithTag("WarpPoint2");
+        warp_pointR1 = GameObject.FindGameObjectWithTag("WarpPoint_R");
+        warp_pointR2 = GameObject.FindGameObjectWithTag("WarpPoint_R2");
         dead_point = GameObject.FindGameObjectWithTag("DeadPoint");
 
         now_scene = SceneManager.GetActiveScene().name;
@@ -94,6 +110,7 @@ public class Player_ctr : MonoBehaviour
         audio.clip = walk_se;
 
         rot_X = 0.0f;
+        scale = 1.0f;
         alpha = 1.0f;
 
         if(warp_point1 == null)
@@ -107,6 +124,18 @@ public class Player_ctr : MonoBehaviour
             warp_point2_x = warp_point2.transform.position.x;
             warp_point2_y = warp_point2.transform.position.y;
         }
+
+        if(warp_pointR1 == null)
+        {
+
+        }
+        else
+        {
+            warp_pointR1_x = warp_pointR1.transform.position.x;
+            warp_pointR1_y = warp_pointR1.transform.position.y;
+            warp_pointR2_x = warp_pointR2.transform.position.x;
+            warp_pointR2_y = warp_pointR2.transform.position.y;
+        }
     }
 
     // Update is called once per frame
@@ -115,30 +144,54 @@ public class Player_ctr : MonoBehaviour
         if(now_scene == "TitleScene")
         {
             TitleMove();
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                anima.SetFloat("HappyFloat", 1.0f);
+            }
+            else
+            {
+                anima.SetFloat("HappyFloat", 0.0f);
+            }
         }
         else if(now_scene == "SelectScene")
         {
-            if (SelectImage_ctr.gimmick_on == true)
+            blink_count += Time.deltaTime;
+
+            if (blink_count >= blink_time)
             {
-                if (warp_count <= 0.8f)
+                anima.SetFloat("BlinkFloat", blink_time);
+                if (blink_count >= 7.1)
                 {
-                    warp_count += Time.deltaTime;
+                    anima.SetFloat("BlinkFloat", 0.0f);
+                    blink_count = 0.0f;
                 }
             }
 
-            if (warp_count >= 0.8f)
+            if (Input.GetKeyDown(KeyCode.Return))
             {
-                if (warp_check2 == false && warp_check1 == true)
-                {
-                    warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
-                    PlayerWarp1();
-                }
-                else if (warp_check1 == false && warp_check2 == true)
-                {
-                    warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
-                    PlayerWarp2();
-                }
+                anima.SetFloat("WinkFloat", 1.0f);
             }
+            //if (SelectImage_ctr.gimmick_on == true)
+            //{
+            //    if (warp_count <= 0.8f)
+            //    {
+            //        warp_count += Time.deltaTime;
+            //    }
+            //}
+
+            //if (warp_count >= 0.8f)
+            //{
+            //    if (warp_check2 == false && warp_check1 == true)
+            //    {
+            //        warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
+            //        PlayerWarp1();
+            //    }
+            //    else if (warp_check1 == false && warp_check2 == true)
+            //    {
+            //        warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
+            //        PlayerWarp2();
+            //    }
+            //}
         }
         else
         {
@@ -168,8 +221,20 @@ public class Player_ctr : MonoBehaviour
                     move_check = false;
                     anima.SetFloat("JumpFloat", 0.0f);
                     anima.SetFloat("WalkFloat", 0.0f);
+
+                    if (warp_pointR1 == null)
+                    {
+
+                    }
+                    else
+                    {
+                        warp_pointR1_x = warp_pointR1.transform.position.x;
+                        warp_pointR1_y = warp_pointR1.transform.position.y;
+                        warp_pointR2_x = warp_pointR2.transform.position.x;
+                        warp_pointR2_y = warp_pointR2.transform.position.y;
+                    }
                 }
-                if (Camera_ctr.size_change == false && now_sleep == false)
+                else if (Camera_ctr.size_change == false && now_sleep == false)
                 {
                     move_check = true;
                 }
@@ -208,6 +273,18 @@ public class Player_ctr : MonoBehaviour
                 {
                     warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
                     PlayerWarp2();
+                }
+
+                if(warp_R_check2 == false && warp_R_check1 == true)
+                {
+                    warp_pointR2.GetComponent<WarpPoint_R_ctr>().now_warp = false;
+                    PlayerWarpR1();
+                }
+
+                if (warp_R_check1 == false && warp_R_check2 == true)
+                {
+                    warp_pointR1.GetComponent<WarpPoint_R_ctr>().now_warp = false;
+                    PlayerWarpR2();
                 }
 
                 if (now_sleep == true)
@@ -294,19 +371,16 @@ public class Player_ctr : MonoBehaviour
             {
                 blink_count = 0.0f;
                 sleep_count = 0.0f;
-                now_squat = true;
                 anima.SetFloat("SquatFloat", 1.0f);
             }
             else if (Input.GetKeyUp(KeyCode.DownArrow))
             {
-                now_squat = false;
                 anima.SetFloat("SquatFloat", 0.0f);
             }
             else
             {
                 blink_count += Time.deltaTime;
                 sleep_count += Time.deltaTime;
-                now_squat = false;
                 anima.SetFloat("SquatFloat", 0.0f);
             }
         }
@@ -344,10 +418,10 @@ public class Player_ctr : MonoBehaviour
         }
         if (rot_Y >= 90.0f)
         {
-            if (now_scene == "SelectScene")
-            {
-                transform.localScale = new Vector3(1, 1, 1);
-            }
+            //if (now_scene == "SelectScene")
+            //{
+            //    transform.localScale = new Vector3(1, 1, 1);
+            //}
             transform.position = new Vector3(warp_point2_x, warp_point2_y);
         }
         if (transform.position.x == warp_point2_x && transform.position.y == warp_point2_y)
@@ -355,10 +429,10 @@ public class Player_ctr : MonoBehaviour
             rot_Y -= 300.0f * Time.deltaTime;
             if(rot_Y <= 0.0f)
             {
-                if (now_scene == "SelectScene")
-                {
-                    warp_count = 0.0f;
-                }
+                //if (now_scene == "SelectScene")
+                //{
+                //    warp_count = 0.0f;
+                //}
                 rot_Y = 0.0f;
                 warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
                 warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
@@ -379,10 +453,10 @@ public class Player_ctr : MonoBehaviour
         }
         if (rot_Y >= 90.0f)
         {
-            if(now_scene == "SelectScene")
-            {
-                transform.localScale = new Vector3(-1, 1, 1);
-            }
+            //if(now_scene == "SelectScene")
+            //{
+            //    transform.localScale = new Vector3(-1, 1, 1);
+            //}
             transform.position = new Vector3(warp_point1_x, warp_point1_y);
         }
         if(transform.position.x == warp_point1_x && transform.position.y == warp_point1_y)
@@ -390,10 +464,10 @@ public class Player_ctr : MonoBehaviour
             rot_Y -= 300.0f * Time.deltaTime;
             if(rot_Y <= 0.0f)
             {
-                if (now_scene == "SelectScene")
-                {
-                    warp_count = 0.0f;
-                }
+                //if (now_scene == "SelectScene")
+                //{
+                //    warp_count = 0.0f;
+                //}
                 rot_Y = 0.0f;
                 warp_point1.GetComponent<WarpPoint_ctr>().now_warp = false;
                 warp_point2.GetComponent<WarpPoint_ctr>().now_warp = false;
@@ -401,6 +475,60 @@ public class Player_ctr : MonoBehaviour
             }
         }
         transform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
+    }
+
+    void PlayerWarpR1()
+    {
+        rg2D.isKinematic = true;
+        rg2D.velocity = Vector2.zero;
+
+        if (transform.position.x != warp_pointR2_x || transform.position.y != warp_pointR2_y)
+        {
+            scale -= scale_speed * Time.deltaTime;
+        }
+        if (scale <= 0.0f)
+        {
+            transform.position = new Vector3(warp_pointR2_x, warp_pointR2_y);
+        }
+        if (transform.position.x == warp_pointR2_x && transform.position.y == warp_pointR2_y)
+        {
+            scale += scale_speed * Time.deltaTime;
+            if (scale >= 1.0f)
+            {
+                scale = 1.0f;
+                warp_pointR1.GetComponent<WarpPoint_R_ctr>().now_warp = false;
+                warp_pointR2.GetComponent<WarpPoint_R_ctr>().now_warp = false;
+                warp_R_check1 = false;
+            }
+        }
+        transform.localScale = new Vector3(scale, scale, 1.0f);
+    }
+
+    void PlayerWarpR2()
+    {
+        rg2D.isKinematic = true;
+        rg2D.velocity = Vector2.zero;
+
+        if (transform.position.x != warp_pointR1_x || transform.position.y != warp_pointR1_y)
+        {
+            scale -= scale_speed * Time.deltaTime;
+        }
+        if (scale <= 0.0f)
+        {
+            transform.position = new Vector3(warp_pointR1_x, warp_pointR1_y);
+        }
+        if (transform.position.x == warp_pointR1_x && transform.position.y == warp_pointR1_y)
+        {
+            scale += scale_speed * Time.deltaTime;
+            if (scale >= 1.0f)
+            {
+                scale = 1.0f;
+                warp_pointR1.GetComponent<WarpPoint_R_ctr>().now_warp = false;
+                warp_pointR2.GetComponent<WarpPoint_R_ctr>().now_warp = false;
+                warp_R_check2 = false;
+            }
+        }
+        transform.localScale = new Vector3(scale, scale, 1.0f);
     }
 
     void PlayerSleep()
@@ -523,20 +651,20 @@ public class Player_ctr : MonoBehaviour
     {
         if(now_scene == "SelectScene")
         {
-            if (col.gameObject.tag == "WarpPoint")
-            {
-                if (warp_check2 == false)
-                {
-                    warp_check1 = true;
-                }
-            }
-            if (col.gameObject.tag == "WarpPoint2")
-            {
-                if (warp_check1 == false)
-                {
-                    warp_check2 = true;
-                }
-            }
+            //if (col.gameObject.tag == "WarpPoint")
+            //{
+            //    if (warp_check2 == false)
+            //    {
+            //        warp_check1 = true;
+            //    }
+            //}
+            //if (col.gameObject.tag == "WarpPoint2")
+            //{
+            //    if (warp_check1 == false)
+            //    {
+            //        warp_check2 = true;
+            //    }
+            //}
         }
         else
         {
@@ -557,6 +685,27 @@ public class Player_ctr : MonoBehaviour
                     if (Input.GetKey(KeyCode.UpArrow))
                     {
                         warp_check2 = true;
+                    }
+                }
+            }
+
+            if(col.gameObject.tag == "WarpPoint_R")
+            {
+                if (warp_R_check2 == false)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        warp_R_check1 = true;
+                    }
+                }
+            }
+            if (col.gameObject.tag == "WarpPoint_R2")
+            {
+                if (warp_R_check1 == false)
+                {
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        warp_R_check2 = true;
                     }
                 }
             }

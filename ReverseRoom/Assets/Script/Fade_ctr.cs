@@ -8,10 +8,10 @@ public class Fade_ctr : MonoBehaviour
 {
     [SerializeField] Image fade_Image;
 
-
     string now_scene;
 
     float alpha;
+    const float fade_speed = 2.5f;
 
     float rot_Z;
     float rot_Y;
@@ -39,13 +39,13 @@ public class Fade_ctr : MonoBehaviour
     {
         if(fade == true)
         {
-            fade_Image.enabled = true;
             if(fade_in == true)
             {
                 FadeIn();
             }
             if(fade_out == true)
             {
+                fade_Image.enabled = true;
                 FadeOut();
             }
         }
@@ -71,9 +71,21 @@ public class Fade_ctr : MonoBehaviour
         fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
     }
 
+    void FadeIn2()
+    {
+        alpha -= fade_speed * Time.deltaTime;
+        if (alpha <= 0.0f)
+        {
+            fade_Image.enabled = false;
+            fade = false;
+            fade_in = false;
+        }
+        fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+    }
+
     void FadeOut()
     {
-        alpha += 2.5f * Time.deltaTime;
+        alpha += fade_speed * Time.deltaTime;
         if (alpha >= 1.0f)
         {
             if(now_scene == "CreditScene")
@@ -86,14 +98,14 @@ public class Fade_ctr : MonoBehaviour
         fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
     }
 
-    void FadeIn2()
-    {
-        fade_Image.rectTransform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
-        fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-    }
-    void FadeOut2()
-    {
-        fade_Image.rectTransform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
-        fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
-    }
+    //void FadeIn2()
+    //{
+    //    fade_Image.rectTransform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
+    //    fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+    //}
+    //void FadeOut2()
+    //{
+    //    fade_Image.rectTransform.eulerAngles = new Vector3(0.0f, rot_Y, 0.0f);
+    //    fade_Image.color = new Color(1.0f, 1.0f, 1.0f, alpha);
+    //}
 }

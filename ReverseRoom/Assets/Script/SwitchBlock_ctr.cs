@@ -8,7 +8,7 @@ public class SwitchBlock_ctr : MonoBehaviour
 
     [SerializeField] Sprite[] switch_on_off;
 
-    AudioSource audio;
+    new AudioSource audio;
     [SerializeField] AudioClip switch_SE;
 
     int switch_number;

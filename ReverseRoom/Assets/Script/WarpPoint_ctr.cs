@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class WarpPoint_ctr : MonoBehaviour
 {
-    AudioSource audio;
+    new AudioSource audio;
     [SerializeField] AudioClip warp_SE;
 
     string now_scene;
@@ -19,7 +19,7 @@ public class WarpPoint_ctr : MonoBehaviour
     bool player_touch;
     bool block_touch;
 
-    public bool warp_se_ON;
+    [HideInInspector] public bool warp_se_ON;
 
     [HideInInspector] public bool now_warp;
 
@@ -54,14 +54,14 @@ public class WarpPoint_ctr : MonoBehaviour
 
         if(now_scene == "SelectScene")
         {
-            if(SelectImage_ctr.gimmick_on == true)
-            {
-                alpha = 1.0f;
-            }
-            else
-            {
-                alpha = 0.0f;
-            }
+            //if(SelectImage_ctr.gimmick_on == true)
+            //{
+            //    alpha = 1.0f;
+            //}
+            //else
+            //{
+            //    alpha = 0.0f;
+            //}
         }
         else
         {

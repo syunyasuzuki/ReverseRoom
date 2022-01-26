@@ -14,7 +14,7 @@ public class ClearManager : Button_ctr
     //メインカメラを取得する変数
     Camera cam;
 
-    AudioSource audio;
+    new AudioSource audio;
 
     //-----------クリアメニュー一覧を取得する変数たち-----------//
     [SerializeField] GameObject panel;

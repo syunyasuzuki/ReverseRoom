@@ -18,7 +18,7 @@ public class GameManager : Button_ctr
     [Header("BGMを入れる")]
     [SerializeField] AudioClip gameBGM;
 
-    AudioSource audio;
+    new AudioSource audio;
 
     float panel_rot_Y;
     float menu_rot_Z;

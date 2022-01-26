@@ -1,22 +1,25 @@
 fileFormatVersion: 2
-guid: e38a5ed2a34c195448fd4109390304af
+guid: 3fa3d6b62e626d64badcc43850166f5d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7729575352967958130
-    second: Select_Image2_0
+      213: -4796018735283089502
+    second: PlayerWink_0
   - first:
-      213: 4097819927845890726
-    second: Select_Image2_1
+      213: 8095525594639803897
+    second: PlayerWink_1
   - first:
-      213: 6373820552905506828
-    second: Select_Image2_2
+      213: 8201151970028212807
+    second: PlayerWink_2
   - first:
-      213: -5106821673831043888
-    second: Select_Image2_3
+      213: 7418429418126106670
+    second: PlayerWink_3
   - first:
-      213: 4852211852631968092
-    second: Select_Image2_4
+      213: -5198023108924083830
+    second: PlayerWink_4
+  - first:
+      213: -7651893346064877803
+    second: PlayerWink_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -60,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 7
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -114,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Select_Image2_0
+      name: PlayerWink_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 40
-        width: 40
-        height: 40
+        y: 0
+        width: 70
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e81fab56b280bb490800000000000000
-      internalID: -7729575352967958130
+      spriteID: 2af4553ee5e117db0800000000000000
+      internalID: -4796018735283089502
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Select_Image2_1
+      name: PlayerWink_1
       rect:
         serializedVersion: 2
-        x: 40
-        y: 40
-        width: 40
-        height: 40
+        x: 70
+        y: 0
+        width: 70
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -149,20 +152,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6aa65c063816ed830800000000000000
-      internalID: 4097819927845890726
+      spriteID: 9f5a69ae2a5195070800000000000000
+      internalID: 8095525594639803897
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Select_Image2_2
+      name: PlayerWink_2
       rect:
         serializedVersion: 2
-        x: 80
-        y: 40
-        width: 40
-        height: 40
+        x: 140
+        y: 0
+        width: 70
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,20 +173,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c00440ed50c547850800000000000000
-      internalID: 6373820552905506828
+      spriteID: 742d682e34850d170800000000000000
+      internalID: 8201151970028212807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Select_Image2_3
+      name: PlayerWink_3
       rect:
         serializedVersion: 2
-        x: 120
-        y: 40
-        width: 40
-        height: 40
+        x: 210
+        y: 0
+        width: 70
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,20 +194,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0dce808aebce029b0800000000000000
-      internalID: -5106821673831043888
+      spriteID: e20e6b2504e83f660800000000000000
+      internalID: 7418429418126106670
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Select_Image2_4
+      name: PlayerWink_4
       rect:
         serializedVersion: 2
-        x: 160
-        y: 40
-        width: 40
-        height: 40
+        x: 280
+        y: 0
+        width: 70
+        height: 50
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -212,8 +215,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c59811bc8f4865340800000000000000
-      internalID: 4852211852631968092
+      spriteID: a81fe42d589ecd7b0800000000000000
+      internalID: -5198023108924083830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlayerWink_5
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 0
+        width: 70
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 517b0a01b830fc590800000000000000
+      internalID: -7651893346064877803
       vertices: []
       indices: 
       edges: []

@@ -15,6 +15,8 @@ TagManager:
   - WarpPoint2
   - SpinEffect
   - SwitchBlock
+  - WarpPoint_R
+  - WarpPoint_R2
   layers:
   - Default
   - TransparentFX

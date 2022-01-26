@@ -21,6 +21,10 @@ public class TitleManager : Button_ctr
     [SerializeField] GameObject title2;
     [SerializeField] GameObject logo;
 
+    [Header("オプションボタンを入れる")]
+    [SerializeField] Image option_UI;
+    [SerializeField] Button option_button;
+
     float title_pos_y;
     float title2_rot_y;
     float alpha;
@@ -31,13 +35,15 @@ public class TitleManager : Button_ctr
     float menu_alpha;
     float button_alpha;
 
+    float option_alpha;
+
     bool menu_open;
     bool menu_close;
 
     public static bool title_start;
 
     float invokeTime = 1.2f;
-    float load_time = 0.5f;
+    float load_time = 0.7f;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +57,8 @@ public class TitleManager : Button_ctr
 
         menu_alpha = 0.0f;
         button_alpha = 0.0f;
+
+        option_alpha = 1.0f;
 
         menu_open = false;
         menu_close = false;
@@ -69,6 +77,8 @@ public class TitleManager : Button_ctr
         title.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 1.0f, alpha);
         title.transform.position = new Vector3(0.0f, title_pos_y, 0.0f);
         title2.transform.eulerAngles = new Vector3(0.0f, title2_rot_y, 0.0f);
+
+        option_UI.color = new Color(1.0f, 1.0f, 1.0f, option_alpha);
     }
 
     // Update is called once per frame
@@ -82,6 +92,10 @@ public class TitleManager : Button_ctr
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             menu_open = true;
+            option_alpha = 0.0f;
+            option_button.enabled = false;
+
+            option_UI.color = new Color(1.0f, 1.0f, 1.0f, option_alpha);
         }
 
         if (menu_open == true)
@@ -146,6 +160,13 @@ public class TitleManager : Button_ctr
         title2.transform.eulerAngles = new Vector3(0.0f, title2_rot_y, 0.0f);
     }
 
+    public void MenuOpen()
+    {
+        menu_open = true;
+        option_alpha = 0.0f;
+
+        option_UI.color = new Color(1.0f, 1.0f, 1.0f, option_alpha);
+    }
     void OpenMenu()
     {
         m_MenuPanel.SetActive(true);
@@ -200,6 +221,8 @@ public class TitleManager : Button_ctr
                     if (panel_rot_Y >= 90.0f)
                     {
                         panel_rot_Y = 90.0f;
+                        option_alpha = 1.0f;
+                        option_button.enabled = true;
                         m_MenuPanel.SetActive(false);
                         menu_close = false;
                         now_button_select = false;
@@ -215,6 +238,8 @@ public class TitleManager : Button_ctr
         m_Credit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
         m_Exit.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
         m_Back.color = new Color(1.0f, 1.0f, 1.0f, button_alpha);
+
+        option_UI.color = new Color(1.0f, 1.0f, 1.0f, option_alpha);
     }
 
     public void Back()

@@ -8,14 +8,11 @@ public class SelectNumber_ctr : MonoBehaviour
 
     [SerializeField] Sprite[] number;
 
-    static int select_number = 0;
+    int select_number = 0;
     // 選べるステージの最大値を決める
-    int max_number = 16;
+    int max_number = 19;
 
     float rot_Y;
-
-    float left_alpha;
-    float right_alpha;
 
     bool number_up;
     bool number_down;
@@ -28,9 +25,6 @@ public class SelectNumber_ctr : MonoBehaviour
         number_sprite.sprite = number[select_number];
 
         rot_Y = 0.0f;
-
-        left_alpha = 0.0f;
-        right_alpha = 1.0f;
 
         number_up = false;
         number_down = false;

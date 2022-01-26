@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SelectImage_ctr : MonoBehaviour
 {
-    AudioSource audio;
+    new AudioSource audio;
 
     SpriteRenderer select_sprite;
 
@@ -16,8 +16,8 @@ public class SelectImage_ctr : MonoBehaviour
     [SerializeField] Sprite[] select;
     [SerializeField] Button[] button_list;
 
-    static int select_number = 0;
-    int max_number = 16;
+    int select_number = 0;
+    int max_number = 19;
 
     float rot_Y;
 
@@ -27,7 +27,7 @@ public class SelectImage_ctr : MonoBehaviour
     bool number_up;
     bool number_down;
 
-    public static bool gimmick_on;
+    //public static bool gimmick_on;
 
     // Start is called before the first frame update
     void Start()
@@ -48,14 +48,14 @@ public class SelectImage_ctr : MonoBehaviour
         number_up = false;
         number_down = false;
 
-        if (select_number >= 12)
-        {
-            gimmick_on = true;
-        }
-        else
-        {
-            gimmick_on = false;
-        }
+        //if (select_number >= 12)
+        //{
+        //    gimmick_on = true;
+        //}
+        //else
+        //{
+        //    gimmick_on = false;
+        //}
 
         left_arrow.color = new Color(1.0f, 1.0f, 1.0f, left_alpha);
         right_arrow.color = new Color(1.0f, 1.0f, 1.0f, right_alpha);
@@ -87,30 +87,30 @@ public class SelectImage_ctr : MonoBehaviour
             }
         }
 
-        if(number_up == true)
+        if (number_up == true)
         {
             rot_Y += 600.0f * Time.deltaTime;
             if(rot_Y >= 360.0f)
             {
                 audio.Play();
-                WarpGimmickOn();
+                //WarpGimmickOn();
                 rot_Y = 0.0f;
                 number_up = false;
             }
         }
-        if(number_down == true)
+        else if (number_down == true)
         {
             rot_Y -= 600.0f * Time.deltaTime;
             if(rot_Y <= -360.0f)
             {
                 audio.Play();
-                WarpGimmickOn();
+                //WarpGimmickOn();
                 rot_Y = 0.0f;
                 number_down = false;
             }
         }
 
-        if(rot_Y >= 260.0f && rot_Y <= 280.0f)
+        if (rot_Y >= 260.0f && rot_Y <= 280.0f)
         {
             select_sprite.sprite = select[select_number];
         }
@@ -145,15 +145,15 @@ public class SelectImage_ctr : MonoBehaviour
         right_arrow.color = new Color(1.0f, 1.0f, 1.0f, right_alpha);
     }
 
-    void WarpGimmickOn()
-    {
-        if(select_number >= 12)
-        {
-            gimmick_on = true;
-        }
-        else
-        {
-            gimmick_on = false;
-        }
-    }
+    //void WarpGimmickOn()
+    //{
+    //    if(select_number >= 12)
+    //    {
+    //        gimmick_on = true;
+    //    }
+    //    else
+    //    {
+    //        gimmick_on = false;
+    //    }
+    //}
 }
